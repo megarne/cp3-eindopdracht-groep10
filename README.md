@@ -1,2 +1,1 @@
-cp3-eindopdracht-groep10
-========================
+Demo repository
