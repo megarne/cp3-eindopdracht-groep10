@@ -19,6 +19,13 @@ public class Main extends Sprite
 {
     private var starling:Starling;
 
+    //fonts
+    [Embed(source="/../media/fonts/DK_Crayon_Crumble.ttf", embedAsCFF="false", fontFamily="DK_Crayon_Crumble")]
+    private static const UbuntuRegular:Class;
+
+    [Embed(source="/../media/fonts/BebasNeue.otf", embedAsCFF="false", fontFamily="Bebas_Neue")]
+    private static const BebasNeue:Class;
+
     public function Main()
     {
         stage.align = StageAlign.TOP_LEFT;
