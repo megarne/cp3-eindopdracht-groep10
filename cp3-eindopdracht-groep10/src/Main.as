@@ -1,6 +1,7 @@
 package {
 
 import be.devine.groep10.Application;
+import be.devine.groep10.view.utils.Converter;
 
 import flash.display.Bitmap;
 
