@@ -7,130 +7,105 @@
  */
 package be.devine.groep10
 {
-import be.devine.groep10.view.Help;
+import be.devine.groep10.model.AppModel;
+import be.devine.groep10.view.Add;
+import be.devine.groep10.view.Menu;
+import be.devine.groep10.view.Recipes;
+import be.devine.groep10.view.ui.Help;
 
-import flash.display.Bitmap;
-import flash.display.BitmapData;
+import feathers.controls.Header;
 
+import feathers.themes.MetalWorksMobileTheme;
 
-import starling.display.Button;
-import starling.display.Image;
+import flash.events.Event;
 
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
-import starling.textures.Texture;
-import starling.utils.Color;
-import starling.utils.HAlign;
-import starling.utils.VAlign;
-
 
 public class Application extends Sprite
 {
-    //bg aanmaken
-    [Embed(source="/assets/images/bg.png")]
-    public static const BackgroundImage:Class;
-    private var _background:Image;
+    private var _appModel:AppModel;
 
-    //title
-    private var _appTitle:TextField;
-
-    //menubtn
-    private var _menuBtn:Button;
-    private var _arrMenu:Array;
-    private var _menuContainer:Sprite;
-
-    [Embed(source="/assets/images/decoration.png")]
-    public static const Decoration:Class;
-    private var _decoration:Image;
-
-    //line
-    [Embed(source="/assets/images/line.png")]
-    public static const Line:Class;
-    private var _line:Image;
-
-    //help
+    private var _header:Header;
+    private var _menu:Menu;
     private var _help:Help;
+
+    private var _recipes:Recipes;
+    private var _add:Add;
 
     public function Application()
     {
-        //bg aanmaken
-        var backgroundData:Bitmap = new BackgroundImage();
-        var textureBackground:Texture = Texture.fromBitmap(backgroundData);
-        _background = new Image(textureBackground);
-        addChild(_background);
+        new MetalWorksMobileTheme();
 
-        _appTitle = new starling.text.TextField( 350, 52, "Ingrediënten omvormer", "DK_Crayon_Crumble", 40, Color.WHITE);
-        _appTitle.hAlign = HAlign.CENTER;
-        _appTitle.vAlign = VAlign.TOP;
-        _appTitle.y = 20;
-        addChild(_appTitle);
+        _header = new Header();
+        _header.title = "Keuken omvormer";
+        addChild( _header );
 
-        //line
-        var lineData:Bitmap = new Line();
-        var textureLine:Texture = Texture.fromBitmap(lineData);
-        _line = new Image(textureLine);
-        _line.y = _appTitle.y + _appTitle.height - 10;
-        _line.width = _appTitle.width;
-        addChild(_line);
+        _appModel = AppModel.getInstance();
+        _appModel.load();
 
-        addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-
-        _arrMenu = ["recepten", "eigen recepten", "recept toevoegen"];
-
-        _menuContainer = new Sprite();
-        addChild(_menuContainer);
-
-        var yPos:uint = 0;
-
-        for each(var _menuLabel:String in _arrMenu)
-        {
-            var bmpData:BitmapData = new BitmapData(350, 60, false, 0xffffff);
-            _menuBtn = new Button(Texture.fromBitmapData(bmpData), _menuLabel);
-            _menuBtn.fontColor = 0x00c5a9;
-            _menuBtn.fontSize = 25;
-            _menuBtn.fontName = "Bebas_Neue";
-            _menuBtn.addEventListener(Event.TRIGGERED, buttonHandler);
-            _menuBtn.y = yPos;
-
-            yPos += _menuBtn.height + 100;
-
-            _menuContainer.addChild(_menuBtn);
-
-            //decoration
-            var decorationData:Bitmap = new Decoration();
-            var textureDecoration:Texture = Texture.fromBitmap(decorationData);
-            _decoration = new Image(textureDecoration);
-            _decoration.x = _menuBtn.x - 20;
-            _decoration.y = _menuBtn.y + _menuBtn.height - (_decoration.height/2);
-            _menuContainer.addChild(_decoration);
-        }
+        _menu = new Menu();
+        addChild(_menu);
 
         _help = new Help();
         addChild(_help);
+
+        addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
+
+        _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
     }
 
-    private function buttonHandler(event:Event):void
+    private function addedHandler(event:starling.events.Event):void
     {
-        var geklikteButton:Button = event.currentTarget as Button;
-        trace(geklikteButton.text);
+        removeEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
+        stage.addEventListener(starling.events.Event.RESIZE, resizeHandler);
+        layout();
     }
 
-    private function addedToStageHandler(event:Event):void
+    private function resizeHandler(event:starling.events.Event):void
     {
-        //bg
-        _background.x = stage.x;
-        _background.y = stage.y;
-        _background.width = stage.stageWidth;
-        _background.height = stage.stageHeight;
+        layout();
+        _header.x = stage.stageWidth/2 - _header.width/2;
+    }
 
-        //line
-        _line.x = stage.stageWidth/2 - _line.width/2;
+    private function layout():void
+    {
+        trace("[Starling]", stage.stageWidth, stage.stageHeight);
 
-        _menuContainer.x = stage.stageWidth/2 - _menuContainer.width/2;
-        _menuContainer.y = 200;
 
-        _appTitle.x = stage.stageWidth/2 - _appTitle.width/2;
+        _header.x = stage.stageWidth/2 - _header.width/2;
+
+        _menu.y = 100;
+        _menu.setSize(stage.stageWidth, 50);
+
+        _help.setSize(stage.stageWidth, stage.stageHeight);
+    }
+
+    private function pageChangedHandler(event:flash.events.Event):void
+    {
+        trace("huidige pagina = "+_appModel.currentPage);
+        _header.title = _appModel.currentPage;
+
+        switch(_appModel.currentPage)
+        {
+            case "recepten":
+                _recipes = new Recipes();
+                addChild(_recipes);
+                break;
+
+            case "eigen recepten":
+                _recipes = new Recipes();
+                addChild(_recipes);
+                break;
+
+            case "recept toevoegen":
+                _add = new Add();
+                addChild(_add);
+                break;
+        }
+
+        removeChild(_menu);
+        removeChild(_help);
     }
 }
 }
