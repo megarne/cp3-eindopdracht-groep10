@@ -5,7 +5,7 @@
       <configuration name="cp3-eindopdracht-groep10" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/cp3-eindopdracht-groep10">
         <dependencies target-player="11.9">
           <entries>
-            <entry library-id="3c576e21-317c-4566-b58a-cd464667b091">
+            <entry library-id="05d11388-0d78-46a2-9ee4-cafa7e0bc274">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -28,7 +28,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library type="flex">
-        <properties id="3c576e21-317c-4566-b58a-cd464667b091" />
+        <properties id="05d11388-0d78-46a2-9ee4-cafa7e0bc274" />
         <CLASSES>
           <root url="file://$MODULE_DIR$/libs" />
         </CLASSES>
