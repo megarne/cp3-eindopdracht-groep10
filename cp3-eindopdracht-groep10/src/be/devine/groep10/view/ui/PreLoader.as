@@ -8,6 +8,8 @@
 package be.devine.groep10.view.ui
 {
 
+
+
 import flash.display.Sprite;
 import flash.events.Event;
 
@@ -35,6 +37,8 @@ public class PreLoader extends Sprite
 
         if( DEBUG_MODE == true )
         {
+
+
             this.addEventListener( Event.ENTER_FRAME, enterFrameHandler );
         }
     }
