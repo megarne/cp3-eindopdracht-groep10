@@ -5,7 +5,7 @@
       <configuration name="cp3-eindopdracht-groep10" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/cp3-eindopdracht-groep10">
         <dependencies target-player="11.9">
           <entries>
-            <entry library-name="libs" library-level="project">
+            <entry library-id="3c576e21-317c-4566-b58a-cd464667b091">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -13,8 +13,8 @@
         </dependencies>
         <compiler-options />
         <packaging-air-desktop />
-        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/cp3-eindopdracht-groep10.xml" package-file-name="Main" />
-        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/cp3-eindopdracht-groep10.xml" package-file-name="cp3-eindopdracht-groep10" />
+        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="Main" />
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Main-app.xml" package-file-name="Main" />
       </configuration>
     </configurations>
     <compiler-options />
@@ -26,7 +26,17 @@
     </content>
     <orderEntry type="jdk" jdkName="AIRSDK_Compiler" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="libs" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="3c576e21-317c-4566-b58a-cd464667b091" />
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libs" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
