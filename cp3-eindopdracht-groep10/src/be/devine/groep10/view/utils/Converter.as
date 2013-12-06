@@ -1,8 +1,6 @@
 package be.devine.groep10.view.utils {
 public class Converter {
 
-
-
     //Converter.functionNameOfWhatYouWantToConvert(NumberToConvert)
     /**WEIGHT**/
     public static function kilogramsToPounds(kilograms:Number):Number {
