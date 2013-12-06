@@ -2,10 +2,10 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="cp3-eindopdracht-groep10">
     <configurations>
-      <configuration name="cp3-eindopdracht-groep10" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/cp3-eindopdracht-groep10">
+      <configuration name="cp3-eindopdracht-groep10" target-platform="Mobile" pure-as="true" main-class="Cp3eindopdrachtgroep10" output-file="Cp3eindopdrachtgroep10.swf" output-folder="$MODULE_DIR$/out/production/cp3-eindopdracht-groep10">
         <dependencies target-player="11.9">
           <entries>
-            <entry library-name="libs" library-level="project">
+            <entry library-id="2f90a615-4a58-4bdb-a730-3abdd5ff3989">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -13,8 +13,8 @@
         </dependencies>
         <compiler-options />
         <packaging-air-desktop />
-        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/cp3-eindopdracht-groep10.xml" package-file-name="Main" />
-        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/cp3-eindopdracht-groep10.xml" package-file-name="cp3-eindopdracht-groep10" />
+        <packaging-android enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Cp3eindopdrachtgroep10-app.xml" package-file-name="Cp3eindopdrachtgroep10" />
+        <packaging-ios enabled="true" use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/Cp3eindopdrachtgroep10-app.xml" package-file-name="Cp3eindopdrachtgroep10" />
       </configuration>
     </configurations>
     <compiler-options />
@@ -26,7 +26,17 @@
     </content>
     <orderEntry type="jdk" jdkName="AIRSDK_Compiler" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="libs" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="2f90a615-4a58-4bdb-a730-3abdd5ff3989" />
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libs" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
 
