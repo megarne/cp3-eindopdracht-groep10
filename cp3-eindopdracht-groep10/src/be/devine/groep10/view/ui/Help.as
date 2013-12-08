@@ -152,7 +152,6 @@ public class Help extends Sprite
     {
         _explicitWidth = w;
         _explicitHeight = h;
-        //_bgContainer.setSize(_explicitWidth, _explicitHeight);
     }
 }
 }

@@ -84,7 +84,8 @@ public class Application extends Sprite
 
     private function layout():void
     {
-        _header.x = stage.stageWidth/2 - _header.width/2;
+        _header.y = 20;
+        _header.setSize(stage.stageWidth, 50);
 
         _menu.y = 100;
         _menu.setSize(stage.stageWidth, 50);
@@ -95,7 +96,7 @@ public class Application extends Sprite
         _homeBtn.y = 10;
 
         _add.y = 100;
-        _add.setSize(stage.stageWidth, 50);
+        _add.setSize(stage.stageWidth, stage.stageHeight);
     }
 
     private function pageChangedHandler(event:flash.events.Event):void
@@ -123,6 +124,8 @@ public class Application extends Sprite
                 addChild(_add);
                 break;
         }
+
+        layout();
 
         removeChild(_menu);
         removeChild(_help);

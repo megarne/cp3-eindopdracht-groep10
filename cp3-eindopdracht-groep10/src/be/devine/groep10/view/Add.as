@@ -9,19 +9,28 @@ package be.devine.groep10.view
 {
 import be.devine.groep10.view.ui.AddInputFields;
 
+import com.greensock.easing.Quad;
+
 import feathers.controls.Button;
+import feathers.controls.ScrollContainer;
 
 import feathers.controls.TextInput;
 import feathers.events.FeathersEventType;
+import feathers.layout.VerticalLayout;
 
 import flash.events.Event;
+
+import starling.core.RenderSupport;
+import starling.display.Quad;
 
 import starling.display.Sprite;
 
 import starling.events.Event;
+import starling.text.TextField;
 
 public class Add extends Sprite
 {
+    private var _scrollContainer:ScrollContainer;
     private var _inputContainer:Sprite;
 
     private var _explicitWidth:Number = 0;
@@ -37,9 +46,22 @@ public class Add extends Sprite
 
     private var _addBTn:Button;
 
+    private var inputError1:TextField;
+    private var inputError2:TextField;
+    private var inputError3:TextField;
+    private var _noErrors:Array;
+
     public function Add()
     {
         _arrIngredients = [];
+
+        /*_scrollContainer = new ScrollContainer();
+        _scrollContainer.width = 200;
+        _scrollContainer.height = 200;
+        this.addChild( _scrollContainer );
+
+        _inputContainer = new Sprite();
+        _scrollContainer.addChild(_inputContainer);*/
 
         _inputContainer = new Sprite();
         addChild(_inputContainer);
@@ -49,10 +71,12 @@ public class Add extends Sprite
         _inputName.height = 60;
         _inputName.selectRange( 0, _inputName.text.length );
         _inputName.addEventListener( FeathersEventType.FOCUS_IN, inputFocusInHandler );
+        _inputName.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild( _inputName );
 
         _inputIngredient = new AddInputFields();
         _inputIngredient.y = _inputName.y + _inputIngredient.height + 40;
+        _inputIngredient.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_inputIngredient);
         _arrIngredients.push(_inputIngredient);
 
@@ -67,6 +91,7 @@ public class Add extends Sprite
         _addBTn.y = _moreBtn.y + _addBTn.height + 60;
         _addBTn.addEventListener( starling.events.Event.TRIGGERED, AddRecipeHandler );
         _inputContainer.addChild( _addBTn );
+
     }
 
     public function setSize(w:Number, h:Number):void
@@ -85,6 +110,8 @@ public class Add extends Sprite
     private function buttonTriggeredHandler(event:starling.events.Event):void
     {
         _inputIngredient = new AddInputFields();
+        _inputIngredient.inputIngredient.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
+        _inputIngredient.inputAmount.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_inputIngredient);
         _arrIngredients.push(_inputIngredient);
 
@@ -102,14 +129,111 @@ public class Add extends Sprite
 
     private function AddRecipeHandler(event:starling.events.Event):void
     {
-        trace(_inputName.text);
+        checkIfInputIsEmpty();
+
+        /*trace(_inputName.text);
 
         for each( var input:AddInputFields in _arrIngredients)
         {
             trace(input.inputIngredient.text);
             trace(input.inputAmount.text);
             trace(input.unit.selectedItem.text);
+        }*/
+    }
+
+    private function checkIfInputIsEmpty():void
+    {
+        _noErrors = [];
+
+        if(_inputName.text == "" || _inputName.text == "Naam recept" )
+        {
+            inputError1 = new TextField(100, 20, "Vul een naam in", "BebasNeue", 16, 0xe49f98);
+            inputError1.x = _inputName.x + _inputName.width;
+            inputError1.y = _inputName.height/2 - inputError1.height/2;
+            _inputContainer.addChild(inputError1);
         }
+        else
+        {
+            _noErrors.push(_inputName.text);
+        }
+
+        for each( var input:AddInputFields in _arrIngredients)
+        {
+            if(input.inputIngredient.text == "" || input.inputIngredient.text == "Naam Ingredient" )
+            {
+                inputError2 = new TextField(100, 50, "Vul een ingredient in", "BebasNeue", 14, 0xe49f98);
+                inputError2.x = _inputIngredient.x + _inputIngredient.width + 5;
+                inputError2.y = _inputIngredient.y;
+                _inputContainer.addChild(inputError2);
+            }
+            else
+            {
+                _noErrors.push(input.inputIngredient.text);
+            }
+
+            if(input.inputAmount.text == "" || input.inputAmount.text == "Hoeveelheid" )
+            {
+                inputError3 = new TextField(100, 50, "Kies een hoeveelheid", "BebasNeue", 14, 0xe49f98);
+                inputError3.x = _inputIngredient.x + _inputIngredient.width + 5;
+                inputError3.y = _inputIngredient.y + _inputIngredient.height/2;
+                _inputContainer.addChild(inputError3);
+            }
+            else
+            {
+                _noErrors.push(input.inputAmount.text);
+            }
+        }
+
+        if(_noErrors.length >= 3)
+        {
+            removeChild(inputError1);
+            removeChild(inputError2);
+            removeChild(inputError3);
+            removeChild(_inputContainer);
+
+            //hier alle input in json steken en doorsturen naar recepten-pagina
+            trace("hier alle input in json steken en doorsturen naar recepten-pagina");
+        }
+    }
+
+    private function inputChangeHandler(event:starling.events.Event):void
+    {
+        if(inputError1 != null)
+        {
+            if(_inputName.text != "")
+            {
+                inputError1.visible = false;
+            }
+            else
+            {
+                inputError1.visible = true;
+            }
+        }
+
+        if(inputError2 != null)
+        {
+            if(_inputIngredient.inputIngredient.text != "")
+            {
+                inputError2.visible = false;
+            }
+            else
+            {
+                inputError2.visible = true;
+            }
+        }
+
+        if(inputError3 != null)
+        {
+            if(_inputIngredient.inputAmount.text != "")
+            {
+                inputError3.visible = false;
+            }
+            else
+            {
+                inputError3.visible = true;
+            }
+        }
+
     }
 }
 }
