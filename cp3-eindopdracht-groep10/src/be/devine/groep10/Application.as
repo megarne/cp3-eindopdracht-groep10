@@ -13,12 +13,6 @@ import be.devine.groep10.view.Menu;
 import be.devine.groep10.view.Recipes;
 import be.devine.groep10.view.ui.Help;
 
-import com.greensock.easing.Quad;
-
-import feathers.controls.Button;
-
-import feathers.controls.Button;
-
 import feathers.controls.Header;
 
 import feathers.themes.MetalWorksMobileTheme;
@@ -26,17 +20,11 @@ import feathers.themes.MetalWorksMobileTheme;
 import flash.display.Bitmap;
 
 import flash.events.Event;
-import flash.events.MouseEvent;
 
 import starling.display.Button;
-
-import starling.display.Button;
-
-import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.events.TouchEvent;
 import starling.textures.Texture;
 
 public class Application extends Sprite
@@ -71,6 +59,8 @@ public class Application extends Sprite
         _help = new Help();
         addChild(_help);
 
+        _add = new Add();
+
         var homeBtnSkin:Bitmap = new ButtonTexture();
         var homeBtnTexture:Texture = Texture.fromBitmap(homeBtnSkin);
         _homeBtn = new starling.display.Button(homeBtnTexture, "");
@@ -90,7 +80,6 @@ public class Application extends Sprite
     private function resizeHandler(event:starling.events.Event):void
     {
         layout();
-        _header.x = stage.stageWidth/2 - _header.width/2;
     }
 
     private function layout():void
@@ -104,6 +93,9 @@ public class Application extends Sprite
 
         _homeBtn.x = stage.stageWidth - _homeBtn.width - 20;
         _homeBtn.y = 10;
+
+        _add.y = 100;
+        _add.setSize(stage.stageWidth, 50);
     }
 
     private function pageChangedHandler(event:flash.events.Event):void
@@ -112,8 +104,6 @@ public class Application extends Sprite
 
         _homeBtn.addEventListener( starling.events.Event.TRIGGERED, GoBackHomeHandler );
 
-
-        trace("huidige pagina = "+_appModel.currentPage);
         _header.title = _appModel.currentPage;
 
         switch(_appModel.currentPage)
@@ -133,7 +123,6 @@ public class Application extends Sprite
                 addChild(_add);
                 break;
         }
-
 
         removeChild(_menu);
         removeChild(_help);

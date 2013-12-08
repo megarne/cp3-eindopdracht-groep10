@@ -33,8 +33,6 @@ public class Menu extends Sprite
     {
         _appModel = AppModel.getInstance();
 
-        trace(_appModel.pages);
-
         _menuList = new List();
         _menuList.width = 360;
         _menuList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;

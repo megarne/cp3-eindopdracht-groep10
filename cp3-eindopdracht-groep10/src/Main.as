@@ -2,8 +2,6 @@ package {
 
 import be.devine.groep10.Application;
 
-import flash.display.Bitmap;
-
 import flash.display.Sprite;
 import flash.display.StageAlign;
 import flash.display.StageScaleMode;
@@ -11,9 +9,7 @@ import flash.events.Event;
 import flash.geom.Rectangle;
 
 import starling.core.Starling;
-import starling.display.Image;
 import starling.events.Event;
-import starling.textures.Texture;
 
 [SWF(backgroundColor="#000000")]
 public class Main extends Sprite

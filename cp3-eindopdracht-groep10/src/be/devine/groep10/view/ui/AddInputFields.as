@@ -66,5 +66,35 @@ public class AddInputFields extends Sprite
             var inputFocusIn:TextInput = event.currentTarget as TextInput;
             inputFocusIn.text = "";
         }
+
+    public function get inputIngredient():TextInput
+    {
+        return _inputIngredient;
     }
+
+    public function set inputIngredient(value:TextInput):void
+    {
+        _inputIngredient = value;
+    }
+
+    public function get inputAmount():TextInput
+    {
+        return _inputAmount;
+    }
+
+    public function set inputAmount(value:TextInput):void
+    {
+        _inputAmount = value;
+    }
+
+    public function get unit():PickerList
+    {
+        return _unit;
+    }
+
+    public function set unit(value:PickerList):void
+    {
+        _unit = value;
+    }
+}
 }
