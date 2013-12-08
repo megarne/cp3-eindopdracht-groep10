@@ -17,18 +17,27 @@ import com.greensock.easing.Quad;
 
 import feathers.controls.Button;
 
+import feathers.controls.Button;
+
 import feathers.controls.Header;
 
 import feathers.themes.MetalWorksMobileTheme;
 
+import flash.display.Bitmap;
+
 import flash.events.Event;
 import flash.events.MouseEvent;
+
+import starling.display.Button;
+
+import starling.display.Button;
 
 import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.events.Event;
 import starling.events.TouchEvent;
+import starling.textures.Texture;
 
 public class Application extends Sprite
 {
@@ -38,7 +47,9 @@ public class Application extends Sprite
     private var _menu:Menu;
     private var _help:Help;
 
-    private var _home:starling.display.Button;
+    [Embed(source = "/../assets/custom/house.png")]
+    private static const ButtonTexture:Class;
+    private var _homeBtn:starling.display.Button;
 
     private var _recipes:Recipes;
     private var _add:Add;
@@ -60,15 +71,13 @@ public class Application extends Sprite
         _help = new Help();
         addChild(_help);
 
-
-
-
-
-
-
-        addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
+        var homeBtnSkin:Bitmap = new ButtonTexture();
+        var homeBtnTexture:Texture = Texture.fromBitmap(homeBtnSkin);
+        _homeBtn = new starling.display.Button(homeBtnTexture, "");
 
         _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
+
+        addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
     }
 
     private function addedHandler(event:starling.events.Event):void
@@ -86,24 +95,22 @@ public class Application extends Sprite
 
     private function layout():void
     {
-        trace("[Starling]", stage.stageWidth, stage.stageHeight);
-
-
         _header.x = stage.stageWidth/2 - _header.width/2;
 
         _menu.y = 100;
         _menu.setSize(stage.stageWidth, 50);
 
         _help.setSize(stage.stageWidth, stage.stageHeight);
+
+        _homeBtn.x = stage.stageWidth - _homeBtn.width - 20;
+        _homeBtn.y = 10;
     }
 
     private function pageChangedHandler(event:flash.events.Event):void
     {
-        var _home:Button = new Button();
-        _home.label = "HOME";
-        addChild(_home);
+        addChild(_homeBtn);
 
-        _home.addEventListener( starling.events.Event.TRIGGERED, homeHandler );
+        _homeBtn.addEventListener( starling.events.Event.TRIGGERED, GoBackHomeHandler );
 
 
         trace("huidige pagina = "+_appModel.currentPage);
@@ -132,53 +139,38 @@ public class Application extends Sprite
         removeChild(_help);
     }
 
-
-
-    function homeHandler( event:starling.events.Event ):void
+    function GoBackHomeHandler( event:starling.events.Event ):void
     {
-        trace( "terug naar de home aub" );
-        trace(_appModel.currentPage);
-
-
         switch(_appModel.currentPage)
         {
             case "recepten":
                 _recipes = new Recipes();
                 removeChild(_recipes);
                 _appModel.currentPage= "Keuken omvormer";
-                addChild(_menu);
-                addChild(_help);
                 break;
 
             case "eigen recepten":
                 _recipes = new Recipes();
                 removeChild(_recipes);
-                removeChild(_home);
+                removeChild(_homeBtn);
                 _appModel.currentPage= "Keuken omvormer";
-                addChild(_menu);
-                addChild(_help);
                 break;
 
             case "recept toevoegen":
                 _add = new Add();
                 removeChild(_add);
-                removeChild(_home);
+                removeChild(_homeBtn);
                 _appModel.currentPage= "Keuken omvormer";
-                addChild(_menu);
-                addChild(_help);
                 break;
-
-
-            case "Keuken omvormer":
-                this.removeChild(_home);
-                break;
-
         }
 
-       /* if(_header.title == "Keuken omvormer"){
+        if(_header.title == "Keuken omvormer")
+        {
+            removeChild(_homeBtn);
+            addChild(_menu);
+            addChild(_help);
+        }
 
-            removeChild(home);
-        }*/
     }
 }
 }
