@@ -8,6 +8,9 @@
 package be.devine.groep10
 {
 import be.devine.groep10.model.AppModel;
+import be.devine.groep10.queue.Queue;
+import be.devine.groep10.queue.tasks.ITask;
+import be.devine.groep10.queue.tasks.JsonLoaderTask;
 import be.devine.groep10.view.Add;
 import be.devine.groep10.view.Menu;
 import be.devine.groep10.view.Recipes;
@@ -37,10 +40,11 @@ public class Application extends Sprite
 
     [Embed(source = "/../assets/custom/house.png")]
     private static const ButtonTexture:Class;
-    private var _homeBtn:starling.display.Button;
+    private var _homeBtn:Button;
 
     private var _recipes:Recipes;
     private var _add:Add;
+    private var _container:Sprite;
 
     public function Application()
     {
@@ -59,11 +63,16 @@ public class Application extends Sprite
         _help = new Help();
         addChild(_help);
 
+
+
         _add = new Add();
 
         var homeBtnSkin:Bitmap = new ButtonTexture();
         var homeBtnTexture:Texture = Texture.fromBitmap(homeBtnSkin);
-        _homeBtn = new starling.display.Button(homeBtnTexture, "");
+        _homeBtn = new Button(homeBtnTexture, "");
+
+        addChild(_homeBtn);
+        _homeBtn.visible = false;
 
         _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
 
@@ -101,27 +110,30 @@ public class Application extends Sprite
 
     private function pageChangedHandler(event:flash.events.Event):void
     {
-        addChild(_homeBtn);
+
+        _homeBtn.visible = true;
 
         _homeBtn.addEventListener( starling.events.Event.TRIGGERED, GoBackHomeHandler );
 
         _header.title = _appModel.currentPage;
 
+        _container = new Sprite();
+
         switch(_appModel.currentPage)
         {
             case "recepten":
                 _recipes = new Recipes();
-                addChild(_recipes);
+                _container.addChild(_recipes);
                 break;
 
             case "eigen recepten":
                 _recipes = new Recipes();
-                addChild(_recipes);
+                _container.addChild(_recipes);
                 break;
 
             case "recept toevoegen":
                 _add = new Add();
-                addChild(_add);
+                _container.addChild(_add);
                 break;
         }
 
@@ -129,39 +141,21 @@ public class Application extends Sprite
 
         removeChild(_menu);
         removeChild(_help);
+        addChild(_container);
     }
 
-    function GoBackHomeHandler( event:starling.events.Event ):void
+    private function GoBackHomeHandler( event:starling.events.Event ):void
     {
-        switch(_appModel.currentPage)
-        {
-            case "recepten":
-                _recipes = new Recipes();
-                removeChild(_recipes);
-                _appModel.currentPage= "Keuken omvormer";
-                break;
 
-            case "eigen recepten":
-                _recipes = new Recipes();
-                removeChild(_recipes);
-                removeChild(_homeBtn);
-                _appModel.currentPage= "Keuken omvormer";
-                break;
 
-            case "recept toevoegen":
-                _add = new Add();
-                removeChild(_add);
-                removeChild(_homeBtn);
-                _appModel.currentPage= "Keuken omvormer";
-                break;
-        }
+        removeChild(_container);
+        _appModel.currentPage = "keuken omvormer";
+        _homeBtn.visible= false;
 
-        if(_header.title == "Keuken omvormer")
-        {
-            removeChild(_homeBtn);
+
             addChild(_menu);
             addChild(_help);
-        }
+
 
     }
 }
