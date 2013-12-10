@@ -8,9 +8,6 @@
 package be.devine.groep10
 {
 import be.devine.groep10.model.AppModel;
-import be.devine.groep10.queue.Queue;
-import be.devine.groep10.queue.tasks.ITask;
-import be.devine.groep10.queue.tasks.JsonLoaderTask;
 import be.devine.groep10.view.Add;
 import be.devine.groep10.view.Menu;
 import be.devine.groep10.view.Recipes;
@@ -25,6 +22,7 @@ import flash.display.Bitmap;
 import flash.events.Event;
 
 import starling.display.Button;
+import starling.display.Image;
 
 import starling.display.Sprite;
 import starling.events.Event;
@@ -32,6 +30,10 @@ import starling.textures.Texture;
 
 public class Application extends Sprite
 {
+    [Embed(source = "/../assets/custom/bg.png")]
+    private static const BackgroundClass:Class;
+    private var _bg:Image;
+
     private var _appModel:AppModel;
 
     private var _header:Header;
@@ -48,6 +50,9 @@ public class Application extends Sprite
 
     public function Application()
     {
+        _bg = Image.fromBitmap(new BackgroundClass());
+        addChild(_bg);
+
         new MetalWorksMobileTheme();
 
         _header = new Header();
@@ -63,8 +68,7 @@ public class Application extends Sprite
         _help = new Help();
         addChild(_help);
 
-
-
+        _recipes = new Recipes();
         _add = new Add();
 
         var homeBtnSkin:Bitmap = new ButtonTexture();
@@ -93,6 +97,9 @@ public class Application extends Sprite
 
     private function layout():void
     {
+        _bg.width = stage.stageWidth;
+        _bg.height = stage.stageHeight;
+
         _header.y = 20;
         _header.setSize(stage.stageWidth, 50);
 
@@ -104,13 +111,15 @@ public class Application extends Sprite
         _homeBtn.x = stage.stageWidth - _homeBtn.width - 20;
         _homeBtn.y = 10;
 
+        _recipes.y = 100;
+        _recipes.setSize(stage.stageWidth, 50);
+
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
     }
 
     private function pageChangedHandler(event:flash.events.Event):void
     {
-
         _homeBtn.visible = true;
 
         _homeBtn.addEventListener( starling.events.Event.TRIGGERED, GoBackHomeHandler );
@@ -123,7 +132,9 @@ public class Application extends Sprite
         {
             case "recepten":
                 _recipes = new Recipes();
+                _appModel.addEventListener(AppModel.CURRENT_RECIPE_CHANGED, recipeChangedHandler);
                 _container.addChild(_recipes);
+                    trace(_appModel.arrRecipes);
                 break;
 
             case "eigen recepten":
@@ -146,17 +157,17 @@ public class Application extends Sprite
 
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
-
-
         removeChild(_container);
         _appModel.currentPage = "keuken omvormer";
         _homeBtn.visible= false;
 
+        addChild(_menu);
+        addChild(_help);
+    }
 
-            addChild(_menu);
-            addChild(_help);
-
-
+    private function recipeChangedHandler(event:flash.events.Event):void
+    {
+        trace("recept = "+_appModel.currentRecipe);
     }
 }
 }

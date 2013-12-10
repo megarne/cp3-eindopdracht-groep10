@@ -73,7 +73,9 @@ package feathers.themes
 	import feathers.textures.Scale3Textures;
 	import feathers.textures.Scale9Textures;
 
-	import flash.display.BitmapData;
+import flash.display.Bitmap;
+
+import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
@@ -101,7 +103,7 @@ package feathers.themes
 		[Embed(source="/../assets/fonts/DK_Crayon_Crumble.ttf",fontName="DK_Crayon_Crumble",mimeType="application/x-font",embedAsCFF="false")]
 		protected static const DK_CRAYON:Class;
 
-		protected static const PRIMARY_BACKGROUND_COLOR:uint = 0x292929;
+		protected static const PRIMARY_BACKGROUND_COLOR:uint = 0xffffff;
 		protected static const LIGHT_TEXT_COLOR:uint = 0x41dfc8;
 		protected static const WHITE_TEXT_COLOR:uint = 0xffffff;
 		protected static const DARK_TEXT_COLOR:uint = 0x1a1816;
@@ -214,7 +216,7 @@ package feathers.themes
 
 		protected var atlas:TextureAtlas;
 		protected var atlasBitmapData:BitmapData;
-		protected var headerBackgroundSkinTexture:Texture;
+		//protected var headerBackgroundSkinTexture:Texture;
 		protected var backgroundSkinTextures:Scale9Textures;
 		protected var backgroundInsetSkinTextures:Scale9Textures;
 		protected var backgroundDisabledSkinTextures:Scale9Textures;
@@ -299,7 +301,7 @@ package feathers.themes
 			}
 
 			this.root.stage.color = PRIMARY_BACKGROUND_COLOR;
-			Starling.current.nativeStage.color = PRIMARY_BACKGROUND_COLOR;
+			Starling.current.nativeStage.color = PRIMARY_BACKGROUND_COLOR
 		}
 
 		protected function initialize():void
@@ -434,7 +436,7 @@ package feathers.themes
 			this.insetItemRendererSingleUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-single-up-skin"), INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID);
 			this.insetItemRendererSingleSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-single-selected-skin"), INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID);
 
-			this.headerBackgroundSkinTexture = this.atlas.getTexture("header-background-skin");
+			//this.headerBackgroundSkinTexture = this.atlas.getTexture("header-background-skin");
 
 			this.calloutTopArrowSkinTexture = this.atlas.getTexture("callout-arrow-top-skin");
 			this.calloutRightArrowSkinTexture = this.atlas.getTexture("callout-arrow-right-skin");
@@ -1164,7 +1166,7 @@ package feathers.themes
 			skinSelector.setValueForState(this.backgroundFocusedSkinTextures, TextInput.STATE_FOCUSED);
 			skinSelector.displayObjectProperties =
 			{
-				width: 264 * this.scale,
+				width: 350 * this.scale,
 				height: 60 * this.scale,
 				textureScale: this.scale
 			};
@@ -1176,9 +1178,9 @@ package feathers.themes
 			input.paddingTop = 12 * this.scale;
 			input.paddingBottom = 10 * this.scale;
 			input.paddingLeft = input.paddingRight = 14 * this.scale;
-			input.textEditorProperties.fontFamily = "Helvetica";
+			input.textEditorProperties.fontFamily = "BebasNeue";
 			input.textEditorProperties.fontSize = 24 * this.scale;
-			input.textEditorProperties.color = LIGHT_TEXT_COLOR;
+			input.textEditorProperties.color = WHITE_TEXT_COLOR;
 
 			input.promptProperties.textFormat = this.lightTextFormat;
 			input.promptProperties.embedFonts = true;
@@ -1270,9 +1272,9 @@ package feathers.themes
 			header.gap = 8 * this.scale;
 			header.titleGap = 12 * this.scale;
 
-			const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
-			backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
-			header.backgroundSkin = backgroundSkin;
+			//const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
+			//backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
+			//header.backgroundSkin = backgroundSkin;
 			header.titleProperties.textFormat = this.headerTextFormat;
 			header.titleProperties.embedFonts = true;
 		}
@@ -1404,9 +1406,9 @@ package feathers.themes
 			container.minWidth = 88 * this.scale;
 			container.minHeight = 88 * this.scale;
 
-			const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
-			backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
-			container.backgroundSkin = backgroundSkin;
+			//const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
+			//backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
+			//container.backgroundSkin = backgroundSkin;
 		}
 
 		protected function insetGroupedListInitializer(list:GroupedList):void

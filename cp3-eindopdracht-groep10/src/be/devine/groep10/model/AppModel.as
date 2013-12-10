@@ -11,11 +11,8 @@ import be.devine.groep10.vo.RecipesVO;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
-import flash.html.__HTMLScriptArray;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
-
-import starling.display.Quad;
 
 public class AppModel extends EventDispatcher
 {
@@ -23,17 +20,19 @@ public class AppModel extends EventDispatcher
 
     private var _pages:Array;
 
-
     public static const PAGE_CHANGED:String = "pageChanged";
     public static const CURRENT_PAGE_CHANGED:String = "currentPageChanged";
-    public static const LIST_RECEPES:String = "listrecepes";
 
     private var _currentPage:String;
     private var currentPageChanged:Boolean;
 
     private var _arrRecipes:Array;
 
+    public static const RECIPE_CHANGED:String = "recipeChanged";
+    public static const CURRENT_RECIPE_CHANGED:String = "currentRecipeChanged";
 
+    private var _currentRecipe:String;
+    private var currentRecipeChanged:Boolean;
 
     public function AppModel(e:Enforcer)
     {
@@ -63,19 +62,16 @@ public class AppModel extends EventDispatcher
 
     private function jsonCompleteHandler(event:Event):void
     {
-
-
         var raw:String = String(event.target.data);
         var recept:Array = JSON.parse(raw) as Array;
 
         for (var i:int = 0; i < recept.length; i++)
         {
-            trace('Name: ' + recept[i].name);
+            //trace('Name: ' + recept[i].name);
 
-            _arrRecipes.push(recept[i].name);
-            trace(_arrRecipes);
-
-
+            var recipe:String = recept[i].name;
+            _arrRecipes.push(recipe);
+            //trace(_arrRecipes);
         }
     }
 
@@ -115,7 +111,26 @@ public class AppModel extends EventDispatcher
 
     public function set arrRecipes(value:Array):void
     {
-        _arrRecipes = value;
+        if (value != _arrRecipes)
+        {
+            _arrRecipes = value;
+            dispatchEvent(new Event(RECIPE_CHANGED));
+        }
+    }
+
+    public function get currentRecipe():String
+    {
+        return _currentRecipe;
+    }
+
+    public function set currentRecipe(value:String):void
+    {
+        if (_currentRecipe != value)
+        {
+            currentRecipeChanged = true;
+            _currentRecipe = value;
+            dispatchEvent(new Event(CURRENT_RECIPE_CHANGED));
+        }
     }
 }
 }

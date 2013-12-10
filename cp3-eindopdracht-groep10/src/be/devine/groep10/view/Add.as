@@ -9,19 +9,11 @@ package be.devine.groep10.view
 {
 import be.devine.groep10.view.ui.AddInputFields;
 
-import com.greensock.easing.Quad;
-
 import feathers.controls.Button;
 import feathers.controls.ScrollContainer;
 
 import feathers.controls.TextInput;
 import feathers.events.FeathersEventType;
-import feathers.layout.VerticalLayout;
-
-import flash.events.Event;
-
-import starling.core.RenderSupport;
-import starling.display.Quad;
 
 import starling.display.Sprite;
 
@@ -56,12 +48,9 @@ public class Add extends Sprite
         _arrIngredients = [];
 
         /*_scrollContainer = new ScrollContainer();
-        _scrollContainer.width = 200;
-        _scrollContainer.height = 200;
-        this.addChild( _scrollContainer );
-
-        _inputContainer = new Sprite();
-        _scrollContainer.addChild(_inputContainer);*/
+        _scrollContainer.width = 230;
+        _scrollContainer.height = 600;
+        this.addChild( _scrollContainer );*/
 
         _inputContainer = new Sprite();
         addChild(_inputContainer);
@@ -130,15 +119,6 @@ public class Add extends Sprite
     private function AddRecipeHandler(event:starling.events.Event):void
     {
         checkIfInputIsEmpty();
-
-        /*trace(_inputName.text);
-
-        for each( var input:AddInputFields in _arrIngredients)
-        {
-            trace(input.inputIngredient.text);
-            trace(input.inputAmount.text);
-            trace(input.unit.selectedItem.text);
-        }*/
     }
 
     private function checkIfInputIsEmpty():void
@@ -148,9 +128,9 @@ public class Add extends Sprite
         if(_inputName.text == "" || _inputName.text == "Naam recept" )
         {
             inputError1 = new TextField(100, 20, "Vul een naam in", "BebasNeue", 16, 0xe49f98);
-            inputError1.x = _inputName.x + _inputName.width;
+            inputError1.x = _inputIngredient.x + _inputIngredient.width + inputError1.width;
             inputError1.y = _inputName.height/2 - inputError1.height/2;
-            _inputContainer.addChild(inputError1);
+            addChild(inputError1);
         }
         else
         {
@@ -162,9 +142,9 @@ public class Add extends Sprite
             if(input.inputIngredient.text == "" || input.inputIngredient.text == "Naam Ingredient" )
             {
                 inputError2 = new TextField(100, 50, "Vul een ingredient in", "BebasNeue", 14, 0xe49f98);
-                inputError2.x = _inputIngredient.x + _inputIngredient.width + 5;
+                inputError2.x = _inputIngredient.x + _inputIngredient.width + inputError2.width;
                 inputError2.y = _inputIngredient.y;
-                _inputContainer.addChild(inputError2);
+                addChild(inputError2);
             }
             else
             {
@@ -174,9 +154,9 @@ public class Add extends Sprite
             if(input.inputAmount.text == "" || input.inputAmount.text == "Hoeveelheid" )
             {
                 inputError3 = new TextField(100, 50, "Kies een hoeveelheid", "BebasNeue", 14, 0xe49f98);
-                inputError3.x = _inputIngredient.x + _inputIngredient.width + 5;
+                inputError3.x = _inputIngredient.x + _inputIngredient.width + inputError3.width;
                 inputError3.y = _inputIngredient.y + _inputIngredient.height/2;
-                _inputContainer.addChild(inputError3);
+                addChild(inputError3);
             }
             else
             {
@@ -189,10 +169,19 @@ public class Add extends Sprite
             removeChild(inputError1);
             removeChild(inputError2);
             removeChild(inputError3);
-            removeChild(_inputContainer);
+            removeChild(_scrollContainer);
 
             //hier alle input in json steken en doorsturen naar recepten-pagina
             trace("hier alle input in json steken en doorsturen naar recepten-pagina");
+
+            /*trace(_inputName.text);
+
+             for each( var input:AddInputFields in _arrIngredients)
+             {
+             trace(input.inputIngredient.text);
+             trace(input.inputAmount.text);
+             trace(input.unit.selectedItem.text);
+             }*/
         }
     }
 
