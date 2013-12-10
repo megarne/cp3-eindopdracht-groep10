@@ -23,6 +23,7 @@ public class Recipes extends Sprite
     private var _appModel:AppModel;
 
     private var _recipeList:List;
+    private var _listCollection:ListCollection;
 
     private var _explicitWidth:Number = 0;
     private var _explicitHeight:Number = 0;
@@ -33,13 +34,22 @@ public class Recipes extends Sprite
 
         _recipeList = new List();
         _recipeList.width = 360;
+        _recipeList.height = 650;
         _recipeList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
         _recipeList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
         _recipeList.itemRendererProperties.labelField = "title";
         addChild(_recipeList);
 
-        display();
+        _listCollection = new ListCollection();
 
+        for each(var i:String in _appModel.recipes)
+        {
+            _listCollection.push([i]);
+        }
+
+        _recipeList.dataProvider = _listCollection;
+
+        display();
     }
 
     private function listChangeHandler(event:starling.events.Event):void
@@ -52,11 +62,6 @@ public class Recipes extends Sprite
 
     private function display():void
     {
-        //trace(_appModel.arrRecipes);
-        trace(_appModel.arrRecipes);
-        trace(_appModel.pages);
-
-        _recipeList.dataProvider = new ListCollection(_appModel.arrRecipes);
         _recipeList.selectedItem = _appModel.currentPage;
 
         var layout:VerticalLayout = new VerticalLayout();

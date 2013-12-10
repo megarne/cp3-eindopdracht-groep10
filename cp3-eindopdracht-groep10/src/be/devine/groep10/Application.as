@@ -134,7 +134,6 @@ public class Application extends Sprite
                 _recipes = new Recipes();
                 _appModel.addEventListener(AppModel.CURRENT_RECIPE_CHANGED, recipeChangedHandler);
                 _container.addChild(_recipes);
-                    trace(_appModel.arrRecipes);
                 break;
 
             case "eigen recepten":

@@ -26,7 +26,7 @@ public class AppModel extends EventDispatcher
     private var _currentPage:String;
     private var currentPageChanged:Boolean;
 
-    private var _arrRecipes:Array;
+    private var _recipes:Array;
 
     public static const RECIPE_CHANGED:String = "recipeChanged";
     public static const CURRENT_RECIPE_CHANGED:String = "currentRecipeChanged";
@@ -42,7 +42,7 @@ public class AppModel extends EventDispatcher
         }
 
         _pages = ["recepten", "eigen recepten", "recept toevoegen"];
-        _arrRecipes = [];
+        _recipes = [];
     }
     public static function getInstance():AppModel
     {
@@ -67,12 +67,12 @@ public class AppModel extends EventDispatcher
 
         for (var i:int = 0; i < recept.length; i++)
         {
-            //trace('Name: ' + recept[i].name);
-
             var recipe:String = recept[i].name;
-            _arrRecipes.push(recipe);
-            //trace(_arrRecipes);
+            _recipes.push(recipe);
         }
+
+        trace(_recipes);
+        //_recipes.push("spaghetti", "sushi", "patatten", "griekse salade", "yoghurt", "hutsepot");
     }
 
     public function get currentPage():String
@@ -104,16 +104,16 @@ public class AppModel extends EventDispatcher
         }
     }
 
-    public function get arrRecipes():Array
+    public function get recipes():Array
     {
-        return _arrRecipes;
+        return _recipes;
     }
 
-    public function set arrRecipes(value:Array):void
+    public function set recipes(value:Array):void
     {
-        if (value != _arrRecipes)
+        if (value != _recipes)
         {
-            _arrRecipes = value;
+            _recipes = value;
             dispatchEvent(new Event(RECIPE_CHANGED));
         }
     }
