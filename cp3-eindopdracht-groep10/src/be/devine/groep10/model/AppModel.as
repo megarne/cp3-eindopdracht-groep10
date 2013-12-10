@@ -11,8 +11,11 @@ import be.devine.groep10.vo.RecipesVO;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.html.__HTMLScriptArray;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
+
+import starling.display.Quad;
 
 public class AppModel extends EventDispatcher
 {
@@ -20,13 +23,17 @@ public class AppModel extends EventDispatcher
 
     private var _pages:Array;
 
+
     public static const PAGE_CHANGED:String = "pageChanged";
     public static const CURRENT_PAGE_CHANGED:String = "currentPageChanged";
+    public static const LIST_RECEPES:String = "listrecepes";
 
     private var _currentPage:String;
     private var currentPageChanged:Boolean;
 
     private var _arrRecipes:Array;
+
+
 
     public function AppModel(e:Enforcer)
     {
@@ -56,37 +63,19 @@ public class AppModel extends EventDispatcher
 
     private function jsonCompleteHandler(event:Event):void
     {
-       /*var loader:URLLoader = URLLoader(event.target);
-        var data:Object = JSON.parse(loader.data);
-        trace('[app=model]?');
 
-
-
-        var recipes:Array = [];
-        for each(var recipe:Object in data)
-        {
-            var recipeVO:RecipesVO = new RecipesVO();
-            recipeVO.name = recipe.name;
-            _arrRecipes.push(recipeVO);
-
-            trace(_arrRecipes);
-            trace('[app=model]?');
-            trace(data.toString());
-            trace(recipe.name);
-        }
-        this._arrRecipes = recipes;   */
 
         var raw:String = String(event.target.data);
-        var person:Array = JSON.parse(raw) as Array;
+        var recept:Array = JSON.parse(raw) as Array;
 
-        trace('EMPLOYEES --------------------------------------');
-
-        for (var i:int = 0; i < person.length; i++)
+        for (var i:int = 0; i < recept.length; i++)
         {
-            trace('Name: ' + person[i].name);
-            trace('ingredients: ' + person[i].ingredients);
-            trace('preparation: ' + person[i].preparation);
-            trace('');
+            trace('Name: ' + recept[i].name);
+
+            _arrRecipes.push(recept[i].name);
+            trace(_arrRecipes);
+
+
         }
     }
 
@@ -117,6 +106,16 @@ public class AppModel extends EventDispatcher
             _pages = value;
             dispatchEvent(new Event(PAGE_CHANGED));
         }
+    }
+
+    public function get arrRecipes():Array
+    {
+        return _arrRecipes;
+    }
+
+    public function set arrRecipes(value:Array):void
+    {
+        _arrRecipes = value;
     }
 }
 }

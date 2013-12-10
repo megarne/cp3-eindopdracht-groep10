@@ -7,12 +7,16 @@
  */
 package be.devine.groep10.view
 {
+import be.devine.groep10.model.AppModel;
 import be.devine.groep10.view.utils.Converter;
+
+import feathers.controls.List;
 
 import feathers.controls.PickerList;
 
 import feathers.controls.TextInput;
 import feathers.data.ListCollection;
+import feathers.layout.VerticalLayout;
 
 import feathers.text.StageTextField;
 
@@ -31,22 +35,42 @@ import starling.textures.Texture;
 public class Recipes extends Sprite
     {
 
-        var graden:Number;
+        /*private var graden:Number;
         var txtField:TextInput;
 
         var resultField:TextField;
-        var converted:String;
+
+        var converted:String;     */
+
+        private var _receptList:List;
+        private var _appModel:AppModel;
+
         public function Recipes()
         {
-            addEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
+            _receptList = new List;
+
+            _receptList.width = 250;
+            _receptList.height = 300;
+            this.addChild( _receptList );
+
+            _receptList.dataProvider = new ListCollection(_appModel.arrRecipes);
+            //_receptList.dataProvider = _receptList;
+
+            _receptList.itemRendererProperties.labelField = "text";
+
+
 
         }
+
+
 
 
     private function addedToStageHandler(event:starling.events.Event):void
     {
 
 
+
+       /*
         txtField=new TextInput();
         txtField.text="28";
         txtField.restrict = "0-9";
@@ -93,6 +117,7 @@ public class Recipes extends Sprite
         resultField.text=converted;
 
         //trace(Converter.celsiusToFahrenheit(graden));
+        */
     }
 }
 }

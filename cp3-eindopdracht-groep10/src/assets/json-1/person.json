@@ -1,0 +1,36 @@
+[
+    {
+        "name": "Mike",
+        "lastname": "Altair",
+        "location": "Puerto Rico",
+        "department": "Sales"
+    },
+
+    {
+        "name": "Manny",
+        "lastname": "Fever",
+        "location": "Puerto Rico",
+        "department": "Comics"
+    },
+
+    {
+        "name": "Phillip",
+        "lastname":"cavia",
+        "location": "Puerto Rico",
+        "department": "Accounts"
+    },
+
+    {
+        "name": "Felipe",
+        "lastname": "Maga",
+        "location": "Puerto Rico",
+        "department": "Social Media"
+    },
+
+    {
+        "name": "David",
+        "lastname": "Mens",
+        "location": "Puerto Rico",
+        "department": "Multimedia"
+    }
+]
