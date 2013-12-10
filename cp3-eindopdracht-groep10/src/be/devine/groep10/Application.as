@@ -9,6 +9,7 @@ package be.devine.groep10
 {
 import be.devine.groep10.model.AppModel;
 import be.devine.groep10.view.Add;
+import be.devine.groep10.view.Detail;
 import be.devine.groep10.view.Menu;
 import be.devine.groep10.view.Recipes;
 import be.devine.groep10.view.ui.Help;
@@ -46,6 +47,7 @@ public class Application extends Sprite
 
     private var _recipes:Recipes;
     private var _add:Add;
+    private var _detail:Detail;
     private var _container:Sprite;
 
     public function Application()
@@ -144,6 +146,11 @@ public class Application extends Sprite
             case "recept toevoegen":
                 _add = new Add();
                 _container.addChild(_add);
+                break;
+
+            case "detail":
+                _detail = new Detail();
+                _container.addChild(_detail);
                 break;
         }
 

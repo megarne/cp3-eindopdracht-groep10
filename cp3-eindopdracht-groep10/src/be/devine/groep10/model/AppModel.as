@@ -41,7 +41,7 @@ public class AppModel extends EventDispatcher
             throw new Error("AppModel is a singleton, use getInstance() instead");
         }
 
-        _pages = ["recepten", "eigen recepten", "recept toevoegen"];
+        _pages = ["recepten", "eigen recepten", "recept toevoegen","detail"];
         _recipes = [];
     }
     public static function getInstance():AppModel
