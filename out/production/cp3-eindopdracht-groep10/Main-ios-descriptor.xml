@@ -12,7 +12,7 @@
 
     <!-- A universally unique application identifier. Must be unique across all AIR applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>be.devine.groep10</id>
+    <id>Main</id>
 
     <!-- Used as the filename for the application. Required. -->
     <filename>Main</filename>
@@ -48,7 +48,7 @@
     <!-- Settings for the application's initial window. Required. -->
     <initialWindow>
         <!-- The main SWF or HTML file of the application. Required. -->
-        <content>SWF file name is set automatically at compile time</content>
+        <content>Main.swf</content>
 
         <!-- The title of the main window. Optional. -->
         <!--<title></title>-->
@@ -99,7 +99,7 @@
         <fullScreen>true</fullScreen>
 
         <!-- The render mode for the app (either auto, cpu, gpu, or direct). Optional. Default auto -->
-        <renderMode>direct</renderMode>
+        <!--<renderMode></renderMode>-->
 
         <!-- Whether the default direct mode rendering context allocates storage for depth and stencil buffers.  Optional.  Default false. -->
         <!--<depthAndStencil></depthAndStencil>-->
@@ -214,11 +214,11 @@
     </iPhone>
 
     <!-- Android specific tags that get passed to AndroidManifest.xml file. -->
-    <android>
-        <manifestAdditions>
-            <![CDATA[
-            <manifest android:installLocation="auto">
-                <uses-permission android:name="android.permission.INTERNET"/>
+    <!--<android>-->
+        <!--<manifestAdditions>-->
+            <!--<![CDATA[-->
+            <!--<manifest android:installLocation="auto">-->
+                <!--<uses-permission android:name="android.permission.INTERNET"/>-->
                 <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
                 <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
                 <!--<uses-permission android:name="android.permission.VIBRATE"/>-->
@@ -239,14 +239,14 @@
                         </intent-filter>
                     </activity>
                 </application>-->
-            </manifest>
-            ]]>
-            </manifestAdditions>
+            <!--</manifest>-->
+            <!--]]>-->
+            <!--</manifestAdditions>-->
 
         <!-- Color depth for the app (either "32bit" or "16bit"). Optional. Default 16bit before namespace 3.0, 32bit after -->
         <!--<colorDepth></colorDepth>-->
         <!-- Indicates if the app contains video or not. Necessary for ordering of video planes with graphics plane, especially in Jellybean - if you app does video this must be set to true - valid values are true or false -->
         <!-- <containsVideo></containsVideo> -->
-    </android>
+    <!--</android>-->
 
 </application>

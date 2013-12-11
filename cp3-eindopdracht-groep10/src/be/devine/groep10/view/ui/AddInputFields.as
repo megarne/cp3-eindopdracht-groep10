@@ -48,7 +48,7 @@ public class AddInputFields extends Sprite
 
             var unitList:ListCollection = new ListCollection(
             [
-                { text: "kg"},{ text: "g"},{ text: "el"},{ text: "tl"},{ text: "l"},{ text: "ml"},{ text: "cl"},{ text: "mg"}
+                { text: "kg"},{ text: "g"},{ text: "el"},{ text: "tl"},{ text: "l"},{ text: "ml"},{ text: "cl"},{ text: "mg"},{ text: "°C"},{ text: "°F"},{ text: "°K"}
             ]);
 
             _unit.dataProvider = unitList;

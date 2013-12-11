@@ -11,11 +11,11 @@ public class RecipesVO
 {
     //data van id json
     public var name:String;
-    public var ingredient:String;
+    public var ingredients:Object;
+    public var preparation:String;
 
     public function RecipesVO()
     {
-
     }
 }
 }

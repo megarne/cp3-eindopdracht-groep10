@@ -8,6 +8,7 @@
 package be.devine.groep10.view
 {
 import be.devine.groep10.model.AppModel;
+import be.devine.groep10.vo.RecipesVO;
 
 import feathers.controls.Button;
 
@@ -42,9 +43,14 @@ public class Recipes extends Sprite
 
         _listCollection = new ListCollection();
 
-        for each(var i:String in _appModel.recipes)
+
+        //als je scrolt over de recepten krijg je een fout over "renderer map contains bad data"
+        for each(var recipe in _appModel.recipes)
         {
-            _listCollection.push([i]);
+           trace(recipe.name);
+
+
+            _listCollection.push(recipe);
         }
 
         _recipeList.dataProvider = _listCollection;
@@ -56,13 +62,13 @@ public class Recipes extends Sprite
     {
         if(_recipeList.selectedItem)
         {
-            _appModel.currentRecipe = _recipeList.selectedItem as String;
+            _appModel.currentRecipe = _recipeList.selectedItem as RecipesVO;
         }
     }
 
     private function display():void
     {
-        _recipeList.selectedItem = _appModel.currentPage;
+        //_recipeList.selectedItem = _appModel.currentPage;
 
         var layout:VerticalLayout = new VerticalLayout();
         layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;

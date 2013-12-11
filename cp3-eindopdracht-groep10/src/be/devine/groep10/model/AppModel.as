@@ -7,10 +7,14 @@
  */
 package be.devine.groep10.model
 {
+import be.devine.groep10.factory.RecipesVOFactory;
 import be.devine.groep10.vo.RecipesVO;
 
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.filesystem.File;
+import flash.filesystem.FileMode;
+import flash.filesystem.FileStream;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 
@@ -31,8 +35,7 @@ public class AppModel extends EventDispatcher
     public static const RECIPE_CHANGED:String = "recipeChanged";
     public static const CURRENT_RECIPE_CHANGED:String = "currentRecipeChanged";
 
-    private var _currentRecipe:String;
-    private var currentRecipeChanged:Boolean;
+
 
     public function AppModel(e:Enforcer)
     {
@@ -55,12 +58,44 @@ public class AppModel extends EventDispatcher
 
     public function load():void
     {
-        var urlLoader:URLLoader = new URLLoader();
+        trace('[APPMODEL] [LOAD]');
+        //var recipesFile:File = File.applicationStorageDirectory.resolvePath("testRecipes.json");
+
+
+        var recipesFile:File = File.documentsDirectory.resolvePath("/Users/laurens/IdeaProjects/cp3-eindopdracht-groep10/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
+
+        //Recepten JSON aanmaken als die nog niet bestaat, niet nodig maar wel eventjes er in gestoken, wegens why not?
+        /*if(!recipesFile.exists){
+            var writeStream:FileStream = new FileStream();
+            writeStream.open(recipesFile, FileMode.WRITE);
+            writeStream.writeUTFBytes(JSON.stringify([
+
+            ]));
+            writeStream.close();
+        }*/
+        var readStream:FileStream = new FileStream();
+        readStream.open(recipesFile, FileMode.READ);
+        var parsedJSON:Array = JSON.parse(
+                readStream.readUTFBytes(readStream.bytesAvailable)
+        ) as Array;
+        readStream.close();
+        //var recipes:Array = [];
+        for each(var recipe:Object in parsedJSON) {
+            //trace("[APPMODEL]" + parsedJSON);
+           // trace("[APPMODEL] [FOREACH] " + recipe.name);
+            _recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
+        }
+
+        //trace(_recipes.length);
+        //this.recipes = recipes;
+
+
+       /* var urlLoader:URLLoader = new URLLoader();
         urlLoader.addEventListener(Event.COMPLETE, jsonCompleteHandler);
-        urlLoader.load(new URLRequest("assets/json/recipes.json"));
+        urlLoader.load(new URLRequest("assets/json/recipes.json"));*/
     }
 
-    private function jsonCompleteHandler(event:Event):void
+  /* private function jsonCompleteHandler(event:Event):void
     {
         var raw:String = String(event.target.data);
         var recept:Array = JSON.parse(raw) as Array;
@@ -73,7 +108,7 @@ public class AppModel extends EventDispatcher
 
         trace(_recipes);
         //_recipes.push("spaghetti", "sushi", "patatten", "griekse salade", "yoghurt", "hutsepot");
-    }
+    }*/
 
     public function get currentPage():String
     {
@@ -118,12 +153,15 @@ public class AppModel extends EventDispatcher
         }
     }
 
-    public function get currentRecipe():String
+    private var _currentRecipe:RecipesVO;
+    private var currentRecipeChanged:Boolean;
+
+    public function get currentRecipe():RecipesVO
     {
         return _currentRecipe;
     }
 
-    public function set currentRecipe(value:String):void
+    public function set currentRecipe(value:RecipesVO):void
     {
         if (_currentRecipe != value)
         {

@@ -15,6 +15,8 @@ import be.devine.groep10.view.Recipes;
 import be.devine.groep10.view.ui.Help;
 
 import feathers.controls.Header;
+import feathers.controls.text.TextFieldTextRenderer;
+import feathers.core.FeathersControl;
 
 import feathers.themes.MetalWorksMobileTheme;
 
@@ -83,7 +85,10 @@ public class Application extends Sprite
         _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
 
         addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
+
+
     }
+
 
     private function addedHandler(event:starling.events.Event):void
     {
@@ -173,7 +178,7 @@ public class Application extends Sprite
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-        trace("recept = "+_appModel.currentRecipe);
+        trace("recept = "+_appModel.currentRecipe.name);
     }
 }
 }
