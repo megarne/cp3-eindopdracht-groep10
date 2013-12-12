@@ -45,7 +45,7 @@ public class Detail extends Sprite{
 
         this.addChild( list );
 
-        var recipesList:ListCollection = new ListCollection(
+        var groceryList:ListCollection = new ListCollection(
                 [
                     { text: "wortels of wa"  },
                     { text: "cavias"  },
@@ -58,7 +58,7 @@ public class Detail extends Sprite{
                     { text: "vier is ook lekker"},
                     { text: "ik ben nie lekker"}
                 ]);
-        list.dataProvider = recipesList;
+        list.dataProvider = groceryList;
         list.itemRendererProperties.labelField = "text";
 
         _header = new Header();

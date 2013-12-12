@@ -24,7 +24,6 @@ public class Recipes extends Sprite
     private var _appModel:AppModel;
 
     private var _recipeList:List;
-    private var _ownRecipeList:List;
     private var _listCollection:ListCollection;
 
     private var _explicitWidth:Number = 0;
@@ -42,15 +41,6 @@ public class Recipes extends Sprite
         _recipeList.itemRendererProperties.labelField = "title";
         addChild(_recipeList);
 
-        _ownRecipeList = new List();
-        _ownRecipeList.width = 360;
-        _ownRecipeList.height = 650;
-        _ownRecipeList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
-        _ownRecipeList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
-        _ownRecipeList.itemRendererProperties.labelField = "title";
-        addChild(_ownRecipeList);
-
-
         _listCollection = new ListCollection();
 
 
@@ -59,7 +49,7 @@ public class Recipes extends Sprite
         //ROCKET SCIENCE
         for each(var recipe in _appModel.recipes)
         {
-           //trace(recipe.name);
+           trace(recipe.name);
 
 
             _listCollection.push(recipe);
@@ -67,15 +57,6 @@ public class Recipes extends Sprite
         }
 
         _recipeList.dataProvider = _listCollection;
-
-        for each(var ownRecipe in _appModel.ownRecipes){
-            trace("[RECIPES] [RECIPES] [ownRecipes]" + ownRecipe.name);
-
-            _listCollection.push(ownRecipe);
-        }
-        _ownRecipeList.dataProvider = _listCollection;
-
-
 
         display();
     }

@@ -34,7 +34,7 @@ public class Menu extends Sprite
         _appModel = AppModel.getInstance();
 
         _menuList = new List();
-        //_menuList.width = 360;
+        _menuList.width = 360;
         _menuList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
         _menuList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
         _menuList.itemRendererProperties.labelField = "title";
@@ -68,11 +68,7 @@ public class Menu extends Sprite
         _explicitWidth = w;
         _explicitHeight = h;
 
-        //_menuList.x = Math.round((_explicitWidth - _menuList.width) * .5);
-
-
-
-        _menuList.setSize(_explicitWidth - 80, _explicitHeight - 200);
+        _menuList.x = Math.round((_explicitWidth - _menuList.width) * .5);
     }
 }
 }

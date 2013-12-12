@@ -15,7 +15,10 @@ import be.devine.groep10.view.Recipes;
 import be.devine.groep10.view.ui.Help;
 
 import feathers.controls.Header;
-import feathers.themes.ConverterTheme;
+import feathers.controls.text.TextFieldTextRenderer;
+import feathers.core.FeathersControl;
+
+import feathers.themes.MetalWorksMobileTheme;
 
 import flash.display.Bitmap;
 
@@ -37,10 +40,6 @@ public class Application extends Sprite
     private var _appModel:AppModel;
 
     private var _header:Header;
-    [Embed(source = "/../assets/custom/line.png")]
-    private static const LineTexture:Class;
-    private var _line:Image;
-
     private var _menu:Menu;
     private var _help:Help;
 
@@ -55,17 +54,14 @@ public class Application extends Sprite
 
     public function Application()
     {
-        //_bg = Image.fromBitmap(new BackgroundClass());
-        //addChild(_bg);
+        _bg = Image.fromBitmap(new BackgroundClass());
+        addChild(_bg);
 
-        new ConverterTheme();
+        new MetalWorksMobileTheme();
 
         _header = new Header();
         _header.title = "Keuken omvormer";
         addChild( _header );
-        _line = Image.fromBitmap(new LineTexture());
-        _line.y = 40;
-        _header.addChild(_line);
 
         _appModel = AppModel.getInstance();
         _appModel.load();
@@ -75,7 +71,6 @@ public class Application extends Sprite
 
         _help = new Help();
         addChild(_help);
-        setChildIndex(_help, numChildren-1);
 
         _recipes = new Recipes();
         _add = new Add();
@@ -90,7 +85,10 @@ public class Application extends Sprite
         _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
 
         addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
+
+
     }
+
 
     private function addedHandler(event:starling.events.Event):void
     {
@@ -106,19 +104,16 @@ public class Application extends Sprite
 
     private function layout():void
     {
-        //_bg.width = stage.stageWidth;
-        //_bg.height = stage.stageHeight;
+        _bg.width = stage.stageWidth;
+        _bg.height = stage.stageHeight;
 
         _header.y = 20;
         _header.setSize(stage.stageWidth, 50);
-        _line.x = _header.width/2 - _line.width/2;
-        _line.width = 360;
 
-        _menu.x = 40;
         _menu.y = 100;
-        _menu.setSize(stage.stageWidth, stage.stageHeight);
+        _menu.setSize(stage.stageWidth, 50);
 
-        _help.setSize(stage.stageWidth, stage.stageHeight - 50);
+        _help.setSize(stage.stageWidth, stage.stageHeight);
 
         _homeBtn.x = stage.stageWidth - _homeBtn.width - 20;
         _homeBtn.y = 10;
@@ -167,25 +162,23 @@ public class Application extends Sprite
         layout();
 
         removeChild(_menu);
-        //removeChild(_help);
-        _help.visible = false;
+        removeChild(_help);
         addChild(_container);
     }
 
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
         removeChild(_container);
-        _header.title = "keuken omvormer";
-        _homeBtn.visible = false;
+        _appModel.currentPage = "keuken omvormer";
+        _homeBtn.visible= false;
 
         addChild(_menu);
-        //addChild(_help);
-        _help.visible = true;
+        addChild(_help);
     }
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-        trace("recept = "+_appModel.currentRecipe);
+        trace("recept = "+_appModel.currentRecipe.name);
     }
 }
 }

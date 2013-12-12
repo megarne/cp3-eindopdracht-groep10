@@ -197,6 +197,7 @@ public class Add extends Sprite
             //trace(_inputName.text);
 
             var recipeName:String = _inputName.text;
+            recipeName = "BLOEMSAP"
 
              for each( var input:AddInputFields in _arrIngredients)
              {
@@ -208,8 +209,6 @@ public class Add extends Sprite
                  var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
 
 
-                 //hoe ingredient2 op een goeie manier aanspreken?
-                 //nog geen preparation veld voorzien
                  if(!ownRecipesFile.exists){
                   var writeStream:FileStream = new FileStream();
                   writeStream.open(ownRecipesFile, FileMode.WRITE);
@@ -243,7 +242,7 @@ public class Add extends Sprite
     {
         if(inputError1 != null)
         {
-            if(_inputName.text != null)
+            if(_inputName.text != "")
             {
                 inputError1.visible = false;
             }
