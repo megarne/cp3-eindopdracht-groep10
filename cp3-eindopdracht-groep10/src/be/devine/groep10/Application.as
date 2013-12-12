@@ -48,6 +48,7 @@ public class Application extends Sprite
     private var _homeBtn:Button;
 
     private var _recipes:Recipes;
+    private var _ownRecipes:Recipes;
     private var _add:Add;
     private var _detail:Detail;
     private var _container:Sprite;
@@ -73,6 +74,7 @@ public class Application extends Sprite
         addChild(_help);
 
         _recipes = new Recipes();
+        _ownRecipes = new Recipes();
         _add = new Add();
 
         var homeBtnSkin:Bitmap = new ButtonTexture();
@@ -121,6 +123,9 @@ public class Application extends Sprite
         _recipes.y = 100;
         _recipes.setSize(stage.stageWidth, 50);
 
+        _ownRecipes.x = 100;
+        _ownRecipes.setSize(stage.stageWidth, 50);
+
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
     }
@@ -144,8 +149,10 @@ public class Application extends Sprite
                 break;
 
             case "eigen recepten":
-                _recipes = new Recipes();
-                _container.addChild(_recipes);
+                    //HIER EIGEN RECEPTEN INLADEN
+                _ownRecipes = new Recipes();
+                _container.addChild(_ownRecipes);
+                _appModel.loadOwnRecipes();
                 break;
 
             case "recept toevoegen":
