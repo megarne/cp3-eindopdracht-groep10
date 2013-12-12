@@ -32,6 +32,7 @@ public class AddInputFields extends Sprite
 
             _inputIngredient = new TextInput();
             _inputIngredient.text = "Naam Ingredient";
+            _inputIngredient.textEditorProperties.color= 0x000000;
             _inputIngredient.addEventListener( FeathersEventType.FOCUS_IN, inputFocusInHandler );
             _inputContainer.addChild( _inputIngredient );
 
@@ -65,6 +66,7 @@ public class AddInputFields extends Sprite
         {
             var inputFocusIn:TextInput = event.currentTarget as TextInput;
             inputFocusIn.text = "";
+            inputFocusIn.textEditorProperties.color=0x000000;
         }
 
     public function get inputIngredient():TextInput
