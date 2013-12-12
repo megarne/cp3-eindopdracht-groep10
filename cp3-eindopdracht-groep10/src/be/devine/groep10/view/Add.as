@@ -36,6 +36,8 @@ public class Add extends Sprite
 
     private var _inputIngredient:AddInputFields;
 
+    private var _inputPreparation:TextInput;
+
     private var _arrIngredients:Array;
 
     private var _moreBtn:Button;
@@ -61,12 +63,21 @@ public class Add extends Sprite
 
         _inputName = new TextInput();
         _inputName.text = "Naam recept";
-        _inputName.textEditorProperties.color = 0x222222;
+        _inputName.textEditorProperties.color = 0x000000;
         _inputName.height = 60;
         _inputName.selectRange( 0, _inputName.text.length );
         _inputName.addEventListener( FeathersEventType.FOCUS_IN, inputFocusInHandler );
         _inputName.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild( _inputName );
+
+        _inputPreparation = new TextInput();
+        _inputPreparation.text = "Maak me";
+        _inputPreparation.textEditorProperties.color = 0x000000;
+        _inputPreparation.height=60;
+
+        _inputPreparation.addEventListener(FeathersEventType.FOCUS_IN, inputFocusInHandler);
+        _inputPreparation.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
+        _inputContainer.addChild(_inputPreparation);
 
         _inputIngredient = new AddInputFields();
         //_inputIngredient = new TextInput();
@@ -185,39 +196,42 @@ public class Add extends Sprite
 
             //trace(_inputName.text);
 
+            var recipeName:String = _inputName.text;
+            recipeName = "BLOEMSAP"
+
              for each( var input:AddInputFields in _arrIngredients)
              {
+
              trace("[ADD]" + input.inputIngredient.text);
              trace("[ADD]" + input.inputAmount.text);
              trace("[ADD]" + input.unit.selectedItem.text);
 
-                 /*var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
+                 var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
 
-                // var songsFile:File = File.applicationStorageDirectory.resolvePath("songs.json")
-                 //Recepten JSON aanmaken als die nog niet bestaat, niet nodig maar wel eventjes er in gestoken, wegens why not?
+
                  if(!ownRecipesFile.exists){
                   var writeStream:FileStream = new FileStream();
                   writeStream.open(ownRecipesFile, FileMode.WRITE);
                   writeStream.writeUTFBytes(JSON.stringify([
 
                       {
-                          "name": "pasta",
+                          "name": recipeName,
                           "ingredients":
                           {
                               "ingredient1":
                               {
-                                  "ingredientname":"bloem",
-                                  "ingredientvalue":"125",
-                                  "ingredientunit":"gr"
+                                  "ingredientname":input.inputIngredient.text,
+                                  "ingredientvalue":input.inputAmount.text,
+                                  "ingredientunit":input.unit.selectedItem.text
                               }
                           },
-                          "preparation":"Meng de bloem, eitjes in een kom. Voeg de suiker toe en meng alles door elkaar. 2. Voeg rustig de melk toe en blijf het geheel opkloppen tot je een vloeibare maar glad geheel krijgt. TIP! Gebruik zelfrijzende bloem en laat het beslag een uurtje rusten voor je begint te bakken. Op deze manier krijg je een luchtigere pannenkoek. 3. Laat een pan met een klontje boter goed heet worden en giet er beslag in voor 1 pannenkoek. 4. Draai de pannenkoek eens de luchtbelletjes bovenaan opdrogen en openspringen. TIP! Zorg ervoor dat de pan heet genoeg is anders blijft de pannenkoek kleven en kan je deze niet draaien. "
+                          "preparation":" meng alles samen tot een lekkere emulsie "
 
                       }
 
                   ]));
                   writeStream.close();
-                  }*/
+                  }
 
 
              }

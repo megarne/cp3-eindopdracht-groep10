@@ -45,12 +45,15 @@ public class Recipes extends Sprite
 
 
         //als je scrolt over de recepten krijg je een fout over "renderer map contains bad data"
+        //om deze op te roepen moet je      _listCollection.push(recipe.name); uit commentaar halen en de andere er in zitten
+        //ROCKET SCIENCE
         for each(var recipe in _appModel.recipes)
         {
            trace(recipe.name);
 
 
             _listCollection.push(recipe);
+            //  _listCollection.push(recipe.name);
         }
 
         _recipeList.dataProvider = _listCollection;
@@ -68,7 +71,8 @@ public class Recipes extends Sprite
 
     private function display():void
     {
-        //_recipeList.selectedItem = _appModel.currentPage;
+        //WASDADIER?
+        _recipeList.selectedItem = _appModel.currentPage;
 
         var layout:VerticalLayout = new VerticalLayout();
         layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;

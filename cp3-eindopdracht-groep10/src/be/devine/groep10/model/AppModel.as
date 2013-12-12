@@ -64,15 +64,7 @@ public class AppModel extends EventDispatcher
 
         var recipesFile:File = File.documentsDirectory.resolvePath("/Users/laurens/IdeaProjects/cp3-eindopdracht-groep10/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
 
-        //Recepten JSON aanmaken als die nog niet bestaat, niet nodig maar wel eventjes er in gestoken, wegens why not?
-        /*if(!recipesFile.exists){
-            var writeStream:FileStream = new FileStream();
-            writeStream.open(recipesFile, FileMode.WRITE);
-            writeStream.writeUTFBytes(JSON.stringify([
 
-            ]));
-            writeStream.close();
-        }*/
         var readStream:FileStream = new FileStream();
         readStream.open(recipesFile, FileMode.READ);
         var parsedJSON:Array = JSON.parse(
@@ -86,30 +78,7 @@ public class AppModel extends EventDispatcher
             _recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
         }
 
-        //trace(_recipes.length);
-        //this.recipes = recipes;
-
-
-       /* var urlLoader:URLLoader = new URLLoader();
-        urlLoader.addEventListener(Event.COMPLETE, jsonCompleteHandler);
-        urlLoader.load(new URLRequest("assets/json/recipes.json"));*/
     }
-
-  /* private function jsonCompleteHandler(event:Event):void
-    {
-        var raw:String = String(event.target.data);
-        var recept:Array = JSON.parse(raw) as Array;
-
-        for (var i:int = 0; i < recept.length; i++)
-        {
-            var recipe:String = recept[i].name;
-            _recipes.push(recipe);
-        }
-
-        trace(_recipes);
-        //_recipes.push("spaghetti", "sushi", "patatten", "griekse salade", "yoghurt", "hutsepot");
-    }*/
-
     public function get currentPage():String
     {
         return _currentPage;
