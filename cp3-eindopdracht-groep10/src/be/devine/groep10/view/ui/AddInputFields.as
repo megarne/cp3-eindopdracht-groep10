@@ -39,7 +39,7 @@ public class AddInputFields extends Sprite
             _inputAmount = new TextInput();
             _inputAmount.text = "Hoeveelheid";
             _inputAmount.restrict = '0-9';
-            _inputAmount.width = 100;
+            //_inputAmount.width = 100;
             _inputAmount.y = _inputIngredient.y + (_inputAmount.text.length) + 40;
             _inputAmount.textEditorProperties.softKeyboardType = SoftKeyboardType.NUMBER;
             _inputAmount.addEventListener( FeathersEventType.FOCUS_IN, inputFocusInHandler );
@@ -57,7 +57,7 @@ public class AddInputFields extends Sprite
             _unit.labelField = "text";
             _unit.selectedIndex = 0;
             _unit.width = _inputAmount.width;
-            _unit.x = _inputContainer.width + 5;
+            _unit.x = _inputAmount.width - _unit.width;
             _unit.y = _inputAmount.y;
             _inputContainer.addChild( _unit );
         }
