@@ -1,4 +1,10 @@
-
+/**
+ * Created with IntelliJ IDEA.
+ * User: zoevankuyk
+ * Date: 2/12/13
+ * Time: 22:45
+ * To change this template use File | Settings | File Templates.
+ */
 package be.devine.groep10.view.ui
 {
 

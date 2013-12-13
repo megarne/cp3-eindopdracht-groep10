@@ -80,6 +80,7 @@ public class ConverterTheme extends DisplayListWatcher
         protected static const LIGHT_TEXT_COLOR:uint = 0x41dfc8;
         protected static const WHITE_TEXT_COLOR:uint = 0xffffff;
         protected static const DARK_TEXT_COLOR:uint = 0x1a1816;
+        protected static const GREY_TEXT_COLOR:uint = 0xc1c1c1;
         protected static const SELECTED_TEXT_COLOR:uint = 0x00c5a9;
         protected static const DISABLED_TEXT_COLOR:uint = 0x8a8a8a;
         protected static const DARK_DISABLED_TEXT_COLOR:uint = 0x383430;
@@ -385,6 +386,7 @@ public class ConverterTheme extends DisplayListWatcher
             this.radioSelectedDisabledIconTexture = this.atlas.getTexture("radio-selected-disabled-icon");
 
             this.checkUpIconTexture = backgroundSkinTexture;
+
             this.checkDownIconTexture = backgroundDownSkinTexture;
             this.checkDisabledIconTexture = backgroundDisabledSkinTexture;
             this.checkSelectedUpIconTexture = this.atlas.getTexture("check-selected-up-icon");
@@ -628,10 +630,6 @@ public class ConverterTheme extends DisplayListWatcher
             defaultIcon.textureScale = this.scale;
             defaultIcon.snapToPixels = true;
             button.defaultIcon = defaultIcon;
-
-            /*button.defaultSkin = new Image(  );
-            button.downSkin = new Image( downTexture );
-            button.hoverSkin = new Image( hoverTexture );*/
         }
 
         protected function callToActionButtonInitializer(button:Button):void
@@ -1165,8 +1163,8 @@ public class ConverterTheme extends DisplayListWatcher
         input.paddingBottom = 10 * this.scale;
         input.paddingLeft = input.paddingRight = 14 * this.scale;
         input.textEditorProperties.fontFamily = "BebasNeue";
-        input.textEditorProperties.fontSize = 24 * this.scale;
-        input.textEditorProperties.color = WHITE_TEXT_COLOR;
+        input.textEditorProperties.fontSize = 30 * this.scale;
+        input.textEditorProperties.color = GREY_TEXT_COLOR;
 
         input.promptProperties.textFormat = this.lightTextFormat;
         input.promptProperties.embedFonts = true;

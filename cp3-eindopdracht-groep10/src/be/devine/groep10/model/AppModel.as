@@ -57,7 +57,7 @@ public class AppModel extends EventDispatcher
         //var recipesFile:File = File.applicationStorageDirectory.resolvePath("testRecipes.json");
 
 
-        var recipesFile:File = File.documentsDirectory.resolvePath("/Users/laurens/IdeaProjects/cp3-eindopdracht-groep10/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
+        var recipesFile:File = File.documentsDirectory.resolvePath("/Users/zoevankuyk/Documents/Devine/2013 - 2014/CPIII/CPIII_DEEL2/CPIII_opdracht/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
 
 
         var readStream:FileStream = new FileStream();
@@ -69,7 +69,7 @@ public class AppModel extends EventDispatcher
         //var recipes:Array = [];
         for each(var recipe:Object in parsedJSON) {
             //trace("[APPMODEL]" + parsedJSON);
-           // trace("[APPMODEL] [FOREACH] " + recipe.name);
+            // trace("[APPMODEL] [FOREACH] " + recipe.name);
             _recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
         }
 
@@ -78,7 +78,7 @@ public class AppModel extends EventDispatcher
     public function loadOwnRecipes():void {
 
 
-      /// trace("[loadOwnRecipes]");
+        /// trace("[loadOwnRecipes]");
         //SLECHT GEBRUIK VAN CODE? 2MAAL BIJNA IDENTIEKE CODE IN 2 KLASSES
         var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
         if (!ownRecipesFile.exists) {
@@ -109,7 +109,7 @@ public class AppModel extends EventDispatcher
                 trace("[APPMODEL] [LOAD OWN RECIPES]" + ownRecipe.name);
 
                 //null reference
-               // _ownRecipes.push(RecipesVOFactory.createRecipesVOFromObject(ownRecipe));
+                // _ownRecipes.push(RecipesVOFactory.createRecipesVOFromObject(ownRecipe));
             }
         }
 

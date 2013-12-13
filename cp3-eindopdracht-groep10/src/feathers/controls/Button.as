@@ -92,9 +92,6 @@ package feathers.controls
 		/**
 		 * @private
 		 */
-
-
-
 		private static const HELPER_POINT:Point = new Point();
 
 		/**

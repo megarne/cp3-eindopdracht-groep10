@@ -1,4 +1,10 @@
-
+/**
+ * Created with IntelliJ IDEA.
+ * User: zoevankuyk
+ * Date: 1/12/13
+ * Time: 19:49
+ * To change this template use File | Settings | File Templates.
+ */
 package be.devine.groep10
 {
 import be.devine.groep10.model.AppModel;
@@ -9,15 +15,7 @@ import be.devine.groep10.view.Recipes;
 import be.devine.groep10.view.ui.Help;
 
 import feathers.controls.Header;
-
-import feathers.controls.text.TextFieldTextRenderer;
-import feathers.core.FeathersControl;
 import feathers.themes.ConverterTheme;
-
-import feathers.themes.MetalWorksMobileTheme;
-
-import feathers.themes.ConverterTheme;
-
 
 import flash.display.Bitmap;
 
@@ -36,6 +34,10 @@ public class Application extends Sprite
     private static const BackgroundClass:Class;
     private var _bg:Image;
 
+    [Embed(source = "/../assets/custom/bgImage.png")]
+    private static const ImageBgClass:Class;
+    private var _bgImage:Image;
+
     private var _appModel:AppModel;
 
     private var _header:Header;
@@ -52,20 +54,25 @@ public class Application extends Sprite
 
     private var _recipes:Recipes;
     private var _ownRecipes:Recipes;
-
     private var _add:Add;
     private var _detail:Detail;
+
     private var _container:Sprite;
 
     public function Application()
     {
-        //_bg = Image.fromBitmap(new BackgroundClass());
-        //addChild(_bg);
+        this.addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
+
+        _bg = Image.fromBitmap(new BackgroundClass());
+        addChild(_bg);
+
+        _bgImage = Image.fromBitmap(new ImageBgClass());
+        addChild(_bgImage);
 
         new ConverterTheme();
 
         _header = new Header();
-        _header.title = "Keuken Konverter";
+        _header.title = "Keuken omvormer";
         addChild( _header );
         _line = Image.fromBitmap(new LineTexture());
         _line.y = 40;
@@ -82,18 +89,17 @@ public class Application extends Sprite
 
         _recipes = new Recipes();
         _ownRecipes = new Recipes();
+
         _add = new Add();
 
         var homeBtnSkin:Bitmap = new ButtonTexture();
         var homeBtnTexture:Texture = Texture.fromBitmap(homeBtnSkin);
-        _homeBtn = new Button(homeBtnTexture);
+        _homeBtn = new Button(homeBtnTexture, "");
 
-        addChild(_homeBtn);
+        _header.addChild(_homeBtn);
         _homeBtn.visible = false;
 
         _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
-
-        addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
     }
 
     private function addedHandler(event:starling.events.Event):void
@@ -101,6 +107,9 @@ public class Application extends Sprite
         removeEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
         stage.addEventListener(starling.events.Event.RESIZE, resizeHandler);
         layout();
+
+        _bgImage.x = stage.stageWidth/2 - _bgImage.width/2;
+        _bgImage.y = _menu.y + _menu.height + _bgImage.height + 50;
     }
 
     private function resizeHandler(event:starling.events.Event):void
@@ -108,11 +117,13 @@ public class Application extends Sprite
         layout();
     }
 
-    //CENTREREN VAN DE LIJSTJES
     private function layout():void
     {
-        //_bg.width = stage.stageWidth;
-        //_bg.height = stage.stageHeight;
+        _bg.width = stage.stageWidth;
+        _bg.height = stage.stageHeight;
+
+        _bgImage.x = stage.stageWidth/2 - _bgImage.width/2;
+        _bgImage.y = _menu.y + _menu.height + _bgImage.height + 50;
 
         _header.y = 20;
         _header.setSize(stage.stageWidth, 50);
@@ -125,19 +136,16 @@ public class Application extends Sprite
 
         _help.setSize(stage.stageWidth, stage.stageHeight - 50);
 
-        _homeBtn.x = stage.stageWidth - _homeBtn.width - 20;
-        _homeBtn.y = 10;
+        _homeBtn.x = 20;
+        _homeBtn.y = _header.height/2 - _homeBtn.height/2 - 5;
 
         _recipes.y = 100;
         _recipes.setSize(stage.stageWidth, 50);
 
-
         _ownRecipes.y = 100;
         _ownRecipes.setSize(stage.stageWidth, 50);
 
-
         _add.x = 70;
-
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
     }
@@ -179,32 +187,30 @@ public class Application extends Sprite
                 break;
         }
 
+
         layout();
 
         removeChild(_menu);
         //removeChild(_help);
         _help.visible = false;
+        _bgImage.visible = false;
         addChild(_container);
     }
 
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
         removeChild(_container);
-
-        _appModel.currentPage = "keuken Konvertor";
-        _homeBtn.visible= false;
-
         _header.title = "keuken omvormer";
         _homeBtn.visible = false;
 
         addChild(_menu);
         //addChild(_help);
         _help.visible = true;
+        _bgImage.visible = true;
     }
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-        trace("[APPLICATION] recept = "+_appModel.currentRecipe.name);
         trace("recept = "+_appModel.currentRecipe);
     }
 }

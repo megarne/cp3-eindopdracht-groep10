@@ -50,7 +50,9 @@
     <SubTexture name="page-indicator-normal-skin" x="111" y="191" width="16" height="16"/>
     <SubTexture name="page-indicator-selected-skin" x="111" y="171" width="16" height="16"/>
     <SubTexture name="picker-list-icon" x="419" y="95" width="20" height="22"/>
-    <SubTexture name="picker-list-item-selected-icon" x="23" y="135" width="32" height="33"/>
+
+    <SubTexture name="picker-list-item-selected-icon" x="23" y="139" width="32" height="29"/>
+
     <SubTexture name="radio-selected-disabled-icon" x="59" y="135" width="32" height="32"/>
     <SubTexture name="radio-selected-down-icon" x="39" y="187" width="32" height="32"/>
     <SubTexture name="radio-selected-up-icon" x="3" y="187" width="32" height="32"/>

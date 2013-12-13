@@ -1,3 +1,10 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: zoevankuyk
+ * Date: 5/12/13
+ * Time: 21:39
+ * To change this template use File | Settings | File Templates.
+ */
 package be.devine.groep10.view
 {
 import be.devine.groep10.view.ui.AddInputFields;
@@ -56,25 +63,14 @@ public class Add extends Sprite
 
         _inputName = new TextInput();
         _inputName.text = "Naam recept";
-        _inputName.textEditorProperties.color = 0x000000;
         _inputName.height = 60;
+        //_inputName.textEditorProperties.fontsize(35);
         _inputName.selectRange( 0, _inputName.text.length );
         _inputName.addEventListener( FeathersEventType.FOCUS_IN, inputFocusInHandler );
         _inputName.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild( _inputName );
 
-        _inputPreparation = new TextInput();
-        _inputPreparation.text = "Maak me";
-        _inputPreparation.textEditorProperties.color = 0x000000;
-        _inputPreparation.height=60;
-
-        _inputPreparation.addEventListener(FeathersEventType.FOCUS_IN, inputFocusInHandler);
-        _inputPreparation.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
-        _inputContainer.addChild(_inputPreparation);
-
         _inputIngredient = new AddInputFields();
-        //_inputIngredient = new TextInput();
-        //_inputIngredient.textEditorProperties.color = 0x222222;
         _inputIngredient.y = _inputName.y + _inputIngredient.height + 40;
         _inputIngredient.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_inputIngredient);
@@ -83,6 +79,7 @@ public class Add extends Sprite
         _moreBtn = new Button();
         _moreBtn.label = "+ extra ingredient";
         _moreBtn.y = _inputContainer.height + _moreBtn.height + 60;
+        _inputContainer.addChild( _moreBtn );
         _moreBtn.addEventListener( starling.events.Event.TRIGGERED, buttonTriggeredHandler );
         _inputContainer.addChild( _moreBtn );
 
@@ -98,14 +95,27 @@ public class Add extends Sprite
     {
         _explicitWidth = w;
         _explicitHeight = h;
-        _inputContainer.x = Math.round((_explicitWidth - _inputContainer.width) * .5);
+        //_inputContainer.x = Math.round((_explicitWidth - _inputContainer.width) * .5);
+
+        /*_inputContainer.width = _explicitWidth;
+        _inputContainer.height = _explicitHeight;*/
+
+        _inputName.width = _explicitWidth - 140;
+
+        _moreBtn.width = _inputName.width;
+        _addBTn.width = _inputName.width;
+
+        _inputIngredient.inputIngredient.width = _explicitWidth - 140, _explicitHeight;
+        _inputIngredient.inputAmount.width = _explicitWidth/2 - 100, _explicitHeight;
+
+        _inputIngredient.unit.x = _inputName.x + _inputName.width - _inputIngredient.unit.width;
     }
 
     private function inputFocusInHandler(event:starling.events.Event):void
     {
         var inputFocusIn:TextInput = event.currentTarget as TextInput;
         inputFocusIn.text = "";
-        inputFocusIn.textEditorProperties.color = 0x000000;
+        inputFocusIn.textEditorProperties.color = 0x00c5a9;
     }
 
     private function buttonTriggeredHandler(event:starling.events.Event):void
@@ -176,12 +186,16 @@ public class Add extends Sprite
             }
         }
 
-        if(_noErrors.length >= 1)
+        if(_noErrors.length >= 3)
         {
             removeChild(inputError1);
             removeChild(inputError2);
             removeChild(inputError3);
             removeChild(_scrollContainer);
+
+            //hier alle input in json steken en doorsturen naar recepten-pagina
+            //trace("hier alle input in json steken en doorsturen naar recepten-pagina");
+
 
             //trace(_inputName.text);
 
@@ -196,10 +210,10 @@ public class Add extends Sprite
 
                  var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
 
-                  //Momenteel bestaat de file al, dus schrijft die deze niet over
-                 //dit is nog een probleem op zich, hij schrijft de data over en append deze niet
-                 //ook een 2e ingredient doet hij niet
-                // if(!ownRecipesFile.exists){
+
+                 //hoe ingredient2 op een goeie manier aanspreken?
+                 //nog geen preparation veld voorzien
+                 if(!ownRecipesFile.exists){
                   var writeStream:FileStream = new FileStream();
                   writeStream.open(ownRecipesFile, FileMode.WRITE);
                   writeStream.writeUTFBytes(JSON.stringify([
@@ -208,7 +222,6 @@ public class Add extends Sprite
                           "name": recipeName,
                           "ingredients":
                           {
-
                               "ingredient1":
                               {
                                   "ingredientname":input.inputIngredient.text,
@@ -221,9 +234,8 @@ public class Add extends Sprite
                       }
 
                   ]));
-                     trace("[ADD]" + ownRecipesFile);
                   writeStream.close();
-                 // }
+                  }
 
 
              }
@@ -232,7 +244,7 @@ public class Add extends Sprite
 
     private function inputChangeHandler(event:starling.events.Event):void
     {
-      /*  if(inputError1 != null)
+        if(inputError1 != null)
         {
             if(_inputName.text != null)
             {
@@ -242,7 +254,7 @@ public class Add extends Sprite
             {
                 inputError1.visible = true;
             }
-        }*/
+        }
 
         if(inputError2 != null)
         {
