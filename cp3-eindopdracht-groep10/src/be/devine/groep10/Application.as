@@ -9,11 +9,15 @@ import be.devine.groep10.view.Recipes;
 import be.devine.groep10.view.ui.Help;
 
 import feathers.controls.Header;
+<<<<<<< HEAD
 import feathers.controls.text.TextFieldTextRenderer;
 import feathers.core.FeathersControl;
 import feathers.themes.ConverterTheme;
 
 import feathers.themes.MetalWorksMobileTheme;
+=======
+import feathers.themes.ConverterTheme;
+>>>>>>> 33dae38b1a9b0f166065442d075a0ed658503ca7
 
 import flash.display.Bitmap;
 
@@ -35,6 +39,10 @@ public class Application extends Sprite
     private var _appModel:AppModel;
 
     private var _header:Header;
+    [Embed(source = "/../assets/custom/line.png")]
+    private static const LineTexture:Class;
+    private var _line:Image;
+
     private var _menu:Menu;
     private var _help:Help;
 
@@ -51,14 +59,17 @@ public class Application extends Sprite
 
     public function Application()
     {
-        _bg = Image.fromBitmap(new BackgroundClass());
-        addChild(_bg);
+        //_bg = Image.fromBitmap(new BackgroundClass());
+        //addChild(_bg);
 
         new ConverterTheme();
 
         _header = new Header();
         _header.title = "Keuken Konverter";
         addChild( _header );
+        _line = Image.fromBitmap(new LineTexture());
+        _line.y = 40;
+        _header.addChild(_line);
 
         _appModel = AppModel.getInstance();
         _appModel.load();
@@ -83,10 +94,7 @@ public class Application extends Sprite
         _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
 
         addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
-
-
     }
-
 
     private function addedHandler(event:starling.events.Event):void
     {
@@ -103,16 +111,19 @@ public class Application extends Sprite
     //CENTREREN VAN DE LIJSTJES
     private function layout():void
     {
-        _bg.width = stage.stageWidth;
-        _bg.height = stage.stageHeight;
+        //_bg.width = stage.stageWidth;
+        //_bg.height = stage.stageHeight;
 
         _header.y = 20;
         _header.setSize(stage.stageWidth, 50);
+        _line.x = _header.width/2 - _line.width/2;
+        _line.width = 360;
 
+        _menu.x = 40;
         _menu.y = 100;
-        _menu.setSize(stage.stageWidth, 50);
+        _menu.setSize(stage.stageWidth, stage.stageHeight);
 
-        _help.setSize(stage.stageWidth, stage.stageHeight);
+        _help.setSize(stage.stageWidth, stage.stageHeight - 50);
 
         _homeBtn.x = stage.stageWidth - _homeBtn.width - 20;
         _homeBtn.y = 10;
@@ -120,9 +131,13 @@ public class Application extends Sprite
         _recipes.y = 100;
         _recipes.setSize(stage.stageWidth, 50);
 
+<<<<<<< HEAD
         _ownRecipes.y = 100;
         _ownRecipes.setSize(stage.stageWidth, 50);
 
+=======
+        _add.x = 70;
+>>>>>>> 33dae38b1a9b0f166065442d075a0ed658503ca7
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
     }
@@ -167,23 +182,34 @@ public class Application extends Sprite
         layout();
 
         removeChild(_menu);
-        removeChild(_help);
+        //removeChild(_help);
+        _help.visible = false;
         addChild(_container);
     }
 
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
         removeChild(_container);
+<<<<<<< HEAD
         _appModel.currentPage = "keuken Konvertor";
         _homeBtn.visible= false;
+=======
+        _header.title = "keuken omvormer";
+        _homeBtn.visible = false;
+>>>>>>> 33dae38b1a9b0f166065442d075a0ed658503ca7
 
         addChild(_menu);
-        addChild(_help);
+        //addChild(_help);
+        _help.visible = true;
     }
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
+<<<<<<< HEAD
         trace("[APPLICATION] recept = "+_appModel.currentRecipe.name);
+=======
+        trace("recept = "+_appModel.currentRecipe);
+>>>>>>> 33dae38b1a9b0f166065442d075a0ed658503ca7
     }
 }
 }

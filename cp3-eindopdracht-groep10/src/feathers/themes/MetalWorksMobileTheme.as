@@ -94,7 +94,7 @@ import flash.display.BitmapData;
 		[Embed(source="/../assets/images/metalworks.png")]
 		protected static const ATLAS_IMAGE:Class;
 
-		[Embed(source="/../assets/images/metalworks.xml",mimeType="application/octet-stream")]
+		[Embed(source="/../assets/images/converter.xml",mimeType="application/octet-stream")]
 		protected static const ATLAS_XML:Class;
 
 		[Embed(source="/../assets/fonts/BebasNeue.otf",fontName="BebasNeue",mimeType="application/x-font",embedAsCFF="false")]

@@ -82,6 +82,13 @@ package feathers.controls
 	 */
 	public class Button extends FeathersControl implements IToggle, IFocusDisplayObject
 	{
+        /**
+         * CUSTOM
+         */
+
+        public static const HELP_BUTTON:String = "help-button";
+
+
 		/**
 		 * @private
 		 */
