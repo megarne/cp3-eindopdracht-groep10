@@ -1,10 +1,4 @@
-/**
- * Created with IntelliJ IDEA.
- * User: zoevankuyk
- * Date: 30/11/13
- * Time: 13:48
- * To change this template use File | Settings | File Templates.
- */
+
 package be.devine.groep10.model
 {
 import be.devine.groep10.factory.RecipesVOFactory;
@@ -31,6 +25,7 @@ public class AppModel extends EventDispatcher
     private var currentPageChanged:Boolean;
 
     private var _recipes:Array;
+    private var _ownRecipes:Array;
 
     public static const RECIPE_CHANGED:String = "recipeChanged";
     public static const CURRENT_RECIPE_CHANGED:String = "currentRecipeChanged";
@@ -62,7 +57,7 @@ public class AppModel extends EventDispatcher
         //var recipesFile:File = File.applicationStorageDirectory.resolvePath("testRecipes.json");
 
 
-        var recipesFile:File = File.documentsDirectory.resolvePath("./../src/assets/json/recipes.json");
+        var recipesFile:File = File.documentsDirectory.resolvePath("/Users/laurens/IdeaProjects/cp3-eindopdracht-groep10/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
 
 
         var readStream:FileStream = new FileStream();
@@ -77,6 +72,44 @@ public class AppModel extends EventDispatcher
            // trace("[APPMODEL] [FOREACH] " + recipe.name);
             _recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
         }
+
+    }
+
+    public function loadOwnRecipes():void {
+
+
+       trace("[loadOwnRecipes]");
+        //SLECHT GEBRUIK VAN CODE? 2MAAL BIJNA IDENTIEKE CODE IN 2 KLASSES
+        var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
+        if (!ownRecipesFile.exists) {
+            trace("[APPMODEL] [LOADOWNRECIPES] FILE BESTAAT NIET//LEEG JSON FILE AANMAKEN");
+            var writeStream:FileStream = new FileStream();
+            writeStream.open(ownRecipesFile, FileMode.WRITE);
+            writeStream.writeUTFBytes(JSON.stringify([
+
+
+
+            ]));
+            writeStream.close();
+        } else {
+            trace('ELSE LOAD OWN RECIPES');
+            var readStream:FileStream = new FileStream();
+            readStream.open(ownRecipesFile, FileMode.READ);
+            var parsedJSON:Array = JSON.parse(
+                    readStream.readUTFBytes(readStream.bytesAvailable)
+            ) as Array;
+
+            //PARSEDJSON
+            readStream.close();
+
+
+
+            for each(var ownRecipe:Object in parsedJSON) {
+                trace("[APPMODEL] [LOAD OWN RECIPES]" + ownRecipe.name);
+                _ownRecipes.push(RecipesVOFactory.createRecipesVOFromObject(ownRecipe));
+            }
+        }
+
 
     }
     public function get currentPage():String
@@ -137,6 +170,18 @@ public class AppModel extends EventDispatcher
             currentRecipeChanged = true;
             _currentRecipe = value;
             dispatchEvent(new Event(CURRENT_RECIPE_CHANGED));
+        }
+    }
+
+    public function get ownRecipes():Array {
+        return _ownRecipes;
+    }
+
+    public function set ownRecipes(value:Array):void {
+
+        if (value != _ownRecipes) {
+            _ownRecipes = value;
+            dispatchEvent(new Event(RECIPE_CHANGED));
         }
     }
 }

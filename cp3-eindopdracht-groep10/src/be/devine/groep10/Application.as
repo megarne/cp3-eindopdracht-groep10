@@ -1,10 +1,4 @@
-/**
- * Created with IntelliJ IDEA.
- * User: zoevankuyk
- * Date: 1/12/13
- * Time: 19:49
- * To change this template use File | Settings | File Templates.
- */
+
 package be.devine.groep10
 {
 import be.devine.groep10.model.AppModel;
@@ -17,6 +11,7 @@ import be.devine.groep10.view.ui.Help;
 import feathers.controls.Header;
 import feathers.controls.text.TextFieldTextRenderer;
 import feathers.core.FeathersControl;
+import feathers.themes.ConverterTheme;
 
 import feathers.themes.MetalWorksMobileTheme;
 
@@ -48,6 +43,8 @@ public class Application extends Sprite
     private var _homeBtn:Button;
 
     private var _recipes:Recipes;
+    private var _ownRecipes:Recipes;
+
     private var _add:Add;
     private var _detail:Detail;
     private var _container:Sprite;
@@ -57,10 +54,10 @@ public class Application extends Sprite
         _bg = Image.fromBitmap(new BackgroundClass());
         addChild(_bg);
 
-        new MetalWorksMobileTheme();
+        new ConverterTheme();
 
         _header = new Header();
-        _header.title = "Keuken omvormer";
+        _header.title = "Keuken Konverter";
         addChild( _header );
 
         _appModel = AppModel.getInstance();
@@ -73,11 +70,12 @@ public class Application extends Sprite
         addChild(_help);
 
         _recipes = new Recipes();
+        _ownRecipes = new Recipes();
         _add = new Add();
 
         var homeBtnSkin:Bitmap = new ButtonTexture();
         var homeBtnTexture:Texture = Texture.fromBitmap(homeBtnSkin);
-        _homeBtn = new Button(homeBtnTexture, "");
+        _homeBtn = new Button(homeBtnTexture);
 
         addChild(_homeBtn);
         _homeBtn.visible = false;
@@ -102,6 +100,7 @@ public class Application extends Sprite
         layout();
     }
 
+    //CENTREREN VAN DE LIJSTJES
     private function layout():void
     {
         _bg.width = stage.stageWidth;
@@ -120,6 +119,9 @@ public class Application extends Sprite
 
         _recipes.y = 100;
         _recipes.setSize(stage.stageWidth, 50);
+
+        _ownRecipes.y = 100;
+        _ownRecipes.setSize(stage.stageWidth, 50);
 
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
@@ -144,8 +146,11 @@ public class Application extends Sprite
                 break;
 
             case "eigen recepten":
-                _recipes = new Recipes();
-                _container.addChild(_recipes);
+                _ownRecipes = new Recipes();
+                _appModel.addEventListener(AppModel.CURRENT_RECIPE_CHANGED, recipeChangedHandler);
+
+                _container.addChild(_ownRecipes);
+                _appModel.loadOwnRecipes();
                 break;
 
             case "recept toevoegen":
@@ -169,7 +174,7 @@ public class Application extends Sprite
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
         removeChild(_container);
-        _appModel.currentPage = "keuken omvormer";
+        _appModel.currentPage = "keuken Konvertor";
         _homeBtn.visible= false;
 
         addChild(_menu);
@@ -178,7 +183,7 @@ public class Application extends Sprite
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-        trace("recept = "+_appModel.currentRecipe.name);
+        trace("[APPLICATION] recept = "+_appModel.currentRecipe.name);
     }
 }
 }

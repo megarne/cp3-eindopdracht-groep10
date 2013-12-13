@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: zoevankuyk
- * Date: 5/12/13
- * Time: 21:39
- * To change this template use File | Settings | File Templates.
- */
 package be.devine.groep10.view
 {
 import be.devine.groep10.view.ui.AddInputFields;
@@ -183,21 +176,16 @@ public class Add extends Sprite
             }
         }
 
-        if(_noErrors.length >= 3)
+        if(_noErrors.length >= 1)
         {
             removeChild(inputError1);
             removeChild(inputError2);
             removeChild(inputError3);
             removeChild(_scrollContainer);
 
-            //hier alle input in json steken en doorsturen naar recepten-pagina
-            //trace("hier alle input in json steken en doorsturen naar recepten-pagina");
-
-
             //trace(_inputName.text);
 
             var recipeName:String = _inputName.text;
-            recipeName = "BLOEMSAP"
 
              for each( var input:AddInputFields in _arrIngredients)
              {
@@ -208,8 +196,10 @@ public class Add extends Sprite
 
                  var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
 
-
-                 if(!ownRecipesFile.exists){
+                  //Momenteel bestaat de file al, dus schrijft die deze niet over
+                 //dit is nog een probleem op zich, hij schrijft de data over en append deze niet
+                 //ook een 2e ingredient doet hij niet
+                // if(!ownRecipesFile.exists){
                   var writeStream:FileStream = new FileStream();
                   writeStream.open(ownRecipesFile, FileMode.WRITE);
                   writeStream.writeUTFBytes(JSON.stringify([
@@ -218,6 +208,7 @@ public class Add extends Sprite
                           "name": recipeName,
                           "ingredients":
                           {
+
                               "ingredient1":
                               {
                                   "ingredientname":input.inputIngredient.text,
@@ -230,8 +221,9 @@ public class Add extends Sprite
                       }
 
                   ]));
+                     trace("[ADD]" + ownRecipesFile);
                   writeStream.close();
-                  }
+                 // }
 
 
              }
@@ -240,9 +232,9 @@ public class Add extends Sprite
 
     private function inputChangeHandler(event:starling.events.Event):void
     {
-        if(inputError1 != null)
+      /*  if(inputError1 != null)
         {
-            if(_inputName.text != "")
+            if(_inputName.text != null)
             {
                 inputError1.visible = false;
             }
@@ -250,7 +242,7 @@ public class Add extends Sprite
             {
                 inputError1.visible = true;
             }
-        }
+        }*/
 
         if(inputError2 != null)
         {

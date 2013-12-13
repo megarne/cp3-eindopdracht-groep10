@@ -85,6 +85,13 @@ package feathers.controls
 		/**
 		 * @private
 		 */
+
+        /**
+         * CUSTOM
+         */
+
+        public static const HELP_BUTTON:String = "help-button";
+
 		private static const HELPER_POINT:Point = new Point();
 
 		/**

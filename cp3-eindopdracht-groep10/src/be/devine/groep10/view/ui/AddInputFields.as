@@ -1,10 +1,4 @@
-/**
- * Created with IntelliJ IDEA.
- * User: zoevankuyk
- * Date: 6/12/13
- * Time: 10:44
- * To change this template use File | Settings | File Templates.
- */
+
 package be.devine.groep10.view.ui
 {
 import feathers.controls.PickerList;
@@ -47,6 +41,8 @@ public class AddInputFields extends Sprite
 
             _unit = new PickerList();
 
+
+            //Unitlist moet naar een JSON file geschreven worden.
             var unitList:ListCollection = new ListCollection(
             [
                 { text: "kg"},{ text: "g"},{ text: "el"},{ text: "tl"},{ text: "l"},{ text: "ml"},{ text: "cl"},{ text: "mg"},{ text: "°C"},{ text: "°F"},{ text: "°K"}
@@ -65,7 +61,7 @@ public class AddInputFields extends Sprite
         private function inputFocusInHandler(event:starling.events.Event):void
         {
             var inputFocusIn:TextInput = event.currentTarget as TextInput;
-            inputFocusIn.text = "";
+            //inputFocusIn.text = "";
             inputFocusIn.textEditorProperties.color=0x000000;
         }
 
