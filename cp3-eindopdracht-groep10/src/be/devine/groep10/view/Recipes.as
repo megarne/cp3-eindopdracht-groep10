@@ -54,7 +54,7 @@ public class Recipes extends Sprite
         //ROCKET SCIENCE
         for each(var recipe in _appModel.recipes)
         {
-           trace("[RECIPE] "+recipe.name);
+          // trace("[RECIPE] "+recipe.name);
 
 
             _listCollection.push(recipe.name);
@@ -68,12 +68,12 @@ public class Recipes extends Sprite
         if(_appModel.ownRecipes != null)
         {
             for each(var ownRecipe in _appModel.ownRecipes){
-                trace("[RECIPES] [RECIPES] [ownRecipes]" + ownRecipe.name);
+             //   trace("[RECIPES] [RECIPES] [ownRecipes]" + ownRecipe.name);
 
                 _ownListCollection.push(ownRecipe);
             }
         }else{
-            trace("GEEN EIGEN RECEPTEN");
+          //  trace("GEEN EIGEN RECEPTEN");
         }
         //IN COMMENTAAR WANT MOMENTEEL IS OWNRECIPE NOG NULL (ER IS NOG GEEN EIGEN RECEPT TOEGEVOEGD)
        // _ownRecipeList.dataProvider = _listCollection;

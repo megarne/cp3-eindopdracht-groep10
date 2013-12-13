@@ -78,7 +78,7 @@ public class AppModel extends EventDispatcher
     public function loadOwnRecipes():void {
 
 
-       trace("[loadOwnRecipes]");
+      /// trace("[loadOwnRecipes]");
         //SLECHT GEBRUIK VAN CODE? 2MAAL BIJNA IDENTIEKE CODE IN 2 KLASSES
         var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
         if (!ownRecipesFile.exists) {
@@ -100,13 +100,16 @@ public class AppModel extends EventDispatcher
             ) as Array;
 
             //PARSEDJSON
+            trace("[APPMODEL]" + parsedJSON[0].name)
             readStream.close();
 
 
 
             for each(var ownRecipe:Object in parsedJSON) {
                 trace("[APPMODEL] [LOAD OWN RECIPES]" + ownRecipe.name);
-                _ownRecipes.push(RecipesVOFactory.createRecipesVOFromObject(ownRecipe));
+
+                //null reference
+               // _ownRecipes.push(RecipesVOFactory.createRecipesVOFromObject(ownRecipe));
             }
         }
 

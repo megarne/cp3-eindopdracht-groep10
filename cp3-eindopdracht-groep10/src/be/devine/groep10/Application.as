@@ -9,15 +9,15 @@ import be.devine.groep10.view.Recipes;
 import be.devine.groep10.view.ui.Help;
 
 import feathers.controls.Header;
-<<<<<<< HEAD
+
 import feathers.controls.text.TextFieldTextRenderer;
 import feathers.core.FeathersControl;
 import feathers.themes.ConverterTheme;
 
 import feathers.themes.MetalWorksMobileTheme;
-=======
+
 import feathers.themes.ConverterTheme;
->>>>>>> 33dae38b1a9b0f166065442d075a0ed658503ca7
+
 
 import flash.display.Bitmap;
 
@@ -131,13 +131,13 @@ public class Application extends Sprite
         _recipes.y = 100;
         _recipes.setSize(stage.stageWidth, 50);
 
-<<<<<<< HEAD
+
         _ownRecipes.y = 100;
         _ownRecipes.setSize(stage.stageWidth, 50);
 
-=======
+
         _add.x = 70;
->>>>>>> 33dae38b1a9b0f166065442d075a0ed658503ca7
+
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
     }
@@ -190,13 +190,12 @@ public class Application extends Sprite
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
         removeChild(_container);
-<<<<<<< HEAD
+
         _appModel.currentPage = "keuken Konvertor";
         _homeBtn.visible= false;
-=======
+
         _header.title = "keuken omvormer";
         _homeBtn.visible = false;
->>>>>>> 33dae38b1a9b0f166065442d075a0ed658503ca7
 
         addChild(_menu);
         //addChild(_help);
@@ -205,11 +204,8 @@ public class Application extends Sprite
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-<<<<<<< HEAD
         trace("[APPLICATION] recept = "+_appModel.currentRecipe.name);
-=======
         trace("recept = "+_appModel.currentRecipe);
->>>>>>> 33dae38b1a9b0f166065442d075a0ed658503ca7
     }
 }
 }
