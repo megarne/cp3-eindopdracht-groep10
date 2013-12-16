@@ -56,8 +56,12 @@ public class Help extends Sprite
 
     private function addedToStageHandler(event:Event):void
     {
+        removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+
         _bg = new Quad(stage.stageWidth, 600, 0x00c5a9);
         _bgContainer.addChild(_bg);
+
+        _bgContainer.x = stage.stageWidth/2 - _bgContainer.width/2;
 
         _helpBtn = new Button();
         _helpBtn.addEventListener(Event.TRIGGERED, menuUp);
@@ -150,7 +154,7 @@ public class Help extends Sprite
 
         _bgContainer.width = _explicitWidth;
 
-        _bgContainer.x = Math.round((_explicitWidth - _bgContainer.width) * .5);
+        //_bgContainer.x = Math.round((_explicitWidth - _bgContainer.width) * .5);
         _bgContainer.y = _explicitHeight;
     }
 }

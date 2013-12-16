@@ -31,6 +31,8 @@ public class Menu extends Sprite
 
     public function Menu()
     {
+        this.addEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
+
         _appModel = AppModel.getInstance();
 
         _menuList = new List();
@@ -41,6 +43,11 @@ public class Menu extends Sprite
         addChild(_menuList);
 
         display();
+    }
+
+    private function addedToStageHandler(event:starling.events.Event):void
+    {
+        _menuList.x = stage.stageWidth/2 - _menuList.width/2;
     }
 
     private function listChangeHandler(event:starling.events.Event):void
@@ -68,11 +75,7 @@ public class Menu extends Sprite
         _explicitWidth = w;
         _explicitHeight = h;
 
-        //_menuList.x = Math.round((_explicitWidth - _menuList.width) * .5);
-
-
-
-        _menuList.setSize(_explicitWidth - 80, _explicitHeight - 200);
+        _menuList.setSize(_explicitWidth, _explicitHeight);
     }
 }
 }

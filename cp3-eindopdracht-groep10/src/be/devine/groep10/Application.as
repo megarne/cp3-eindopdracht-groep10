@@ -16,6 +16,7 @@ import be.devine.groep10.view.ui.Help;
 
 import feathers.controls.Header;
 import feathers.themes.ConverterTheme;
+import feathers.themes.MetalWorksMobileTheme;
 
 import flash.display.Bitmap;
 
@@ -69,12 +70,16 @@ public class Application extends Sprite
         _bgImage = Image.fromBitmap(new ImageBgClass());
         addChild(_bgImage);
 
-        new ConverterTheme();
+        //new ConverterTheme();
+
+        new MetalWorksMobileTheme();
 
         _header = new Header();
         _header.title = "Keuken omvormer";
         addChild( _header );
+
         _line = Image.fromBitmap(new LineTexture());
+        _line.width = 360;
         _line.y = 40;
         _header.addChild(_line);
 
@@ -108,8 +113,8 @@ public class Application extends Sprite
         stage.addEventListener(starling.events.Event.RESIZE, resizeHandler);
         layout();
 
-        _bgImage.x = stage.stageWidth/2 - _bgImage.width/2;
-        _bgImage.y = _menu.y + _menu.height + _bgImage.height + 50;
+        _bgImage.y = _menu.y + _menu.height - _bgImage.height - 50;
+        _line.x = _header.width/2 - _line.width/2;
     }
 
     private function resizeHandler(event:starling.events.Event):void
@@ -122,19 +127,18 @@ public class Application extends Sprite
         _bg.width = stage.stageWidth;
         _bg.height = stage.stageHeight;
 
-        _bgImage.x = stage.stageWidth/2 - _bgImage.width/2;
+        _bgImage.x = _bg.width/2 - _bgImage.width/2;
         _bgImage.y = _menu.y + _menu.height + _bgImage.height + 50;
 
         _header.y = 20;
         _header.setSize(stage.stageWidth, 50);
         _line.x = _header.width/2 - _line.width/2;
-        _line.width = 360;
 
-        _menu.x = 40;
         _menu.y = 100;
-        _menu.setSize(stage.stageWidth, stage.stageHeight);
+        _menu.setSize(stage.stageWidth - 80, stage.stageHeight - 200);
 
         _help.setSize(stage.stageWidth, stage.stageHeight - 50);
+        //_help.x = (_bg.width - _help.width/2)/2;
 
         _homeBtn.x = 20;
         _homeBtn.y = _header.height/2 - _homeBtn.height/2 - 5;
@@ -145,7 +149,6 @@ public class Application extends Sprite
         _ownRecipes.y = 100;
         _ownRecipes.setSize(stage.stageWidth, 50);
 
-        _add.x = 70;
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
     }

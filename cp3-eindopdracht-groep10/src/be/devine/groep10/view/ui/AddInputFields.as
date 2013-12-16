@@ -34,46 +34,45 @@ public class AddInputFields extends Sprite
         addChild(_inputContainer);
 
         _inputIngredient = new TextInput();
-        _inputIngredient.text = "Naam Ingredient";
-        _inputIngredient.textEditorProperties.color= 0x000000;
-        _inputIngredient.addEventListener( FeathersEventType.FOCUS_IN, inputFocusInHandler );
+        _inputIngredient.prompt = "naam ingredient";
+        //_inputIngredient.width = 320;
         _inputContainer.addChild( _inputIngredient );
 
         _inputAmount = new TextInput();
-        _inputAmount.text = "Hoeveelheid";
-        _inputAmount.restrict = '0-9';
-        //_inputAmount.width = 100;
-        _inputAmount.y = _inputIngredient.y + (_inputAmount.text.length) + 40;
-        _inputAmount.textEditorProperties.softKeyboardType = SoftKeyboardType.NUMBER;
-        _inputAmount.addEventListener( FeathersEventType.FOCUS_IN, inputFocusInHandler );
+        _inputAmount.prompt = "hoeveelheid";
+        _inputAmount.restrict = "0-9";
+        _inputAmount.y = _inputIngredient.y + (_inputAmount.prompt.length) + 50;
         _inputContainer.addChild( _inputAmount );
 
         _unit = new PickerList();
+        _inputContainer.addChild( _unit );
 
         var unitList:ListCollection = new ListCollection(
         [
-                //eenheden uit json halen! want er komen eenheden bij
+            //eenheden uit json halen! want er komen eenheden bij
             { text: "kg"},{ text: "g"},{ text: "el"},{ text: "tl"},{ text: "l"},{ text: "ml"},{ text: "cl"},{ text: "mg"},{ text: "°C"},{ text: "°F"},{ text: "°K"}
         ]);
-
         _unit.dataProvider = unitList;
         _unit.listProperties.@itemRendererProperties.labelField = "text";
         _unit.labelField = "text";
         _unit.prompt = "Kies eenheid";
         _unit.selectedIndex = -1;
-        _unit.width = 150;
-        _unit.x = _inputContainer.width - _unit.width;
         _unit.y = _inputAmount.y;
-        _inputContainer.addChild( _unit );
+
+        trace(_unit.prompt);
+        trace(_unit.prompt.length);
     }
 
-    private function inputFocusInHandler(event:starling.events.Event):void
+    public function setSize(w:Number, h:Number):void
     {
-        var inputFocusIn:TextInput = event.currentTarget as TextInput;
-        inputFocusIn.text = "";
-        inputFocusIn.textEditorProperties.color=0x000000;
-    }
+        _explicitWidth = w;
+        _explicitHeight = h;
 
+        _inputIngredient.width = _explicitWidth - 140;
+        _inputAmount.width = _explicitWidth/2 - 80;
+        _unit.width = _inputAmount.width;
+        _unit.x = _inputAmount.x + _inputAmount.width + 20;
+    }
 
     public function get inputIngredient():TextInput
     {

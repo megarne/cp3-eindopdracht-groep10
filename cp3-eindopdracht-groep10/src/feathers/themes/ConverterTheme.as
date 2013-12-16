@@ -240,6 +240,7 @@ public class ConverterTheme extends DisplayListWatcher
         protected var insetItemRendererSingleUpSkinTextures:Scale9Textures;
         protected var insetItemRendererSingleSelectedSkinTextures:Scale9Textures;
         protected var backgroundPopUpSkinTextures:Scale9Textures;
+        protected var backgroundPinkSkinTextures:Scale9Textures;
         protected var calloutTopArrowSkinTexture:Texture;
         protected var calloutRightArrowSkinTexture:Texture;
         protected var calloutBottomArrowSkinTexture:Texture;
@@ -306,7 +307,7 @@ public class ConverterTheme extends DisplayListWatcher
             this.headerTextFormat = new TextFormat(headerFont, Math.round(40 * this.scale), WHITE_TEXT_COLOR, true);
 
             this.darkTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DARK_TEXT_COLOR);
-            this.lightTextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR);
+            this.lightTextFormat = new TextFormat(regularFontNames, 24 * this.scale, GREY_TEXT_COLOR);
             this.disabledTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DISABLED_TEXT_COLOR);
             this.lightCenteredTextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, null, null, null, null, null, TextFormatAlign.CENTER);
 
@@ -339,11 +340,15 @@ public class ConverterTheme extends DisplayListWatcher
             const backgroundDisabledSkinTexture:Texture = backgroundSkinTexture;
             const backgroundPopUpSkinTexture:Texture = backgroundSkinTexture;
 
+            const backgroundPinkSkinTexture:Texture = this.atlas.getTexture("background-pink-skin");
+
             this.backgroundSkinTextures = new Scale9Textures(backgroundSkinTexture, DEFAULT_SCALE9_GRID);
             this.backgroundInsetSkinTextures = new Scale9Textures(backgroundInsetSkinTexture, DEFAULT_SCALE9_GRID);
             this.backgroundDisabledSkinTextures = new Scale9Textures(backgroundDisabledSkinTexture, DEFAULT_SCALE9_GRID);
             this.backgroundFocusedSkinTextures = new Scale9Textures(backgroundFocusedSkinTexture, DEFAULT_SCALE9_GRID);
             this.backgroundPopUpSkinTextures = new Scale9Textures(backgroundPopUpSkinTexture, DEFAULT_SCALE9_GRID);
+
+            this.backgroundPinkSkinTextures = new Scale9Textures(backgroundPinkSkinTexture, DEFAULT_SCALE9_GRID);
 
             this.backgroundDisabledSkinTextures = new Scale9Textures(backgroundDisabledSkinTexture, DEFAULT_SCALE9_GRID);
 
@@ -883,7 +888,7 @@ public class ConverterTheme extends DisplayListWatcher
             defaultSelectedIcon.scaleX = defaultSelectedIcon.scaleY = this.scale;
             renderer.defaultSelectedIcon = defaultSelectedIcon;
 
-            const defaultIcon:Quad = new Quad(defaultSelectedIcon.width, defaultSelectedIcon.height, 0xff00ff);
+            const defaultIcon:Quad = new Quad(defaultSelectedIcon.width, defaultSelectedIcon.height);
             defaultIcon.alpha = 0;
             renderer.defaultIcon = defaultIcon;
 
@@ -1164,7 +1169,7 @@ public class ConverterTheme extends DisplayListWatcher
         input.paddingLeft = input.paddingRight = 14 * this.scale;
         input.textEditorProperties.fontFamily = "BebasNeue";
         input.textEditorProperties.fontSize = 30 * this.scale;
-        input.textEditorProperties.color = GREY_TEXT_COLOR;
+        input.textEditorProperties.color = LIGHT_TEXT_COLOR;
 
         input.promptProperties.textFormat = this.lightTextFormat;
         input.promptProperties.embedFonts = true;

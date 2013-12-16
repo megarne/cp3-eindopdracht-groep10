@@ -52,7 +52,7 @@ public class Recipes extends Sprite
         //als je scrolt over de recepten krijg je een fout over "renderer map contains bad data"
         //om deze op te roepen moet je      _listCollection.push(recipe.name); uit commentaar halen en de andere er in zitten
         //ROCKET SCIENCE
-        for each(var recipe in _appModel.recipes)
+        for each(var recipe:Object in _appModel.recipes)
         {
             // trace("[RECIPE] "+recipe.name);
 
@@ -67,7 +67,7 @@ public class Recipes extends Sprite
         //
         if(_appModel.ownRecipes != null)
         {
-            for each(var ownRecipe in _appModel.ownRecipes){
+            for each(var ownRecipe:Object in _appModel.ownRecipes){
                 //   trace("[RECIPES] [RECIPES] [ownRecipes]" + ownRecipe.name);
 
                 _ownListCollection.push(ownRecipe);

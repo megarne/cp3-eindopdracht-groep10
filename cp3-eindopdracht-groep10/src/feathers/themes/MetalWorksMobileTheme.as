@@ -73,9 +73,7 @@ package feathers.themes
 	import feathers.textures.Scale3Textures;
 	import feathers.textures.Scale9Textures;
 
-import flash.display.Bitmap;
-
-import flash.display.BitmapData;
+	import flash.display.BitmapData;
 	import flash.geom.Rectangle;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
@@ -91,32 +89,33 @@ import flash.display.BitmapData;
 
 	public class MetalWorksMobileTheme extends DisplayListWatcher
 	{
-		[Embed(source="/../assets/images/metalworks.png")]
+		[Embed(source="/../assets/images/converter.png")]
 		protected static const ATLAS_IMAGE:Class;
 
 		[Embed(source="/../assets/images/converter.xml",mimeType="application/octet-stream")]
 		protected static const ATLAS_XML:Class;
 
 		[Embed(source="/../assets/fonts/BebasNeue.otf",fontName="BebasNeue",mimeType="application/x-font",embedAsCFF="false")]
-		protected static const BEBAS_NEUE:Class;
+		protected static const SOURCE_SANS_PRO_REGULAR:Class;
 
-		[Embed(source="/../assets/fonts/DK_Crayon_Crumble.ttf",fontName="DK_Crayon_Crumble",mimeType="application/x-font",embedAsCFF="false")]
-		protected static const DK_CRAYON:Class;
+		[Embed(source="/../assets/fonts/HomemadeApple.ttf",fontName="HomeMade",mimeType="application/x-font",embedAsCFF="false")]
+		protected static const SOURCE_SANS_PRO_SEMIBOLD:Class;
 
-		protected static const PRIMARY_BACKGROUND_COLOR:uint = 0xffffff;
-		protected static const LIGHT_TEXT_COLOR:uint = 0x41dfc8;
-		protected static const WHITE_TEXT_COLOR:uint = 0xffffff;
-		protected static const DARK_TEXT_COLOR:uint = 0x1a1816;
-		protected static const SELECTED_TEXT_COLOR:uint = 0x00c5a9;
-		protected static const DISABLED_TEXT_COLOR:uint = 0x8a8a8a;
-		protected static const DARK_DISABLED_TEXT_COLOR:uint = 0x383430;
-		protected static const LIST_BACKGROUND_COLOR:uint = 0x232323;
-		protected static const TAB_BACKGROUND_COLOR:uint = 0x1a1816;
-		protected static const TAB_DISABLED_BACKGROUND_COLOR:uint = 0x292624;
-		protected static const GROUPED_LIST_HEADER_BACKGROUND_COLOR:uint = 0x292929;
-		protected static const GROUPED_LIST_FOOTER_BACKGROUND_COLOR:uint = 0x292929;
-		protected static const MODAL_OVERLAY_COLOR:uint = 0x29241e;
-		protected static const MODAL_OVERLAY_ALPHA:Number = 0.8;
+        protected static const PRIMARY_BACKGROUND_COLOR:uint = 0x000000;
+        protected static const LIGHT_TEXT_COLOR:uint = 0x41dfc8;
+        protected static const WHITE_TEXT_COLOR:uint = 0xffffff;
+        protected static const DARK_TEXT_COLOR:uint = 0x1a1816;
+        protected static const GREY_TEXT_COLOR:uint = 0xc1c1c1;
+        protected static const SELECTED_TEXT_COLOR:uint = 0x00c5a9;
+        protected static const DISABLED_TEXT_COLOR:uint = 0x8a8a8a;
+        protected static const DARK_DISABLED_TEXT_COLOR:uint = 0x383430;
+        protected static const LIST_BACKGROUND_COLOR:uint = 0xffffff;
+        protected static const TAB_BACKGROUND_COLOR:uint = 0x1a1816;
+        protected static const TAB_DISABLED_BACKGROUND_COLOR:uint = 0x292624;
+        protected static const GROUPED_LIST_HEADER_BACKGROUND_COLOR:uint = 0x292929;
+        protected static const GROUPED_LIST_FOOTER_BACKGROUND_COLOR:uint = 0x292929;
+        protected static const MODAL_OVERLAY_COLOR:uint = 0x29241e;
+        protected static const MODAL_OVERLAY_ALPHA:Number = 0.8;
 
 		protected static const ORIGINAL_DPI_IPHONE_RETINA:int = 326;
 		protected static const ORIGINAL_DPI_IPAD_RETINA:int = 264;
@@ -216,11 +215,14 @@ import flash.display.BitmapData;
 
 		protected var atlas:TextureAtlas;
 		protected var atlasBitmapData:BitmapData;
-		//protected var headerBackgroundSkinTexture:Texture;
+		protected var headerBackgroundSkinTexture:Texture;
 		protected var backgroundSkinTextures:Scale9Textures;
 		protected var backgroundInsetSkinTextures:Scale9Textures;
 		protected var backgroundDisabledSkinTextures:Scale9Textures;
 		protected var backgroundFocusedSkinTextures:Scale9Textures;
+
+        protected var backgroundPinkSkinTextures:Scale9Textures;
+
 		protected var buttonUpSkinTextures:Scale9Textures;
 		protected var buttonDownSkinTextures:Scale9Textures;
 		protected var buttonDisabledSkinTextures:Scale9Textures;
@@ -274,6 +276,10 @@ import flash.display.BitmapData;
 		protected var horizontalScrollBarThumbSkinTextures:Scale3Textures;
 		protected var searchIconTexture:Texture;
 
+        protected var helpButtonTexture:Texture;
+
+        //protected var readyButtonTexture:Texture;
+
 		override public function dispose():void
 		{
 			if(this.root)
@@ -301,7 +307,7 @@ import flash.display.BitmapData;
 			}
 
 			this.root.stage.color = PRIMARY_BACKGROUND_COLOR;
-			Starling.current.nativeStage.color = PRIMARY_BACKGROUND_COLOR
+			Starling.current.nativeStage.color = PRIMARY_BACKGROUND_COLOR;
 		}
 
 		protected function initialize():void
@@ -326,24 +332,24 @@ import flash.display.BitmapData;
 			FeathersControl.defaultTextEditorFactory = textEditorFactory;
 
 			const regularFontNames:String = "BebasNeue";
-			const semiboldFontNames:String = "DK_Crayon_Crumble";
+			const headerFontNames:String = "HomeMade";
 
-			this.headerTextFormat = new TextFormat(semiboldFontNames, Math.round(55 * this.scale), WHITE_TEXT_COLOR, true);
+			this.headerTextFormat = new TextFormat(headerFontNames, Math.round(36 * this.scale), WHITE_TEXT_COLOR, true);
 
-			this.darkUITextFormat = new TextFormat(semiboldFontNames, 24 * this.scale, DARK_TEXT_COLOR, true);
-			this.lightUITextFormat = new TextFormat(semiboldFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, true);
-			this.selectedUITextFormat = new TextFormat(semiboldFontNames, 24 * this.scale, SELECTED_TEXT_COLOR, true);
-			this.lightUIDisabledTextFormat = new TextFormat(semiboldFontNames, 24 * this.scale, DISABLED_TEXT_COLOR, true);
-			this.darkUIDisabledTextFormat = new TextFormat(semiboldFontNames, 24 * this.scale, DARK_DISABLED_TEXT_COLOR, true);
-			this.lightCenteredUITextFormat = new TextFormat(semiboldFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, true, null, null, null, null, TextFormatAlign.CENTER);
+			this.darkUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, DARK_TEXT_COLOR, true);
+			this.lightUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, true);
+			this.selectedUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, SELECTED_TEXT_COLOR, true);
+			this.lightUIDisabledTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DISABLED_TEXT_COLOR, true);
+			this.darkUIDisabledTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DARK_DISABLED_TEXT_COLOR, true);
+			this.lightCenteredUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, true, null, null, null, null, TextFormatAlign.CENTER);
 
-			this.largeUIDarkTextFormat = new TextFormat(semiboldFontNames, 28 * this.scale, DARK_TEXT_COLOR, true);
-			this.largeUILightTextFormat = new TextFormat(semiboldFontNames, 28 * this.scale, LIGHT_TEXT_COLOR, true);
-			this.largeUISelectedTextFormat = new TextFormat(semiboldFontNames, 28 * this.scale, SELECTED_TEXT_COLOR, true);
-			this.largeUIDisabledTextFormat = new TextFormat(semiboldFontNames, 28 * this.scale, DISABLED_TEXT_COLOR, true);
+			this.largeUIDarkTextFormat = new TextFormat(regularFontNames, 28 * this.scale, DARK_TEXT_COLOR, true);
+			this.largeUILightTextFormat = new TextFormat(regularFontNames, 28 * this.scale, LIGHT_TEXT_COLOR, true);
+			this.largeUISelectedTextFormat = new TextFormat(regularFontNames, 28 * this.scale, SELECTED_TEXT_COLOR, true);
+			this.largeUIDisabledTextFormat = new TextFormat(regularFontNames, 28 * this.scale, DISABLED_TEXT_COLOR, true);
 
 			this.darkTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DARK_TEXT_COLOR);
-			this.lightTextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR);
+			this.lightTextFormat = new TextFormat(regularFontNames, 24 * this.scale, WHITE_TEXT_COLOR);
 			this.disabledTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DISABLED_TEXT_COLOR);
 			this.lightCenteredTextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, null, null, null, null, null, TextFormatAlign.CENTER);
 
@@ -352,7 +358,7 @@ import flash.display.BitmapData;
 
 			this.largeDarkTextFormat = new TextFormat(regularFontNames, 28 * this.scale, DARK_TEXT_COLOR);
 			this.largeLightTextFormat = new TextFormat(regularFontNames, 28 * this.scale, LIGHT_TEXT_COLOR);
-			this.largeDisabledTextFormat = new TextFormat(regularFontNames, 28 * this.scale, DISABLED_TEXT_COLOR);
+			this.largeDisabledTextFormat = new TextFormat(regularFontNames, 28 * this.scale, GREY_TEXT_COLOR);
 
 			PopUpManager.overlayFactory = popUpOverlayFactory;
 			Callout.stagePaddingTop = Callout.stagePaddingRight = Callout.stagePaddingBottom =
@@ -377,11 +383,15 @@ import flash.display.BitmapData;
 			const backgroundFocusedSkinTexture:Texture = this.atlas.getTexture("background-focused-skin");
 			const backgroundPopUpSkinTexture:Texture = this.atlas.getTexture("background-popup-skin");
 
+			const backgroundPinkSkinTexture:Texture = this.atlas.getTexture("background-pink-skin");
+
 			this.backgroundSkinTextures = new Scale9Textures(backgroundSkinTexture, DEFAULT_SCALE9_GRID);
 			this.backgroundInsetSkinTextures = new Scale9Textures(backgroundInsetSkinTexture, DEFAULT_SCALE9_GRID);
 			this.backgroundDisabledSkinTextures = new Scale9Textures(backgroundDisabledSkinTexture, DEFAULT_SCALE9_GRID);
 			this.backgroundFocusedSkinTextures = new Scale9Textures(backgroundFocusedSkinTexture, DEFAULT_SCALE9_GRID);
 			this.backgroundPopUpSkinTextures = new Scale9Textures(backgroundPopUpSkinTexture, DEFAULT_SCALE9_GRID);
+
+			this.backgroundPinkSkinTextures = new Scale9Textures(backgroundPinkSkinTexture, DEFAULT_SCALE9_GRID);
 
 			this.buttonUpSkinTextures = new Scale9Textures(this.atlas.getTexture("button-up-skin"), BUTTON_SCALE9_GRID);
 			this.buttonDownSkinTextures = new Scale9Textures(this.atlas.getTexture("button-down-skin"), BUTTON_SCALE9_GRID);
@@ -427,16 +437,17 @@ import flash.display.BitmapData;
 
 			this.searchIconTexture = this.atlas.getTexture("search-icon");
 
-			this.itemRendererUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-item-up-skin"), ITEM_RENDERER_SCALE9_GRID);
-			this.itemRendererSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-item-selected-skin"), ITEM_RENDERER_SCALE9_GRID);
-			this.insetItemRendererFirstUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-first-up-skin"), INSET_ITEM_RENDERER_FIRST_SCALE9_GRID);
-			this.insetItemRendererFirstSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-first-selected-skin"), INSET_ITEM_RENDERER_FIRST_SCALE9_GRID);
-			this.insetItemRendererLastUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-last-up-skin"), INSET_ITEM_RENDERER_LAST_SCALE9_GRID);
-			this.insetItemRendererLastSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-last-selected-skin"), INSET_ITEM_RENDERER_LAST_SCALE9_GRID);
-			this.insetItemRendererSingleUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-single-up-skin"), INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID);
-			this.insetItemRendererSingleSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-single-selected-skin"), INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID);
+			 this.itemRendererUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-item-up"), ITEM_RENDERER_SCALE9_GRID);
+            this.itemRendererSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-item-selected"), ITEM_RENDERER_SCALE9_GRID);
+            this.insetItemRendererFirstUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-first-up-skin"), INSET_ITEM_RENDERER_FIRST_SCALE9_GRID);
+            this.insetItemRendererFirstSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-first-selected-skin"), INSET_ITEM_RENDERER_FIRST_SCALE9_GRID);
+            this.insetItemRendererLastUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-last-up-skin"), INSET_ITEM_RENDERER_LAST_SCALE9_GRID);
+            this.insetItemRendererLastSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-last-selected-skin"), INSET_ITEM_RENDERER_LAST_SCALE9_GRID);
+            this.insetItemRendererSingleUpSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-single-up-skin"), INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID);
+            this.insetItemRendererSingleSelectedSkinTextures = new Scale9Textures(this.atlas.getTexture("list-inset-item-single-selected-skin"), INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID);
 
-			//this.headerBackgroundSkinTexture = this.atlas.getTexture("header-background-skin");
+
+            this.headerBackgroundSkinTexture = this.atlas.getTexture("header-background-skin");
 
 			this.calloutTopArrowSkinTexture = this.atlas.getTexture("callout-arrow-top-skin");
 			this.calloutRightArrowSkinTexture = this.atlas.getTexture("callout-arrow-right-skin");
@@ -447,6 +458,8 @@ import flash.display.BitmapData;
 			this.verticalScrollBarThumbSkinTextures = new Scale3Textures(this.atlas.getTexture("vertical-scroll-bar-thumb-skin"), SCROLL_BAR_THUMB_REGION1, SCROLL_BAR_THUMB_REGION2, Scale3Textures.DIRECTION_VERTICAL);
 
 			StandardIcons.listDrillDownAccessoryTexture = this.atlas.getTexture("list-accessory-drill-down-icon");
+
+            this.helpButtonTexture = this.atlas.getTexture("help-button");
 
 			if(this.root.stage)
 			{
@@ -466,7 +479,11 @@ import flash.display.BitmapData;
 			this.setInitializerForClass(TextFieldTextRenderer, alertMessageInitializer, Alert.DEFAULT_CHILD_NAME_MESSAGE);
 			this.setInitializerForClass(ScrollText, scrollTextInitializer);
 			this.setInitializerForClass(Button, buttonInitializer);
-			this.setInitializerForClass(Button, callToActionButtonInitializer, Button.ALTERNATE_NAME_CALL_TO_ACTION_BUTTON);
+
+            this.setInitializerForClass(Button, helpButtonInitializer, Button.HELP_BUTTON);
+            this.setInitializerForClass(Button, readyButtonInitializer, Button.READY_BUTTON);
+
+            this.setInitializerForClass(Button, callToActionButtonInitializer, Button.ALTERNATE_NAME_CALL_TO_ACTION_BUTTON);
 			this.setInitializerForClass(Button, quietButtonInitializer, Button.ALTERNATE_NAME_QUIET_BUTTON);
 			this.setInitializerForClass(Button, dangerButtonInitializer, Button.ALTERNATE_NAME_DANGER_BUTTON);
 			this.setInitializerForClass(Button, backButtonInitializer, Button.ALTERNATE_NAME_BACK_BUTTON);
@@ -554,7 +571,36 @@ import flash.display.BitmapData;
 			screen.originalDPI = this._originalDPI;
 		}
 
-		protected function simpleButtonInitializer(button:Button):void
+        protected function helpButtonInitializer(button:Button):void
+        {
+            const defaultIcon:ImageLoader = new ImageLoader();
+            defaultIcon.source = this.helpButtonTexture;
+            defaultIcon.textureScale = this.scale;
+            defaultIcon.snapToPixels = true;
+            button.defaultIcon = defaultIcon;
+        }
+
+        protected function readyButtonInitializer(button:Button):void
+        {
+            const skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+            skinSelector.defaultValue = this.backgroundPinkSkinTextures;
+            skinSelector.setValueForState(this.buttonDownSkinTextures, Button.STATE_DOWN, false);
+            skinSelector.setValueForState(this.backgroundPinkSkinTextures, Button.STATE_DISABLED, false);
+            skinSelector.displayObjectProperties =
+            {
+                width: 60 * this.scale,
+                height: 60 * this.scale,
+                textureScale: this.scale
+            };
+            button.stateToSkinFunction = skinSelector.updateValue;
+
+            button.minWidth = button.minHeight = 60 * this.scale;
+            button.minTouchWidth = button.minTouchHeight = 88 * this.scale;
+
+            this.baseButtonInitializer(button);
+        }
+
+        protected function simpleButtonInitializer(button:Button):void
 		{
 			const skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
 			skinSelector.defaultValue = this.buttonUpSkinTextures;
@@ -899,13 +945,13 @@ import flash.display.BitmapData;
 			defaultSelectedIcon.scaleX = defaultSelectedIcon.scaleY = this.scale;
 			renderer.defaultSelectedIcon = defaultSelectedIcon;
 
-			const defaultIcon:Quad = new Quad(defaultSelectedIcon.width, defaultSelectedIcon.height, 0xff00ff);
+			const defaultIcon:Quad = new Quad(defaultSelectedIcon.width, defaultSelectedIcon.height, 0xffff00);
 			defaultIcon.alpha = 0;
 			renderer.defaultIcon = defaultIcon;
 
 			renderer.defaultLabelProperties.textFormat = this.largeLightTextFormat;
 			renderer.defaultLabelProperties.embedFonts = true;
-			renderer.downLabelProperties.textFormat = this.largeDarkTextFormat;
+			renderer.downLabelProperties.textFormat = this.lightTextFormat;
 			renderer.downLabelProperties.embedFonts = true;
 
 			renderer.itemHasIcon = false;
@@ -1166,7 +1212,7 @@ import flash.display.BitmapData;
 			skinSelector.setValueForState(this.backgroundFocusedSkinTextures, TextInput.STATE_FOCUSED);
 			skinSelector.displayObjectProperties =
 			{
-				width: 350 * this.scale,
+				width: 264 * this.scale,
 				height: 60 * this.scale,
 				textureScale: this.scale
 			};
@@ -1179,10 +1225,10 @@ import flash.display.BitmapData;
 			input.paddingBottom = 10 * this.scale;
 			input.paddingLeft = input.paddingRight = 14 * this.scale;
 			input.textEditorProperties.fontFamily = "BebasNeue";
-			input.textEditorProperties.fontSize = 24 * this.scale;
-			input.textEditorProperties.color = WHITE_TEXT_COLOR;
+			input.textEditorProperties.fontSize = 30 * this.scale;
+			input.textEditorProperties.color = LIGHT_TEXT_COLOR;
 
-			input.promptProperties.textFormat = this.lightTextFormat;
+			input.promptProperties.textFormat = this.largeDisabledTextFormat;
 			input.promptProperties.embedFonts = true;
 		}
 
@@ -1272,9 +1318,9 @@ import flash.display.BitmapData;
 			header.gap = 8 * this.scale;
 			header.titleGap = 12 * this.scale;
 
-			//const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
-			//backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
-			//header.backgroundSkin = backgroundSkin;
+			const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
+			backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
+			header.backgroundSkin = backgroundSkin;
 			header.titleProperties.textFormat = this.headerTextFormat;
 			header.titleProperties.embedFonts = true;
 		}
@@ -1383,8 +1429,8 @@ import flash.display.BitmapData;
 
 		protected function listInitializer(list:List):void
 		{
-			const backgroundSkin:Quad = new Quad(88 * this.scale, 88 * this.scale, LIST_BACKGROUND_COLOR);
-			list.backgroundSkin = backgroundSkin;
+			//const backgroundSkin:Quad = new Quad(88 * this.scale, 88 * this.scale, LIST_BACKGROUND_COLOR);
+			//list.backgroundSkin = backgroundSkin;
 		}
 
 		protected function groupedListInitializer(list:GroupedList):void
@@ -1406,9 +1452,9 @@ import flash.display.BitmapData;
 			container.minWidth = 88 * this.scale;
 			container.minHeight = 88 * this.scale;
 
-			//const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
-			//backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
-			//container.backgroundSkin = backgroundSkin;
+			const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
+			backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
+			container.backgroundSkin = backgroundSkin;
 		}
 
 		protected function insetGroupedListInitializer(list:GroupedList):void
