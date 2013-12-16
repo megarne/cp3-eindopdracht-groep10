@@ -26,11 +26,13 @@ public class Recipes extends Sprite
 
     public function Recipes()
     {
+        this.addEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
+
         _appModel = AppModel.getInstance();
 
         _recipeList = new List();
-        _recipeList.width = 360;
-        _recipeList.height = 650;
+        //_recipeList.width = 360;
+        //_recipeList.height = 650;
         _recipeList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
         _recipeList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
         _recipeList.itemRendererProperties.labelField = "title";
@@ -78,10 +80,14 @@ public class Recipes extends Sprite
         //IN COMMENTAAR WANT MOMENTEEL IS OWNRECIPE NOG NULL (ER IS NOG GEEN EIGEN RECEPT TOEGEVOEGD)
         // _ownRecipeList.dataProvider = _listCollection;
 
-
-
         display();
     }
+
+    private function addedToStageHandler(event:starling.events.Event):void
+    {
+        _recipeList.x = stage.stageWidth/2 - _recipeList.width/2;
+    }
+
 
     private function listChangeHandler(event:starling.events.Event):void
     {
@@ -94,7 +100,8 @@ public class Recipes extends Sprite
     private function display():void
     {
         //sorry voor het onbegrip maar waarom is selectedItem een currentPage?
-        _recipeList.selectedItem = _appModel.currentPage;
+        // omdat da een nieuwe current-something moet zijn.. currentRecipe!
+        _recipeList.selectedItem = _appModel.currentRecipe;
         // _ownRecipesList.selectedItem = _appModel.currentPage;
 
         var layout:VerticalLayout = new VerticalLayout();
@@ -111,7 +118,9 @@ public class Recipes extends Sprite
         _explicitWidth = w;
         _explicitHeight = h;
 
-        _recipeList.x = Math.round((_explicitWidth - _recipeList.width) * .5);
+        //_recipeList.x = Math.round((_explicitWidth - _recipeList.width) * .5);
+
+        _recipeList.setSize(_explicitWidth, _explicitHeight);
     }
 }
 }

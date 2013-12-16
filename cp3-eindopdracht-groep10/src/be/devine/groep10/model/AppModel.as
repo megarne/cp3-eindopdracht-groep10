@@ -30,8 +30,6 @@ public class AppModel extends EventDispatcher
     public static const RECIPE_CHANGED:String = "recipeChanged";
     public static const CURRENT_RECIPE_CHANGED:String = "currentRecipeChanged";
 
-
-
     public function AppModel(e:Enforcer)
     {
         if (e == null)

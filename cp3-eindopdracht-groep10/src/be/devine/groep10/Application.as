@@ -16,7 +16,6 @@ import be.devine.groep10.view.ui.Help;
 
 import feathers.controls.Header;
 import feathers.themes.ConverterTheme;
-import feathers.themes.MetalWorksMobileTheme;
 
 import flash.display.Bitmap;
 
@@ -70,9 +69,7 @@ public class Application extends Sprite
         _bgImage = Image.fromBitmap(new ImageBgClass());
         addChild(_bgImage);
 
-        //new ConverterTheme();
-
-        new MetalWorksMobileTheme();
+        new ConverterTheme();
 
         _header = new Header();
         _header.title = "Keuken omvormer";
@@ -144,7 +141,7 @@ public class Application extends Sprite
         _homeBtn.y = _header.height/2 - _homeBtn.height/2 - 5;
 
         _recipes.y = 100;
-        _recipes.setSize(stage.stageWidth, 50);
+        _recipes.setSize(stage.stageWidth - 80, stage.stageHeight);
 
         _ownRecipes.y = 100;
         _ownRecipes.setSize(stage.stageWidth, 50);
