@@ -11,13 +11,6 @@ import flash.geom.Rectangle;
 import starling.core.Starling;
 import starling.events.Event;
 
-[SWF(backgroundColor="#000000")]
-
-/*
- * IN APPMODEL HET DYNAMISCH MAKEN VAN HET CONVERTEREN VAN DE EENHEDEN.
- * DE PADEN OOK DYNAMISCH MAKEN IPV VAST
- * UITLEZEN VAN RECIPESVO FIXEN
- * */
 public class Main extends Sprite
 {
     private var _starling:Starling;

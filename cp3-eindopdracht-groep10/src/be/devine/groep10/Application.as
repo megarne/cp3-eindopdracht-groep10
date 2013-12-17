@@ -14,6 +14,10 @@ import be.devine.groep10.view.Menu;
 import be.devine.groep10.view.Recipes;
 import be.devine.groep10.view.ui.Help;
 
+import feathers.controls.Button;
+
+import feathers.controls.Button;
+
 import feathers.controls.Header;
 import feathers.themes.ConverterTheme;
 
@@ -48,9 +52,7 @@ public class Application extends Sprite
     private var _menu:Menu;
     private var _help:Help;
 
-    [Embed(source = "/../assets/custom/house.png")]
-    private static const ButtonTexture:Class;
-    private var _homeBtn:Button;
+    private var _homeBtn:feathers.controls.Button;
 
     private var _recipes:Recipes;
     private var _ownRecipes:Recipes;
@@ -61,15 +63,18 @@ public class Application extends Sprite
 
     public function Application()
     {
+        new ConverterTheme();
+
         this.addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
+
+        _appModel = AppModel.getInstance();
+        _appModel.load();
 
         _bg = Image.fromBitmap(new BackgroundClass());
         addChild(_bg);
 
         _bgImage = Image.fromBitmap(new ImageBgClass());
         addChild(_bgImage);
-
-        new ConverterTheme();
 
         _header = new Header();
         _header.title = "Keuken omvormer";
@@ -79,9 +84,6 @@ public class Application extends Sprite
         _line.width = 360;
         _line.y = 40;
         _header.addChild(_line);
-
-        _appModel = AppModel.getInstance();
-        _appModel.load();
 
         _menu = new Menu();
         addChild(_menu);
@@ -94,14 +96,14 @@ public class Application extends Sprite
 
         _add = new Add();
 
-        var homeBtnSkin:Bitmap = new ButtonTexture();
-        var homeBtnTexture:Texture = Texture.fromBitmap(homeBtnSkin);
-        _homeBtn = new Button(homeBtnTexture, "");
+        _homeBtn = new feathers.controls.Button();
+        _homeBtn.nameList.add( "home-button" );
+        _homeBtn.width = _homeBtn.height = 60;
+        _header.addChild( _homeBtn );
 
-        _header.addChild(_homeBtn);
         _homeBtn.visible = false;
 
-        _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
+        //_appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
     }
 
     private function addedHandler(event:starling.events.Event):void
@@ -135,10 +137,9 @@ public class Application extends Sprite
         _menu.setSize(stage.stageWidth - 80, stage.stageHeight - 200);
 
         _help.setSize(stage.stageWidth, stage.stageHeight - 50);
-        //_help.x = (_bg.width - _help.width/2)/2;
 
         _homeBtn.x = 20;
-        _homeBtn.y = _header.height/2 - _homeBtn.height/2 - 5;
+        _homeBtn.y = _header.height/2 - _homeBtn.height/2 - 1;
 
         _recipes.y = 100;
         _recipes.setSize(stage.stageWidth - 80, stage.stageHeight);
@@ -150,7 +151,7 @@ public class Application extends Sprite
         _add.setSize(stage.stageWidth, stage.stageHeight);
     }
 
-    private function pageChangedHandler(event:flash.events.Event):void
+    /*private function pageChangedHandler(event:flash.events.Event):void
     {
         _homeBtn.visible = true;
 
@@ -187,7 +188,6 @@ public class Application extends Sprite
                 break;
         }
 
-
         layout();
 
         removeChild(_menu);
@@ -195,7 +195,7 @@ public class Application extends Sprite
         _help.visible = false;
         _bgImage.visible = false;
         addChild(_container);
-    }
+    }*/
 
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {

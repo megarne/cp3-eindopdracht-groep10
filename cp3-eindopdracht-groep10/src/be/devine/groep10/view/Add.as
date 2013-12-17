@@ -28,6 +28,8 @@ import starling.events.Event;
 
 import starling.events.Event;
 import starling.text.TextField;
+import starling.utils.HAlign;
+import starling.utils.VAlign;
 
 public class Add extends Sprite
 {
@@ -39,6 +41,8 @@ public class Add extends Sprite
 
     private var _inputName:TextInput;
     private var _inputIngredient:AddInputFields;
+
+    private var _helpText:TextField;
 
     private var _arrIngredients:Array;
 
@@ -72,6 +76,13 @@ public class Add extends Sprite
         _inputName.prompt = "naam recept";
         _inputName.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild( _inputName );
+
+        _helpText = new TextField( 320, 120, "Vul de nodige ingredienten toe voor 1 persoon", "BebasNeue", 18, 0xffffff);
+        _helpText.hAlign = HAlign.LEFT;
+        _helpText.vAlign = VAlign.TOP;
+        _helpText.kerning = true;
+        _helpText.y = 50;
+        _inputName.addChild(_helpText);
 
         _inputIngredient = new AddInputFields();
         _inputIngredient.y = _inputName.y + _inputIngredient.height + 20;
@@ -185,12 +196,12 @@ public class Add extends Sprite
             _arrErrors.push(_error4);
         }
 
-        trace(errors);
-
         if(errors == false)
         {
+            trace("alles juist");
+
             //value doorsturen naar json
-            var recipeName:String = _inputName.text;
+            /*var recipeName:String = _inputName.text;
 
             for each( var input:AddInputFields in _arrIngredients)
             {
@@ -226,12 +237,8 @@ public class Add extends Sprite
                     ]));
                     writeStream.close();
                 }
-
-
-            }
+            }*/
         }
-
-        trace("errors = "+_arrErrors.length);
     }
 
     private function addedToStageHandler(event:starling.events.Event):void
@@ -252,10 +259,13 @@ public class Add extends Sprite
 
         _inputName.width = _explicitWidth - 140;
 
-        _inputIngredient.inputIngredient.width = _explicitWidth - 140;
-        _inputIngredient.inputAmount.width = _explicitWidth/2 - 80;
-        _inputIngredient.unit.width = _inputIngredient.inputAmount.width;
-        _inputIngredient.unit.x = _inputIngredient.inputAmount.x + _inputIngredient.inputAmount.width + 20;
+        for each(var ingInput:AddInputFields in _arrIngredients)
+        {
+            ingInput.inputIngredient.width = _explicitWidth - 140;
+            ingInput.inputAmount.width = _explicitWidth/2 - 80;
+            ingInput.unit.width = ingInput.inputAmount.width;
+            ingInput.unit.x = ingInput.inputAmount.x + ingInput.inputAmount.width + 20;
+        }
 
         _moreBtn.width = _inputName.width;
         _readyBtn.width = _inputName.width;
@@ -289,147 +299,5 @@ public class Add extends Sprite
         _moreBtn.y += _inputIngredient.height + 20;
         _readyBtn.y = _moreBtn.y + _readyBtn.height + 10;
     }
-
-    /*
-
-
-    private function checkIfInputIsEmpty():void
-    {
-        _noErrors = [];
-
-        if(_inputName.text == "" || _inputName.text == "Naam recept" )
-        {
-            inputError1 = new TextField(100, 20, "Vul een naam in", "BebasNeue", 16, 0xe49f98);
-            inputError1.x = _inputIngredient.x + _inputIngredient.width + inputError1.width;
-            inputError1.y = _inputName.height/2 - inputError1.height/2;
-            addChild(inputError1);
-        }
-        else
-        {
-            _noErrors.push(_inputName.text);
-        }
-
-        for each( var input:AddInputFields in _arrIngredients)
-        {
-            if(input.inputIngredient.text == "" || input.inputIngredient.text == "Naam Ingredient" )
-            {
-                inputError2 = new TextField(100, 50, "Vul een ingredient in", "BebasNeue", 14, 0xe49f98);
-                inputError2.x = _inputIngredient.x + _inputIngredient.width + inputError2.width;
-                inputError2.y = _inputIngredient.y;
-                addChild(inputError2);
-            }
-            else
-            {
-                _noErrors.push(input.inputIngredient.text);
-            }
-
-            if(input.inputAmount.text == "" || input.inputAmount.text == "Hoeveelheid" )
-            {
-                inputError3 = new TextField(100, 50, "Kies een hoeveelheid", "BebasNeue", 14, 0xe49f98);
-                inputError3.x = _inputIngredient.x + _inputIngredient.width + inputError3.width;
-                inputError3.y = _inputIngredient.y + _inputIngredient.height/2;
-                addChild(inputError3);
-            }
-            else
-            {
-                _noErrors.push(input.inputAmount.text);
-            }
-        }
-
-        if(_noErrors.length >= 3)
-        {
-            removeChild(inputError1);
-            removeChild(inputError2);
-            removeChild(inputError3);
-            removeChild(_scrollContainer);
-
-            //hier alle input in json steken en doorsturen naar recepten-pagina
-            //trace("hier alle input in json steken en doorsturen naar recepten-pagina");
-
-
-            //trace(_inputName.text);
-
-            var recipeName:String = _inputName.text;
-
-             for each( var input:AddInputFields in _arrIngredients)
-             {
-
-             trace("[ADD]" + input.inputIngredient.text);
-             trace("[ADD]" + input.inputAmount.text);
-             trace("[ADD]" + input.unit.selectedItem.text);
-
-                 var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
-
-
-                 //hoe ingredient2 op een goeie manier aanspreken?
-                 //nog geen preparation veld voorzien
-                 if(!ownRecipesFile.exists){
-                  var writeStream:FileStream = new FileStream();
-                  writeStream.open(ownRecipesFile, FileMode.WRITE);
-                  writeStream.writeUTFBytes(JSON.stringify([
-
-                      {
-                          "name": recipeName,
-                          "ingredients":
-                          {
-                              "ingredient1":
-                              {
-                                  "ingredientname":input.inputIngredient.text,
-                                  "ingredientvalue":input.inputAmount.text,
-                                  "ingredientunit":input.unit.selectedItem.text
-                              }
-                          },
-                          "preparation":" meng alles samen tot een lekkere emulsie "
-
-                      }
-
-                  ]));
-                  writeStream.close();
-                  }
-
-
-             }
-        }
-    }
-
-    private function inputChangeHandler(event:starling.events.Event):void
-    {
-        if(inputError1 != null)
-        {
-            if(_inputName.text != null)
-            {
-                inputError1.visible = false;
-            }
-            else
-            {
-                inputError1.visible = true;
-            }
-        }
-
-        if(inputError2 != null)
-        {
-            if(_inputIngredient.inputIngredient.text != "")
-            {
-                inputError2.visible = false;
-            }
-            else
-            {
-                inputError2.visible = true;
-            }
-        }
-
-        if(inputError3 != null)
-        {
-            if(_inputIngredient.inputAmount.text != "")
-            {
-                inputError3.visible = false;
-            }
-            else
-            {
-                inputError3.visible = true;
-            }
-        }
-
-    }*/
 }
 }

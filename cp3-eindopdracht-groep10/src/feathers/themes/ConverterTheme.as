@@ -277,6 +277,7 @@ package feathers.themes
 		protected var searchIconTexture:Texture;
 
         protected var helpButtonTexture:Texture;
+        protected var homeButtonTexture:Texture;
 
         //protected var readyButtonTexture:Texture;
 
@@ -306,7 +307,7 @@ package feathers.themes
 				return;
 			}
 
-			this.root.stage.color = PRIMARY_BACKGROUND_COLOR;
+            this.root.stage.color = PRIMARY_BACKGROUND_COLOR;
 			Starling.current.nativeStage.color = PRIMARY_BACKGROUND_COLOR;
 		}
 
@@ -337,19 +338,12 @@ package feathers.themes
 			this.headerTextFormat = new TextFormat(headerFontNames, Math.round(36 * this.scale), WHITE_TEXT_COLOR, true);
 
 			this.darkUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, DARK_TEXT_COLOR, true);
+            this.largeUIDarkTextFormat = new TextFormat(regularFontNames, 28 * this.scale, DARK_TEXT_COLOR, true);
+
 			this.lightUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, true);
+            this.largeUILightTextFormat = new TextFormat(regularFontNames, 28 * this.scale, LIGHT_TEXT_COLOR, true);
+
 			this.selectedUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, SELECTED_TEXT_COLOR, true);
-			this.lightUIDisabledTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DISABLED_TEXT_COLOR, true);
-			this.darkUIDisabledTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DARK_DISABLED_TEXT_COLOR, true);
-			this.lightCenteredUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, true, null, null, null, null, TextFormatAlign.CENTER);
-
-			this.largeUIDarkTextFormat = new TextFormat(regularFontNames, 28 * this.scale, DARK_TEXT_COLOR, true);
-			this.largeUILightTextFormat = new TextFormat(regularFontNames, 28 * this.scale, LIGHT_TEXT_COLOR, true);
-			this.largeUISelectedTextFormat = new TextFormat(regularFontNames, 28 * this.scale, SELECTED_TEXT_COLOR, true);
-			this.largeUIDisabledTextFormat = new TextFormat(regularFontNames, 28 * this.scale, DISABLED_TEXT_COLOR, true);
-
-			this.darkTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DARK_TEXT_COLOR);
-			this.lightTextFormat = new TextFormat(regularFontNames, 24 * this.scale, WHITE_TEXT_COLOR);
 			this.disabledTextFormat = new TextFormat(regularFontNames, 24 * this.scale, DISABLED_TEXT_COLOR);
 			this.lightCenteredTextFormat = new TextFormat(regularFontNames, 24 * this.scale, LIGHT_TEXT_COLOR, null, null, null, null, null, TextFormatAlign.CENTER);
 
@@ -460,6 +454,7 @@ package feathers.themes
 			StandardIcons.listDrillDownAccessoryTexture = this.atlas.getTexture("list-accessory-drill-down-icon");
 
             this.helpButtonTexture = this.atlas.getTexture("help-button");
+            this.homeButtonTexture = this.atlas.getTexture("house-button");
 
 			if(this.root.stage)
 			{
@@ -481,6 +476,7 @@ package feathers.themes
 			this.setInitializerForClass(Button, buttonInitializer);
 
             this.setInitializerForClass(Button, helpButtonInitializer, Button.HELP_BUTTON);
+            this.setInitializerForClass(Button, homeButtonInitializer, Button.HOME_BUTTON);
             this.setInitializerForClass(Button, readyButtonInitializer, Button.READY_BUTTON);
 
             this.setInitializerForClass(Button, callToActionButtonInitializer, Button.ALTERNATE_NAME_CALL_TO_ACTION_BUTTON);
@@ -575,6 +571,15 @@ package feathers.themes
         {
             const defaultIcon:ImageLoader = new ImageLoader();
             defaultIcon.source = this.helpButtonTexture;
+            defaultIcon.textureScale = this.scale;
+            defaultIcon.snapToPixels = true;
+            button.defaultIcon = defaultIcon;
+        }
+
+        protected function homeButtonInitializer(button:Button):void
+        {
+            const defaultIcon:ImageLoader = new ImageLoader();
+            defaultIcon.source = this.homeButtonTexture;
             defaultIcon.textureScale = this.scale;
             defaultIcon.snapToPixels = true;
             button.defaultIcon = defaultIcon;
@@ -1318,9 +1323,9 @@ package feathers.themes
 			header.gap = 8 * this.scale;
 			header.titleGap = 12 * this.scale;
 
-			const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
-			backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
-			header.backgroundSkin = backgroundSkin;
+			//const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
+			//backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
+			//header.backgroundSkin = backgroundSkin;
 			header.titleProperties.textFormat = this.headerTextFormat;
 			header.titleProperties.embedFonts = true;
 		}

@@ -88,6 +88,7 @@ public class Button extends FeathersControl implements IToggle, IFocusDisplayObj
      */
 
     public static const HELP_BUTTON:String = "help-button";
+    public static const HOME_BUTTON:String = "home-button";
 
     public static const READY_BUTTON:String = "background-pink-skin";
 

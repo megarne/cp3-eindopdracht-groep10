@@ -14,6 +14,7 @@
     <SubTexture name="vertical-scroll-bar-thumb-skin" x="68" y="485" width="10" height="26"/>
 
     <SubTexture name="help-button" x="99" y="454" width="58" height="58"/>
+    <SubTexture name="house-button" x="163" y="466" width="49" height="45"/>
 
     <SubTexture name="background-pink-skin" x="447" y="67" width="32" height="32"/>
 
