@@ -5,7 +5,7 @@
  * Time: 21:39
  * To change this template use File | Settings | File Templates.
  */
-package be.devine.groep10.view
+package be.devine.groep10.view.pages
 {
 import be.devine.groep10.view.ui.AddInputFields;
 
@@ -13,18 +13,9 @@ import feathers.controls.Button;
 import feathers.controls.ScrollContainer;
 
 import feathers.controls.TextInput;
-import feathers.events.FeathersEventType;
-
-import flash.events.Event;
-
-import flash.filesystem.File;
-import flash.filesystem.FileMode;
-import flash.filesystem.FileStream;
-
 import starling.display.Image;
 
 import starling.display.Sprite;
-import starling.events.Event;
 
 import starling.events.Event;
 import starling.text.TextField;
@@ -49,7 +40,7 @@ public class Add extends Sprite
     private var _moreBtn:Button;
     private var _readyBtn:Button;
 
-    [Embed(source = "/../assets/custom/error.png")]
+    [Embed(source="/../assets/custom/error.png")]
     private static const ErrorClass:Class;
     private var _error1:Image;
     private var _error2:Image;

@@ -1,4 +1,4 @@
-package be.devine.groep10.view
+package be.devine.groep10.view.pages
 {
 import be.devine.groep10.model.AppModel;
 import be.devine.groep10.vo.RecipesVO;
@@ -66,7 +66,7 @@ public class Recipes extends Sprite
         _recipeList.dataProvider = _listCollection;
         // trace("[RECIPE] "  + _appModel.ownRecipes);
 
-        //
+        /*
         if(_appModel.ownRecipes != null)
         {
             for each(var ownRecipe:Object in _appModel.ownRecipes){
@@ -76,7 +76,7 @@ public class Recipes extends Sprite
             }
         }else{
             //  trace("GEEN EIGEN RECEPTEN");
-        }
+        }*/
         //IN COMMENTAAR WANT MOMENTEEL IS OWNRECIPE NOG NULL (ER IS NOG GEEN EIGEN RECEPT TOEGEVOEGD)
         // _ownRecipeList.dataProvider = _listCollection;
 
@@ -93,7 +93,7 @@ public class Recipes extends Sprite
     {
         if(_recipeList.selectedItem)
         {
-            _appModel.currentRecipe = _recipeList.selectedItem as RecipesVO;
+            //_appModel.currentRecipe = _recipeList.selectedItem as RecipesVO;
         }
     }
 

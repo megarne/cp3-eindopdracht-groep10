@@ -7,30 +7,24 @@
  */
 package be.devine.groep10
 {
+import be.devine.groep10.manager.PageManager;
+import be.devine.groep10.manager.RecipeManager;
 import be.devine.groep10.model.AppModel;
-import be.devine.groep10.view.Add;
-import be.devine.groep10.view.Detail;
 import be.devine.groep10.view.Menu;
-import be.devine.groep10.view.Recipes;
+import be.devine.groep10.view.pages.Add;
+import be.devine.groep10.view.pages.Detail;
+import be.devine.groep10.view.pages.Recipes;
 import be.devine.groep10.view.ui.Help;
-
-import feathers.controls.Button;
-
 import feathers.controls.Button;
 
 import feathers.controls.Header;
 import feathers.themes.ConverterTheme;
 
-import flash.display.Bitmap;
-
 import flash.events.Event;
-
-import starling.display.Button;
 import starling.display.Image;
 
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.textures.Texture;
 
 public class Application extends Sprite
 {
@@ -43,6 +37,8 @@ public class Application extends Sprite
     private var _bgImage:Image;
 
     private var _appModel:AppModel;
+    private var _pageManager:PageManager;
+    private var _recipeManager:RecipeManager;
 
     private var _header:Header;
     [Embed(source = "/../assets/custom/line.png")]
@@ -68,6 +64,8 @@ public class Application extends Sprite
         this.addEventListener(starling.events.Event.ADDED_TO_STAGE, addedHandler);
 
         _appModel = AppModel.getInstance();
+        _pageManager = PageManager.getInstance();
+        _recipeManager = RecipeManager.getInstance();
         _appModel.load();
 
         _bg = Image.fromBitmap(new BackgroundClass());
@@ -103,7 +101,7 @@ public class Application extends Sprite
 
         _homeBtn.visible = false;
 
-        //_appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
+        _appModel.addEventListener(AppModel.CURRENT_PAGE_CHANGED, pageChangedHandler);
     }
 
     private function addedHandler(event:starling.events.Event):void
@@ -151,7 +149,7 @@ public class Application extends Sprite
         _add.setSize(stage.stageWidth, stage.stageHeight);
     }
 
-    /*private function pageChangedHandler(event:flash.events.Event):void
+    private function pageChangedHandler(event:flash.events.Event):void
     {
         _homeBtn.visible = true;
 
@@ -195,7 +193,7 @@ public class Application extends Sprite
         _help.visible = false;
         _bgImage.visible = false;
         addChild(_container);
-    }*/
+    }
 
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
@@ -211,7 +209,7 @@ public class Application extends Sprite
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-        trace("recept = "+_appModel.currentRecipe);
+        //trace("recept = "+_appModel.currentRecipe);
     }
 }
 }

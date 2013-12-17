@@ -5,7 +5,8 @@
  * Time: 2:50 PM
  * To change this template use File | Settings | File Templates.
  */
-package be.devine.groep10.view {
+package be.devine.groep10.view.pages
+{
 import feathers.controls.Button;
 import feathers.controls.Header;
 import feathers.controls.List;

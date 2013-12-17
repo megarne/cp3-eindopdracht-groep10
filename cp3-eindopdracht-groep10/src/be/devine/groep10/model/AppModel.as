@@ -16,6 +16,146 @@ public class AppModel extends EventDispatcher
 {
     private static var instance:AppModel;
 
+    public static const PAGE_CHANGED:String = "pageChanged";
+    public static const CURRENT_PAGE_CHANGED:String = "currentPageChanged";
+
+    private var _pages:Array;
+    private var currentPageChanged:Boolean;
+    private var _currentPage:String;
+
+    public static const RECIPE_CHANGED:String = "recipeChanged";
+    public static const CURRENT_RECIPE_CHANGED:String = "currentRecipeChanged";
+
+    private var _recipes:Array;
+    private var currentRecipeChanged:Boolean;
+    private var _currentRecipe:String;
+
+    public function AppModel(e:Enforcer)
+    {
+        if (e == null)
+        {
+            throw new Error("AppModel is a singleton, use getInstance() instead");
+        }
+
+        _pages = ["recepten", "eigen recepten", "recept toevoegen","conversie toevoegen"];
+        _recipes = [];
+    }
+    public static function getInstance():AppModel
+    {
+        if (instance == null)
+        {
+            instance = new AppModel(new Enforcer());
+        }
+        return instance;
+    }
+
+    public function get pages():Array
+    {
+        return _pages;
+    }
+
+    public function set pages(value:Array):void
+    {
+        if (value != _pages)
+        {
+            _pages = value;
+            dispatchEvent(new Event(PAGE_CHANGED));
+        }
+    }
+
+    public function get currentPage():String
+    {
+        return _currentPage;
+    }
+
+    public function set currentPage(value:String):void
+    {
+        if (_currentPage != value)
+        {
+            currentPageChanged = true;
+            _currentPage = value;
+            dispatchEvent(new Event(CURRENT_PAGE_CHANGED));
+        }
+    }
+
+    public function get recipes():Array
+    {
+        return _recipes;
+    }
+
+    public function set recipes(value:Array):void
+    {
+        if (value != _recipes)
+        {
+            _recipes = value;
+            dispatchEvent(new Event(RECIPE_CHANGED));
+        }
+    }
+
+    public function get currentRecipe():String
+    {
+        return _currentRecipe;
+    }
+
+    public function set currentRecipe(value:String):void
+    {
+        if (_currentRecipe != value)
+        {
+            currentRecipeChanged = true;
+            _currentRecipe = value;
+            dispatchEvent(new Event(CURRENT_RECIPE_CHANGED));
+        }
+    }
+
+    public function load():void
+    {
+        var recipesFile:File = File.documentsDirectory.resolvePath("/Users/zoevankuyk/Documents/Devine/2013 - 2014/CPIII/CPIII_DEEL2/CPIII_opdracht/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
+
+        var readStream:FileStream = new FileStream();
+        readStream.open(recipesFile, FileMode.READ);
+        var parsedJSON:Array = JSON.parse(
+                readStream.readUTFBytes(readStream.bytesAvailable)) as Array;
+        readStream.close();
+        for each(var recipe:Object in parsedJSON)
+        {
+            _recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
+        }
+
+    }
+
+    public function loadOwnRecipes():void
+    {
+        var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
+        if (!ownRecipesFile.exists)
+        {
+            var writeStream:FileStream = new FileStream();
+            writeStream.open(ownRecipesFile, FileMode.WRITE);
+            writeStream.writeUTFBytes(JSON.stringify([]));
+            writeStream.close();
+        }
+        else
+        {
+            var readStream:FileStream = new FileStream();
+            readStream.open(ownRecipesFile, FileMode.READ);
+            var parsedJSON:Array = JSON.parse(
+                    readStream.readUTFBytes(readStream.bytesAvailable)
+            ) as Array;
+
+            readStream.close();
+
+            for each(var ownRecipe:Object in parsedJSON)
+            {
+
+            }
+        }
+    }
+}
+}
+
+/*public class AppModel extends EventDispatcher
+{
+    private static var instance:AppModel;
+
     private var _pages:Array;
 
     public static const PAGE_CHANGED:String = "pageChanged";
@@ -186,7 +326,7 @@ public class AppModel extends EventDispatcher
         }
     }
 }
-}
+}*/
 
 internal class Enforcer
 {};
