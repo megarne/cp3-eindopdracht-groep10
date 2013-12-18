@@ -28,7 +28,7 @@ public class AppModel extends EventDispatcher
 
     private var _recipes:Array;
     private var currentRecipeChanged:Boolean;
-    private var _currentRecipe:String;
+    private var _currentRecipe:RecipesVO;
 
     public function AppModel(e:Enforcer)
     {
@@ -92,24 +92,27 @@ public class AppModel extends EventDispatcher
         }
     }
 
-    public function get currentRecipe():String
+    public function get currentRecipe():RecipesVO
     {
         return _currentRecipe;
     }
 
-    public function set currentRecipe(value:String):void
+    public function set currentRecipe(value:RecipesVO):void
     {
         if (_currentRecipe != value)
         {
             currentRecipeChanged = true;
             _currentRecipe = value;
             dispatchEvent(new Event(CURRENT_RECIPE_CHANGED));
+            trace(_currentRecipe);
+
         }
+
     }
 
     public function load():void
     {
-        var recipesFile:File = File.documentsDirectory.resolvePath("/Users/zoevankuyk/Documents/Devine/2013 - 2014/CPIII/CPIII_DEEL2/CPIII_opdracht/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
+        var recipesFile:File = File.documentsDirectory.resolvePath("/Users/cavia/cp3-eindopdracht-groep10/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
 
         var readStream:FileStream = new FileStream();
         readStream.open(recipesFile, FileMode.READ);

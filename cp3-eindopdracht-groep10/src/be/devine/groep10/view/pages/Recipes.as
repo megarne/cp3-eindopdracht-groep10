@@ -39,13 +39,13 @@ public class Recipes extends Sprite
         addChild(_recipeList);
 
         //NA DIT TOEGEVOEGD TE HEBBEN WERKT DE SCROLL NIET MEER
-        _ownRecipeList = new List();
+       /* _ownRecipeList = new List();
         _ownRecipeList.width = 360;
         _ownRecipeList.height = 650;
         _ownRecipeList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
         _ownRecipeList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
         _ownRecipeList.itemRendererProperties.labelField = "title";
-        addChild(_ownRecipeList);
+        addChild(_ownRecipeList);       */
 
         _listCollection = new ListCollection();
         _ownListCollection = new ListCollection();
@@ -91,16 +91,17 @@ public class Recipes extends Sprite
 
     private function listChangeHandler(event:starling.events.Event):void
     {
+
+
         if(_recipeList.selectedItem)
         {
-            //_appModel.currentRecipe = _recipeList.selectedItem as RecipesVO;
+            _appModel.currentRecipe = _recipeList.selectedItem as RecipesVO;
         }
     }
 
     private function display():void
     {
-        //sorry voor het onbegrip maar waarom is selectedItem een currentPage?
-        // omdat da een nieuwe current-something moet zijn.. currentRecipe!
+
         _recipeList.selectedItem = _appModel.currentRecipe;
         // _ownRecipesList.selectedItem = _appModel.currentPage;
 

@@ -180,10 +180,10 @@ public class Application extends Sprite
                 _container.addChild(_add);
                 break;
 
-            case "detail":
+            default :
                 _detail = new Detail();
                 _container.addChild(_detail);
-                break;
+
         }
 
         layout();
@@ -209,7 +209,9 @@ public class Application extends Sprite
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-        //trace("recept = "+_appModel.currentRecipe);
+        removeChild(_container);
+        _appModel.currentPage = _appModel.currentRecipe.name;
+
     }
 }
 }
