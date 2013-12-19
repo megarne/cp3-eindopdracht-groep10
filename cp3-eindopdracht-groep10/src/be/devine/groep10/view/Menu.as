@@ -36,7 +36,6 @@ public class Menu extends Sprite
         _appModel = AppModel.getInstance();
 
         _menuList = new List();
-        //_menuList.width = 360;
         _menuList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
         _menuList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
         _menuList.itemRendererProperties.labelField = "title";

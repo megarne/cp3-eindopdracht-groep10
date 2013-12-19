@@ -150,8 +150,6 @@ public class Application extends Sprite
 
     private function pageChangedHandler(event:flash.events.Event):void
     {
-        trace(_appModel.currentPage+ "pagina");
-
         _homeBtn.visible = true;
 
         _homeBtn.addEventListener( starling.events.Event.TRIGGERED, GoBackHomeHandler );
@@ -191,7 +189,6 @@ public class Application extends Sprite
         layout();
 
         removeChild(_menu);
-        //removeChild(_help);
         _help.visible = false;
         _bgImage.visible = false;
         addChild(_container);

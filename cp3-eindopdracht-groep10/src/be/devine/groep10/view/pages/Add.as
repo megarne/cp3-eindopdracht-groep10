@@ -197,8 +197,6 @@ public class Add extends Sprite
 
         if(errors == false)
         {
-            trace("alles juist");
-
             //value doorsturen naar json
             var recipeName:String = _inputName.text;
             var str:String = new String();
@@ -214,7 +212,6 @@ public class Add extends Sprite
                 var oldStr:String = readStream.readUTFBytes(readStream.bytesAvailable);
                 oldStr = oldStr.substring(1,oldStr.length-1);
                 oldStr = oldStr.replace(/\\/gi,'');
-                trace("[READINGFILE]"+oldStr);
                 str = '[' + oldStr + ',{';
                 //str = '[{';
                 str = str + '"name":"'+recipeName+'","ingredients": {';
@@ -232,7 +229,6 @@ public class Add extends Sprite
                 ingNr++;
             }
             str = str + '} } ]';
-            trace('[LEES STR]' + str);
 
             var writeStream:FileStream = new FileStream();
             writeStream.open(ingredientFile, FileMode.WRITE);

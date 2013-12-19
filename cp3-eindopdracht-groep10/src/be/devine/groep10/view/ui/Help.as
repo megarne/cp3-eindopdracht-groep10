@@ -8,9 +8,9 @@
 package be.devine.groep10.view.ui
 {
 
-import feathers.controls.Button;
+import be.devine.groep10.factory.TextFieldFactory;
 
-import flash.events.MouseEvent;
+import feathers.controls.Button;
 
 import starling.animation.Transitions;
 
@@ -22,17 +22,14 @@ import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.events.Event;
-import starling.text.TextField;
-import starling.utils.HAlign;
-import starling.utils.VAlign;
 
 public class Help extends Sprite
 {
     private var _bgContainer:Sprite;
 
     private var _textContainer:Sprite;
-    private var _textHelp1:TextField;
-    private var _textHelp2:TextField;
+    private var _textHelp1:TextFieldFactory;
+    private var _textHelp2:TextFieldFactory;
     private var _textBg:Quad;
 
     [Embed(source = "/../assets/custom/helpDecoration.png")]
@@ -86,7 +83,7 @@ public class Help extends Sprite
 
     }
 
-    private function onTweenComplete(_bg:Sprite):void
+    private function onTweenComplete(_bgContainer:Sprite):void
     {
         _helpBtn.removeEventListener(Event.TRIGGERED, menuUp);
         _helpBtn.addEventListener(Event.TRIGGERED, menuDown);
@@ -129,19 +126,12 @@ public class Help extends Sprite
         _decoration.y = _textBg.y + _textBg.height - _decoration.height;
         _textContainer.addChild(_decoration);
 
-        //FACTORY VAN MAKEN?
-        _textHelp1 = new TextField( 320, 120, "Deze app kan je gebruiken om te berekenen hoeveel je van je ingredienten moet gebruiken naar het aantal personen voor wie je kookt.", "BebasNeue", 23, 0x272727);
-        _textHelp1.hAlign = HAlign.LEFT;
-        _textHelp1.vAlign = VAlign.TOP;
-        _textHelp1.kerning = true;
+        _textHelp1 = new TextFieldFactory(320, 120, "Deze app kan je gebruiken om te berekenen hoeveel je van je ingredienten moet gebruiken naar het aantal personen voor wie je kookt.", "BebasNeue", 23, 0x272727);
         _textHelp1.x = stage.stageWidth/2 - _textHelp1.width/2;
         _textHelp1.y = _textBg.y + 10;
         _textContainer.addChild(_textHelp1);
 
-        _textHelp2 = new TextField( 320, 25, "Extra! je kan de volumes en gewichten omvormen.", "BebasNeue", 19, 0xc90010);
-        _textHelp2.hAlign = HAlign.LEFT;
-        _textHelp2.vAlign = VAlign.TOP;
-        _textHelp2.kerning = true;
+        _textHelp2 = new TextFieldFactory( 320, 25, "Extra! je kan de volumes en gewichten omvormen.", "BebasNeue", 19, 0xc90010);
         _textHelp2.x = stage.stageWidth/2 - _textHelp2.width/2;
         _textHelp2.y = _textHelp1.y + _textHelp1.height + 5;
         _textContainer.addChild(_textHelp2);
@@ -153,8 +143,6 @@ public class Help extends Sprite
         _explicitHeight = h;
 
         _bgContainer.width = _explicitWidth;
-
-        //_bgContainer.x = Math.round((_explicitWidth - _bgContainer.width) * .5);
         _bgContainer.y = _explicitHeight;
     }
 }

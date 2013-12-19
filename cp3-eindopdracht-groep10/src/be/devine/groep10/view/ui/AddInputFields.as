@@ -58,9 +58,6 @@ public class AddInputFields extends Sprite
         _unit.prompt = "Kies eenheid";
         _unit.selectedIndex = -1;
         _unit.y = _inputAmount.y;
-
-        trace(_unit.prompt);
-        trace(_unit.prompt.length);
     }
 
     public function setSize(w:Number, h:Number):void
