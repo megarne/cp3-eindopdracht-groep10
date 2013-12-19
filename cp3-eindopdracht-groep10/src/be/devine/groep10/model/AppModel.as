@@ -26,11 +26,13 @@ public class AppModel extends EventDispatcher
     public static const RECIPE_CHANGED:String = "recipeChanged";
     public static const OWNRECIPE_CHANGED:String = "ownrecipeChanged";
     public static const CURRENT_RECIPE_CHANGED:String = "currentRecipeChanged";
+    public static const CONVERSION_CHANGED:String = "conversionChanged";
 
     private var _recipes:Array;
     private var _ownRecipes:Array;
     private var currentRecipeChanged:Boolean;
     private var _currentRecipe:String;
+    private var _conversies:Array;
 
     public function AppModel(e:Enforcer)
     {
@@ -147,6 +149,19 @@ public class AppModel extends EventDispatcher
         var recipeService:OwnRecipeService = event.target as OwnRecipeService;
         this.ownRecipes = recipeService.ownRecipes;
         this._currentRecipe = recipes[0];
+    }
+
+    public function get conversies():Array {
+        return _conversies;
+    }
+
+    public function set conversies(value:Array):void {
+
+        if (value != _conversies)
+        {
+            _conversies = value;
+            dispatchEvent(new flash.events.Event(CONVERSION_CHANGED));
+        }
     }
 }
 }

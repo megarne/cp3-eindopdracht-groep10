@@ -12,6 +12,7 @@ import be.devine.groep10.manager.RecipeManager;
 import be.devine.groep10.model.AppModel;
 import be.devine.groep10.view.Menu;
 import be.devine.groep10.view.pages.Add;
+import be.devine.groep10.view.pages.Conversion;
 import be.devine.groep10.view.pages.Detail;
 import be.devine.groep10.view.pages.Recipes;
 import be.devine.groep10.view.ui.Help;
@@ -54,6 +55,9 @@ public class Application extends Sprite
     private var _ownRecipes:Recipes;
     private var _add:Add;
     private var _detail:Detail;
+
+    private var _conversion:Conversion;
+
 
     private var _container:Sprite;
 
@@ -184,6 +188,11 @@ public class Application extends Sprite
                 _detail = new Detail();
                 _container.addChild(_detail);
                 break;
+
+            case "conversie toevoegen":
+                _conversion=new Conversion();
+                _container.addChild(_conversion);
+                trace("CONVERSIE TOEVOEGEN KLIK");
         }
 
         layout();
