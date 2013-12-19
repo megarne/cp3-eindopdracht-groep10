@@ -1,12 +1,12 @@
 [
-    {
-        "name": "Spaghetti",
-        "ingredients": {
-            "ingredient1":{
-                "ingredientname":"gehakt",
-                "ingredientvalue":"1",
-                "ingredientunit":"kg"
-            },
+            {
+                "name": "Spaghetti",
+                "ingredients": {
+                    "ingredient1":{
+                        "ingredientname":"gehakt",
+                        "ingredientvalue":"1",
+                        "ingredientunit":"kg"
+                    },
             "ingredient2":{
                 "ingredientname":"dikke sneetjes pancette",
                 "ingredientvalue":"4",

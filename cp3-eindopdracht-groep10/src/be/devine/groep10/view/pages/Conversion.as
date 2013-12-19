@@ -1,4 +1,5 @@
 package be.devine.groep10.view.pages {
+import be.devine.groep10.factory.RecipesVOFactory;
 import be.devine.groep10.model.AppModel;
 import be.devine.groep10.view.ui.AddInputFields;
 
@@ -112,18 +113,53 @@ public class Conversion extends Sprite {
         var naam:String  = _inputConversie.text;
         trace(naam);
 
-        var ingredientFile:File = File.applicationStorageDirectory.resolvePath("conversions.json");
+        var str:String = new String();
+        var conversionFile:File = File.applicationStorageDirectory.resolvePath("conversions.json");
 
-        if(!ingredientFile.exists)
+        if(!conversionFile.exists)
         {
             //file bestaat niet
+            str = '[{ "name":"'+naam+'","conversie": { ';
         }
         else
         {
-            var oldStr:String = readStream(ingredientFile);
-            //nieuwe file maken
+            var conversieStr:String = readStream(conversionFile);
+            //toevoegen aan bestaande file
+
+            conversieStr = conversieStr.substring(1,conversieStr.length-1);
+            conversieStr = conversieStr.replace(/\\/gi,'');
+            str = '[' + conversieStr + ',{';
+            //str = '[{';
+            str = str + '"name":"'+naam+'","conversie": {';
 
         }
+
+        var conversionNr:int = 1;
+        var length:int = _arrConversies.length;
+        for each( var conversie in _arrConversies)
+        {
+
+            str = str + '"deel1": { "waarde1": "' + _waarde1.text + '", "eenheid 1":"' + _eenheid1.text + '"},"deel2":{ "waarde 2":"' + _waarde2.text + '", "eenheid 2":"' + _eenheid2.text +'"}';
+            if(conversionNr != length){
+                str = str + ',';
+            }
+            conversionNr++;
+        }
+        str = str + '} } ]';
+        writeStream(conversionFile,str);
+
+        var readStr:String = readStream(conversionFile);
+        var parsedJSON:Array = JSON.parse(readStr) as Array;
+        var conversions:Array = [];
+        for each(var conversion:Object in parsedJSON)
+        {
+            trace("[conversion] dingen")
+           // conversions.push(ConversionVOFactory.createConversionVOFromObject(conversion));
+
+            //recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
+        }
+        _appModel.conversies = conversions;
+        dispatchEvent(new Event(Event.COMPLETE));
 
 
     }
