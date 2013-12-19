@@ -12,8 +12,10 @@ public class RecipesVO
     //data van id json
     public var name:String;
     public var ingredients:Object;
-    public var value:String;
-    public var unit:String;
+    public var ingredientname:String;
+    public var preparation:String;
+    public var ingredientunit:String;
+    public var ingredientvalue:String;
 
     public function RecipesVO()
     {
