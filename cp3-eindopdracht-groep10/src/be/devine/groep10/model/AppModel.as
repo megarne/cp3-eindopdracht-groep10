@@ -73,12 +73,9 @@ public class AppModel extends EventDispatcher
 
     public function set currentPage(value:String):void
     {
-        if (_currentPage != value)
-        {
             currentPageChanged = true;
             _currentPage = value;
             dispatchEvent(new flash.events.Event(CURRENT_PAGE_CHANGED));
-        }
     }
 
     public function get recipes():Array

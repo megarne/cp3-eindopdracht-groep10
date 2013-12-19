@@ -69,6 +69,10 @@ public class Menu extends Sprite
         _menuList.layout = layout;
     }
 
+    public function deselectMenuItems():void{
+        _menuList.selectedIndex = -1;
+    }
+
     public function setSize(w:Number, h:Number):void
     {
         _explicitWidth = w;

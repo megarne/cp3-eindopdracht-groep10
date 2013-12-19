@@ -200,7 +200,9 @@ public class Application extends Sprite
         _header.title = "keuken omvormer";
         _homeBtn.visible = false;
 
+        _menu.deselectMenuItems();
         addChild(_menu);
+
         _help.visible = true;
         _bgImage.visible = true;
     }

@@ -22,6 +22,7 @@ import starling.display.Quad;
 
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.text.TextField;
 
 public class Help extends Sprite
 {
@@ -83,7 +84,7 @@ public class Help extends Sprite
 
     }
 
-    private function onTweenComplete(_bgContainer:Sprite):void
+    private function onTweenComplete(_bg:Sprite):void
     {
         _helpBtn.removeEventListener(Event.TRIGGERED, menuUp);
         _helpBtn.addEventListener(Event.TRIGGERED, menuDown);

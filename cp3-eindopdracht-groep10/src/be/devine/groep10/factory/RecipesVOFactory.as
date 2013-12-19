@@ -5,10 +5,12 @@
  * Time: 20:24
  * To change this template use File | Settings | File Templates.
  */
-package be.devine.groep10.factory {
+package be.devine.groep10.factory
+{
 import be.devine.groep10.vo.RecipesVO;
 
-public class RecipesVOFactory {
+public class RecipesVOFactory
+{
     public static function createRecipesVOFromObject(recipe:Object):RecipesVO
     {
         var recipesVO:RecipesVO = new RecipesVO();
