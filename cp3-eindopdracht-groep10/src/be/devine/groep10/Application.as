@@ -22,16 +22,20 @@ import feathers.controls.Header;
 import feathers.themes.ConverterTheme;
 
 import flash.events.Event;
+import flash.utils.ByteArray;
+
 import starling.display.Image;
 
 import starling.display.Sprite;
 import starling.events.Event;
+import starling.textures.Texture;
 
 public class Application extends Sprite
 {
-    [Embed(source = "/../assets/custom/bg.png")]
-    private static const BackgroundClass:Class;
+    [Embed(source = "/../assets/custom/bg.atf", mimeType="application/octet-stream")]
+    private static const BackgroundATF:Class;
     private var _bg:Image;
+    private var _texture:Texture;
 
     [Embed(source = "/../assets/custom/bgImage.png")]
     private static const ImageBgClass:Class;
@@ -55,9 +59,7 @@ public class Application extends Sprite
     private var _ownRecipes:Recipes;
     private var _add:Add;
     private var _detail:Detail;
-
     private var _conversion:Conversion;
-
 
     private var _container:Sprite;
 
@@ -73,7 +75,8 @@ public class Application extends Sprite
         _appModel.load();
         _appModel.loadOwnRecipes();
 
-        _bg = Image.fromBitmap(new BackgroundClass());
+        _texture = Texture.fromAtfData(new BackgroundATF() as ByteArray);
+        _bg = new Image(_texture);
         addChild(_bg);
 
         _bgImage = Image.fromBitmap(new ImageBgClass());
@@ -192,7 +195,6 @@ public class Application extends Sprite
             case "conversie toevoegen":
                 _conversion=new Conversion();
                 _container.addChild(_conversion);
-                trace("CONVERSIE TOEVOEGEN KLIK");
         }
 
         layout();
@@ -210,7 +212,7 @@ public class Application extends Sprite
         _homeBtn.visible = false;
 
         _menu.deselectMenuItems();
-        addChild(_menu);
+        addChildAt(_menu,3);
 
         _help.visible = true;
         _bgImage.visible = true;
