@@ -139,7 +139,7 @@ public class Conversion extends Sprite {
         for each( var conversie in _arrConversies)
         {
 
-            str = str + '"deel1": { "waarde1": "' + _waarde1.text + '", "eenheid 1":"' + _eenheid1.text + '"},"deel2":{ "waarde 2":"' + _waarde2.text + '", "eenheid 2":"' + _eenheid2.text +'"}';
+            str = str + '"deel1": { "waarde1": "' + _waarde1.text + '", "eenheid1":"' + _eenheid1.text + '"},"deel2":{ "waarde2":"' + _waarde2.text + '", "eenheid2":"' + _eenheid2.text +'"}';
             if(conversionNr != length){
                 str = str + ',';
             }

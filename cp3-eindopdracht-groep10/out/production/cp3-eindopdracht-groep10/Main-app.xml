@@ -9,11 +9,7 @@
 <application xmlns="http://ns.adobe.com/air/application/3.9">
   <!-- A universally unique application identifier. Must be unique across all AIR applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-<<<<<<< HEAD
   <id>be.devine.groep10</id>
-=======
-  <id>be.devine</id>
->>>>>>> b32d5e2f34c3cb041743f168c89089d9be6a71d1
   <!-- Used as the filename for the application. Required. -->
   <filename>Main</filename>
   <!-- The name that is displayed in the AIR application installer. May have multiple values for each language. See samples or xsd schema file. Optional. -->
