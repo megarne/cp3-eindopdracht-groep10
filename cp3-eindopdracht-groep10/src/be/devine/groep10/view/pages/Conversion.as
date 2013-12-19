@@ -10,6 +10,10 @@ import feathers.controls.TextInput;
 import feathers.data.ListCollection;
 import feathers.layout.VerticalLayout;
 
+import flash.filesystem.File;
+import flash.filesystem.FileMode;
+import flash.filesystem.FileStream;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -24,7 +28,10 @@ public class Conversion extends Sprite {
 
     private var _waarde1:TextInput;
     private var _waarde2:TextInput;
+    private var _eenheid1:TextInput;
+    private var _eenheid2:TextInput;
     private var _arrConversies:Array;
+    private var _readyBtn:Button;
 
     private var _explicitWidth:Number = 0;
     private var _explicitHeight:Number = 0;
@@ -56,7 +63,8 @@ public class Conversion extends Sprite {
 
         _waarde1 = new TextInput();
         _waarde1.prompt = "waarde 1"
-        _waarde1.y = 10;
+        _waarde1.y = _inputConversie.height + 50;
+        _waarde1.x = 10;
         //_waarde1.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_waarde1);
         //_arrConversies.push(_inputConversie);
@@ -64,16 +72,77 @@ public class Conversion extends Sprite {
 
         _waarde2 = new TextInput();
         _waarde2.prompt = "waarde 2"
-        _waarde2.y = _waarde1.height + _waarde2.height;
+        _waarde2.y = _waarde1.y + _waarde2.height + 50;
+        _waarde2.x = 10;
         //_waarde1.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_waarde2);
         //_arrConversies.push(_inputConversie);
+
+        _eenheid1 = new TextInput();
+        _eenheid1.prompt = "eenheid 1"
+        _eenheid1.y = _inputConversie.height + 50;
+        _eenheid1.x = 200;
+        //_waarde1.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
+        _inputContainer.addChild(_eenheid1);
+        //_arrConversies.push(_inputConversie);
+
+
+        _eenheid2 = new TextInput();
+        _eenheid2.prompt = "eenheid 2"
+        _eenheid2.y = _eenheid1.y + _eenheid2.height + 50;
+        _eenheid2.x = 200;
+
+        //_waarde1.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
+        _inputContainer.addChild(_eenheid2);
 
 
         addChild(_inputContainer);
 
 
-        display();
+        _readyBtn = new Button();
+        _readyBtn.nameList.add(Button.READY_BUTTON);
+        _readyBtn.label = "klaar!";
+        _readyBtn.y = _eenheid2.y + 50;
+        _inputContainer.addChild(_readyBtn);
+        _readyBtn.addEventListener(starling.events.Event.TRIGGERED, readyButtonTriggeredHandler);
+    }
+
+    private function readyButtonTriggeredHandler(event:starling.events.Event):void {
+
+        var naam:String  = _inputConversie.text;
+        trace(naam);
+
+        var ingredientFile:File = File.applicationStorageDirectory.resolvePath("conversions.json");
+
+        if(!ingredientFile.exists)
+        {
+            //file bestaat niet
+        }
+        else
+        {
+            var oldStr:String = readStream(ingredientFile);
+            //nieuwe file maken
+
+        }
+
+
+    }
+
+    private function readStream(file:File):String
+    {
+        var readStream:FileStream = new FileStream();
+        readStream.open(file, FileMode.READ);
+        var string:String = readStream.readUTFBytes(readStream.bytesAvailable);
+        readStream.close();
+        return string;
+    }
+
+    private function writeStream(file:File,str:String)
+    {
+        var writeStream:FileStream = new FileStream();
+        writeStream.open(file, FileMode.WRITE);
+        writeStream.writeUTFBytes(str);
+        writeStream.close();
     }
 
     private function inputChangeHandler(event:starling.events.Event):void {
@@ -82,6 +151,8 @@ public class Conversion extends Sprite {
 
     private function addedToStageHandler(event:starling.events.Event):void {
         _conversionList.x = stage.stageWidth / 2 - _conversionList.width / 2;
+
+        _inputContainer.x = stage.stageWidth / 2 - _inputContainer.width / 2;
 
     }
 
@@ -119,10 +190,10 @@ public class Conversion extends Sprite {
         _explicitWidth = w;
         _explicitHeight = h;
 
-        _inputConversie.width = _explicitWidth - 140;
+
+        // _inputConversie.width = _explicitWidth - 140;
         _waarde1.width = _explicitWidth / 2 - 80;
         _waarde2.width = _waarde1.width;
-        _waarde2.x = _waarde1.x + _waarde1.width + 20;
 
 
 //        _recipeList.setSize(_explicitWidth - 120, _explicitHeight - 120);
