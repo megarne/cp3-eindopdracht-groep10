@@ -418,33 +418,6 @@
         },
         "preparation":"Meng de bloem, eitjes in een kom. Voeg de suiker toe en meng alles door elkaar. 2. Voeg rustig de melk toe en blijf het geheel opkloppen tot je een vloeibare maar glad geheel krijgt. TIP! Gebruik zelfrijzende bloem en laat het beslag een uurtje rusten voor je begint te bakken. Op deze manier krijg je een luchtigere pannenkoek. 3. Laat een pan met een klontje boter goed heet worden en giet er beslag in voor 1 pannenkoek. 4. Draai de pannenkoek eens de luchtbelletjes bovenaan opdrogen en openspringen. TIP! Zorg ervoor dat de pan heet genoeg is anders blijft de pannenkoek kleven en kan je deze niet draaien. "
 
-    },
-    {
-        "name": "pasta",
-        "ingredients": {
-            "ingredient1":{
-                "ingredientname":"bloem",
-                "ingredientvalue":"125",
-                "ingredientunit":"gr"
-            },
-            "ingredient2":{
-                "ingredientname":"eieren",
-                "ingredientvalue":"2",
-                "ingredientunit":""
-            },
-            "ingredient3":{
-                "ingredientname":"melk",
-                "ingredientvalue":"25",
-                "ingredientunit":"cl"
-            },
-            "ingredient4":{
-                "ingredientname":"suiker",
-                "ingredientvalue":"75",
-                "ingredientunit":"naar smaak"
-            }
-        },
-        "preparation":"Meng de bloem, eitjes in een kom. Voeg de suiker toe en meng alles door elkaar. 2. Voeg rustig de melk toe en blijf het geheel opkloppen tot je een vloeibare maar glad geheel krijgt. TIP! Gebruik zelfrijzende bloem en laat het beslag een uurtje rusten voor je begint te bakken. Op deze manier krijg je een luchtigere pannenkoek. 3. Laat een pan met een klontje boter goed heet worden en giet er beslag in voor 1 pannenkoek. 4. Draai de pannenkoek eens de luchtbelletjes bovenaan opdrogen en openspringen. TIP! Zorg ervoor dat de pan heet genoeg is anders blijft de pannenkoek kleven en kan je deze niet draaien. "
-
     }
 
 ]

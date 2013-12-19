@@ -143,56 +143,56 @@ public class Add extends Sprite
         }
         for each( var input:AddInputFields in _arrIngredients)
         {
-        if(input.inputIngredient.text != "")
-        {
-            if(_error2 != null)
+            if(input.inputIngredient.text != "")
             {
-                input.inputIngredient.removeChild(_error2);
+                if(_error2 != null)
+                {
+                    input.inputIngredient.removeChild(_error2);
+                }
             }
-        }
-        else
-        {
-            errors = true;
-
-            _error2.y =  input.inputIngredient.height/2 - _error2.height/2;
-            input.inputIngredient.addChild(_error2);
-
-            _arrErrors.push(_error2);
-        }
-
-        if(input.inputAmount.text != "")
-        {
-            if(_error3 != null)
+            else
             {
-                input.inputAmount.removeChild(_error3);
+                errors = true;
+
+                _error2.y =  input.inputIngredient.height/2 - _error2.height/2;
+                input.inputIngredient.addChild(_error2);
+
+                _arrErrors.push(_error2);
             }
-        }
-        else
-        {
-            errors = true;
 
-            _error3.y =  input.inputAmount.height/2 - _error3.height/2;
-            input.inputAmount.addChild(_error3);
-
-            _arrErrors.push(_error3);
-        }
-
-        if(input.unit.selectedIndex != -1)
-        {
-            if(_error4 != null)
+            if(input.inputAmount.text != "")
             {
-                input.unit.removeChild(_error4);
+                if(_error3 != null)
+                {
+                    input.inputAmount.removeChild(_error3);
+                }
             }
-        }
-        else
-        {
-            errors = true;
+            else
+            {
+                errors = true;
 
-            _error4.y =  input.inputAmount.height/2 - _error3.height/2;
-            input.unit.addChild(_error4);
+                _error3.y =  input.inputAmount.height/2 - _error3.height/2;
+                input.inputAmount.addChild(_error3);
 
-            _arrErrors.push(_error4);
-        }
+                _arrErrors.push(_error3);
+            }
+
+            if(input.unit.selectedIndex != -1)
+            {
+                if(_error4 != null)
+                {
+                    input.unit.removeChild(_error4);
+                }
+            }
+            else
+            {
+                errors = true;
+
+                _error4.y =  input.inputAmount.height/2 - _error3.height/2;
+                input.unit.addChild(_error4);
+
+                _arrErrors.push(_error4);
+            }
         }
 
         if(errors == false)
@@ -202,55 +202,55 @@ public class Add extends Sprite
             //value doorsturen naar json
             var recipeName:String = _inputName.text;
             var str:String = new String();
-                var ingredientFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
+            var ingredientFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
 
-                if(!ingredientFile.exists)
-                {
-                     str = '[{ "name":"'+recipeName+'","ingredients": { ';
-                }
-                else{
-                    var readStream:FileStream = new FileStream();
-                    readStream.open(ingredientFile, FileMode.READ);
-                    var oldStr:String = readStream.readUTFBytes(readStream.bytesAvailable);
-                    oldStr = oldStr.substring(1,oldStr.length-1);
-                    oldStr = oldStr.replace(/\\/gi,'');
-                    trace("[READINGFILE]"+oldStr);
-                    str = '[' + oldStr + ',{';
-                    //str = '[{';
-                    str = str + '"name":"'+recipeName+'","ingredients": {';
-                }
-
-                //String voor filestream.write aanmaken
-                var ingNr:int = 1;
-                var length:int = _arrIngredients.length;
-                for each( var input:AddInputFields in _arrIngredients)
-                {
-                    str = str + '"ingredient'+ ingNr +'": {"ingredientname":"' + input.inputIngredient.text + '", "ingredientvalue":"' + input.inputAmount.text + '", "ingredientunit":"' + input.unit.selectedItem.text + '"}';
-                    if(ingNr != length){
-                        str = str + ',';
-                    }
-                    ingNr++;
-                }
-                str = str + '} } ]';
-                trace('[LEES STR]' + str);
-
-                var writeStream:FileStream = new FileStream();
-                writeStream.open(ingredientFile, FileMode.WRITE);
-                writeStream.writeUTFBytes(str);
-                writeStream.close();
-
+            if(!ingredientFile.exists)
+            {
+                str = '[{ "name":"'+recipeName+'","ingredients": { ';
+            }
+            else{
                 var readStream:FileStream = new FileStream();
                 readStream.open(ingredientFile, FileMode.READ);
-                var readStr:String = readStream.readUTFBytes(readStream.bytesAvailable);
-                var parsedJSON:Array = JSON.parse(readStr) as Array;
-                readStream.close();
-                var recipes:Array = [];
-                for each(var recipe:Object in parsedJSON)
-                {
-                    recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
+                var oldStr:String = readStream.readUTFBytes(readStream.bytesAvailable);
+                oldStr = oldStr.substring(1,oldStr.length-1);
+                oldStr = oldStr.replace(/\\/gi,'');
+                trace("[READINGFILE]"+oldStr);
+                str = '[' + oldStr + ',{';
+                //str = '[{';
+                str = str + '"name":"'+recipeName+'","ingredients": {';
+            }
+
+            //String voor filestream.write aanmaken
+            var ingNr:int = 1;
+            var length:int = _arrIngredients.length;
+            for each( var input:AddInputFields in _arrIngredients)
+            {
+                str = str + '"ingredient'+ ingNr +'": {"ingredientname":"' + input.inputIngredient.text + '", "ingredientvalue":"' + input.inputAmount.text + '", "ingredientunit":"' + input.unit.selectedItem.text + '"}';
+                if(ingNr != length){
+                    str = str + ',';
                 }
-                _appModel.ownRecipes = recipes;
-                dispatchEvent(new Event(Event.COMPLETE));
+                ingNr++;
+            }
+            str = str + '} } ]';
+            trace('[LEES STR]' + str);
+
+            var writeStream:FileStream = new FileStream();
+            writeStream.open(ingredientFile, FileMode.WRITE);
+            writeStream.writeUTFBytes(str);
+            writeStream.close();
+
+            var readStream:FileStream = new FileStream();
+            readStream.open(ingredientFile, FileMode.READ);
+            var readStr:String = readStream.readUTFBytes(readStream.bytesAvailable);
+            var parsedJSON:Array = JSON.parse(readStr) as Array;
+            readStream.close();
+            var recipes:Array = [];
+            for each(var recipe:Object in parsedJSON)
+            {
+                recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
+            }
+            _appModel.ownRecipes = recipes;
+            dispatchEvent(new Event(Event.COMPLETE));
         }
     }
 

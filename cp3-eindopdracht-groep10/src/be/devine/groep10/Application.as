@@ -48,7 +48,7 @@ public class Application extends Sprite
     private var _menu:Menu;
     private var _help:Help;
 
-    private var _homeBtn:feathers.controls.Button;
+    private var _homeBtn:Button;
 
     private var _recipes:Recipes;
     private var _ownRecipes:Recipes;
@@ -95,7 +95,7 @@ public class Application extends Sprite
 
         _add = new Add();
 
-        _homeBtn = new feathers.controls.Button();
+        _homeBtn = new Button();
         _homeBtn.nameList.add( "home-button" );
         _homeBtn.width = _homeBtn.height = 60;
         _header.addChild( _homeBtn );
@@ -140,11 +140,9 @@ public class Application extends Sprite
         _homeBtn.x = 20;
         _homeBtn.y = _header.height/2 - _homeBtn.height/2 - 1;
 
-        _recipes.y = 100;
-        _recipes.setSize(stage.stageWidth - 80, stage.stageHeight);
-
-        _ownRecipes.y = 100;
-        _ownRecipes.setSize(stage.stageWidth, 50);
+        _recipes.y = _ownRecipes.y =  100;
+        _recipes.setSize(stage.stageWidth, stage.stageHeight);
+        _ownRecipes.setSize(stage.stageWidth, stage.stageHeight);
 
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
@@ -152,6 +150,8 @@ public class Application extends Sprite
 
     private function pageChangedHandler(event:flash.events.Event):void
     {
+        trace(_appModel.currentPage+ "pagina");
+
         _homeBtn.visible = true;
 
         _homeBtn.addEventListener( starling.events.Event.TRIGGERED, GoBackHomeHandler );
@@ -179,6 +179,7 @@ public class Application extends Sprite
             case "recept toevoegen":
                 _add = new Add();
                 _container.addChild(_add);
+                    _add.addEventListener(starling.events.Event.COMPLETE, completeHandler);
                 break;
 
             case "detail":
@@ -203,7 +204,6 @@ public class Application extends Sprite
         _homeBtn.visible = false;
 
         addChild(_menu);
-        //addChild(_help);
         _help.visible = true;
         _bgImage.visible = true;
     }
@@ -211,6 +211,12 @@ public class Application extends Sprite
     private function recipeChangedHandler(event:flash.events.Event):void
     {
         //trace("recept = "+_appModel.currentRecipe);
+    }
+
+    private function completeHandler(event:starling.events.Event):void
+    {
+        _container.removeChild(_add);
+        _appModel.currentPage = "eigen recepten";
     }
 }
 }

@@ -157,6 +157,7 @@ public class AppModel extends EventDispatcher
 
         for each(var recipe:Object in data)
         {
+            trace(recipe.name);
             _recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
         }
     }
@@ -164,16 +165,8 @@ public class AppModel extends EventDispatcher
     public function loadOwnRecipes():void
     {
         var ownRecipesFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
-        if (!ownRecipesFile.exists)
+        if (ownRecipesFile.exists)
         {
-            var writeStream:FileStream = new FileStream();
-            writeStream.open(ownRecipesFile, FileMode.WRITE);
-            writeStream.writeUTFBytes(JSON.stringify([]));
-            writeStream.close();
-        }
-        else
-        {
-            trace("ik kom hier");
             var readStream:FileStream = new FileStream();
             readStream.open(ownRecipesFile, FileMode.READ);
             var readString:String = readStream.readUTFBytes(readStream.bytesAvailable);
