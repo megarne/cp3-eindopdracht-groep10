@@ -7,19 +7,16 @@
  */
 package be.devine.groep10.vo
 {
-import be.devine.groep10.model.AppModel;
-
-
 public class RecipesVO
 {
     //data van id json
     public var name:String;
     public var ingredients:Object;
-    public var preparation:String;
+    public var value:String;
+    public var unit:String;
 
     public function RecipesVO()
     {
-
     }
 }
 }

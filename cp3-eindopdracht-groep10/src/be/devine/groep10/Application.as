@@ -67,6 +67,7 @@ public class Application extends Sprite
         _pageManager = PageManager.getInstance();
         _recipeManager = RecipeManager.getInstance();
         _appModel.load();
+        _appModel.loadOwnRecipes();
 
         _bg = Image.fromBitmap(new BackgroundClass());
         addChild(_bg);
@@ -180,10 +181,10 @@ public class Application extends Sprite
                 _container.addChild(_add);
                 break;
 
-            default :
+            case "detail":
                 _detail = new Detail();
                 _container.addChild(_detail);
-
+                break;
         }
 
         layout();
@@ -209,9 +210,7 @@ public class Application extends Sprite
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-        removeChild(_container);
-        _appModel.currentPage = _appModel.currentRecipe.name;
-
+        //trace("recept = "+_appModel.currentRecipe);
     }
 }
 }

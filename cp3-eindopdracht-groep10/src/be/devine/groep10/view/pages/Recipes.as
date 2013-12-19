@@ -17,9 +17,10 @@ public class Recipes extends Sprite
     private var _appModel:AppModel;
 
     private var _recipeList:List;
-    private var _ownRecipeList:List;
     private var _listCollection:ListCollection;
-    private var _ownListCollection:ListCollection;
+
+    private var _ownRecipeList:List;
+    private var _ownRecipeListCollection:ListCollection;
 
     private var _explicitWidth:Number = 0;
     private var _explicitHeight:Number = 0;
@@ -31,56 +32,44 @@ public class Recipes extends Sprite
         _appModel = AppModel.getInstance();
 
         _recipeList = new List();
-        //_recipeList.width = 360;
-        //_recipeList.height = 650;
-        _recipeList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
-        _recipeList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
-        _recipeList.itemRendererProperties.labelField = "title";
-        addChild(_recipeList);
+        _ownRecipeList = new List();
 
-        //NA DIT TOEGEVOEGD TE HEBBEN WERKT DE SCROLL NIET MEER
-       /* _ownRecipeList = new List();
-        _ownRecipeList.width = 360;
-        _ownRecipeList.height = 650;
-        _ownRecipeList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
-        _ownRecipeList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
-        _ownRecipeList.itemRendererProperties.labelField = "title";
-        addChild(_ownRecipeList);       */
+        //if(_appModel.currentPage == "recepten")
+        //{
+            _recipeList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
+            _recipeList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
+            _recipeList.itemRendererProperties.labelField = "title";
+            addChild(_recipeList);
 
-        _listCollection = new ListCollection();
-        _ownListCollection = new ListCollection();
+            _listCollection = new ListCollection();
 
-
-        //als je scrolt over de recepten krijg je een fout over "renderer map contains bad data"
-        //om deze op te roepen moet je      _listCollection.push(recipe.name); uit commentaar halen en de andere er in zitten
-        //ROCKET SCIENCE
-        for each(var recipe:Object in _appModel.recipes)
-        {
-            // trace("[RECIPE] "+recipe.name);
-
-
-            _listCollection.push(recipe.name);
-            //  _listCollection.push(recipe.name);
-        }
-
-        _recipeList.dataProvider = _listCollection;
-        // trace("[RECIPE] "  + _appModel.ownRecipes);
-
-        /*
-        if(_appModel.ownRecipes != null)
-        {
-            for each(var ownRecipe:Object in _appModel.ownRecipes){
-                //   trace("[RECIPES] [RECIPES] [ownRecipes]" + ownRecipe.name);
-
-                _ownListCollection.push(ownRecipe);
+            for each(var recipe:Object in _appModel.recipes)
+            {
+                _listCollection.push(recipe.name);
             }
-        }else{
-            //  trace("GEEN EIGEN RECEPTEN");
-        }*/
-        //IN COMMENTAAR WANT MOMENTEEL IS OWNRECIPE NOG NULL (ER IS NOG GEEN EIGEN RECEPT TOEGEVOEGD)
-        // _ownRecipeList.dataProvider = _listCollection;
 
-        display();
+            _recipeList.dataProvider = _listCollection;
+            display();
+        /*}
+        else
+        {
+            _ownRecipeList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
+            _ownRecipeList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
+            _ownRecipeList.itemRendererProperties.labelField = "title";
+            _ownRecipeList.height = 800;
+            addChild(_ownRecipeList);
+
+            _ownRecipeListCollection = new ListCollection();
+
+            for each(var recipe:Object in _appModel.ownRecipes)
+            {
+                _ownRecipeListCollection.push(recipe.name);
+            }
+
+            _ownRecipeList.dataProvider = _ownRecipeListCollection;
+            display();
+        }*/
+
     }
 
     private function addedToStageHandler(event:starling.events.Event):void
@@ -91,27 +80,30 @@ public class Recipes extends Sprite
 
     private function listChangeHandler(event:starling.events.Event):void
     {
-
-
         if(_recipeList.selectedItem)
         {
-            _appModel.currentRecipe = _recipeList.selectedItem as RecipesVO;
+            //_appModel.currentRecipe = _recipeList.selectedItem as RecipesVO;
         }
     }
 
     private function display():void
     {
-
-        _recipeList.selectedItem = _appModel.currentRecipe;
-        // _ownRecipesList.selectedItem = _appModel.currentPage;
+        if(_appModel.currentPage == "recepten")
+        {
+            _recipeList.selectedItem = _appModel.currentRecipe;
+        }
+        else
+        {
+           // _ownRecipeList.selectedItem = _appModel.ownCurrentRecipe;
+        }
 
         var layout:VerticalLayout = new VerticalLayout();
         layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;
         layout.gap = 30;
         layout.paddingTop = layout.paddingRight = layout.paddingBottom = layout.paddingLeft = 10;
-        _recipeList.layout = layout;
 
-        //_ownRecipeList.layout = layout;
+        _recipeList.layout = layout;
+        _ownRecipeList.layout = layout;
     }
 
     public function setSize(w:Number, h:Number):void
@@ -122,6 +114,7 @@ public class Recipes extends Sprite
         //_recipeList.x = Math.round((_explicitWidth - _recipeList.width) * .5);
 
         _recipeList.setSize(_explicitWidth, _explicitHeight);
+        _ownRecipeList.setSize(_explicitWidth, _explicitHeight);
     }
 }
 }

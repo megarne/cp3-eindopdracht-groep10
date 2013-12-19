@@ -24,11 +24,13 @@ public class AppModel extends EventDispatcher
     private var _currentPage:String;
 
     public static const RECIPE_CHANGED:String = "recipeChanged";
+    public static const OWNRECIPE_CHANGED:String = "ownrecipeChanged";
     public static const CURRENT_RECIPE_CHANGED:String = "currentRecipeChanged";
 
     private var _recipes:Array;
+    private var _ownRecipes:Array;
     private var currentRecipeChanged:Boolean;
-    private var _currentRecipe:RecipesVO;
+    private var _currentRecipe:String;
 
     public function AppModel(e:Enforcer)
     {
@@ -38,7 +40,8 @@ public class AppModel extends EventDispatcher
         }
 
         _pages = ["recepten", "eigen recepten", "recept toevoegen","conversie toevoegen"];
-        _recipes = [];
+        _recipes = []
+        _ownRecipes = [];
     }
     public static function getInstance():AppModel
     {
@@ -92,27 +95,47 @@ public class AppModel extends EventDispatcher
         }
     }
 
-    public function get currentRecipe():RecipesVO
+    public function get ownRecipes():Array {
+        return _ownRecipes;
+    }
+
+    public function set ownRecipes(value:Array):void {
+        if (value != _ownRecipes)
+        {
+            _ownRecipes = value;
+            dispatchEvent(new Event(OWNRECIPE_CHANGED));
+        }
+    }
+
+    public function get currentRecipe():String
     {
         return _currentRecipe;
     }
 
-    public function set currentRecipe(value:RecipesVO):void
+    public function set currentRecipe(value:String):void
     {
         if (_currentRecipe != value)
         {
             currentRecipeChanged = true;
             _currentRecipe = value;
             dispatchEvent(new Event(CURRENT_RECIPE_CHANGED));
-            trace(_currentRecipe);
-
         }
-
     }
 
     public function load():void
     {
-        var recipesFile:File = File.documentsDirectory.resolvePath("/Users/cavia/cp3-eindopdracht-groep10/cp3-eindopdracht-groep10/src/assets/json/recipes.json");
+        var urlRequest:URLRequest  = new URLRequest("assets/json/recipes.json");
+
+        var urlLoader:URLLoader = new URLLoader();
+        urlLoader.addEventListener(Event.COMPLETE, completeHandler);
+
+        try{
+            urlLoader.load(urlRequest);
+        } catch (error:Error) {
+            trace("Cannot load : " + error.message);
+        }
+
+        /*var recipesFile:File = File.applicationDirectory.resolvePath("assets/json/recipes.json");
 
         var readStream:FileStream = new FileStream();
         readStream.open(recipesFile, FileMode.READ);
@@ -122,8 +145,20 @@ public class AppModel extends EventDispatcher
         for each(var recipe:Object in parsedJSON)
         {
             _recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
-        }
+        }*/
 
+    }
+
+    private function completeHandler(event:Event):void
+    {
+        var loader:URLLoader = URLLoader(event.target);
+
+        var data:Object = JSON.parse(loader.data);
+
+        for each(var recipe:Object in data)
+        {
+            _recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
+        }
     }
 
     public function loadOwnRecipes():void
@@ -138,17 +173,22 @@ public class AppModel extends EventDispatcher
         }
         else
         {
+            trace("ik kom hier");
             var readStream:FileStream = new FileStream();
             readStream.open(ownRecipesFile, FileMode.READ);
-            var parsedJSON:Array = JSON.parse(
-                    readStream.readUTFBytes(readStream.bytesAvailable)
-            ) as Array;
+            var readString:String = readStream.readUTFBytes(readStream.bytesAvailable);
+            //readString = readString.replace(/\\/gi,'');
+            //readString = readString.substring(1,readString.length-1);
+            var parsedJSON:Array = JSON.parse( readString ) as Array;
+
+            //trace(parsedJSON);
 
             readStream.close();
 
             for each(var ownRecipe:Object in parsedJSON)
             {
-
+                trace("[OWN RECIPE OBJECT]:" + ownRecipe);
+                _ownRecipes.push(RecipesVOFactory.createRecipesVOFromObject(ownRecipe));
             }
         }
     }

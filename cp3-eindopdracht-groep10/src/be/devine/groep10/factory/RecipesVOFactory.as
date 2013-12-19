@@ -9,14 +9,14 @@ package be.devine.groep10.factory {
 import be.devine.groep10.vo.RecipesVO;
 
 public class RecipesVOFactory {
-    public static function createRecipesVOFromObject(recipe:Object):RecipesVO {
+    public static function createRecipesVOFromObject(recipe:Object):RecipesVO
+    {
         var recipesVO:RecipesVO = new RecipesVO();
         recipesVO.name = recipe.name;
         recipesVO.ingredients = recipe.ingredients;
-        recipesVO.preparation = recipe.preparation;
-
+        recipesVO.value = recipe.value;
+        recipesVO.unit = recipe.unit;
         return recipesVO;
-
     }
 }
 }
