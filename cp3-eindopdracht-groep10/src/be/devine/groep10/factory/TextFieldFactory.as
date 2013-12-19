@@ -17,7 +17,7 @@ public class TextFieldFactory extends Sprite
 
     public function TextFieldFactory(width:uint, height:uint, text:String, fontFamily:String, fontSize:uint, color:uint)
     {
-        var textfield = new TextField(
+        var textfield:TextField = new TextField(
                 width, height, text, fontFamily, fontSize, color
         );
 

@@ -187,9 +187,10 @@ public class Application extends Sprite
                     _add.addEventListener(starling.events.Event.COMPLETE, completeHandler);
                 break;
 
-            case "detail":
+            default :
                 _detail = new Detail();
                 _container.addChild(_detail);
+
                 break;
 
             case "conversie toevoegen":
@@ -220,7 +221,8 @@ public class Application extends Sprite
 
     private function recipeChangedHandler(event:flash.events.Event):void
     {
-        //trace("recept = "+_appModel.currentRecipe);
+        removeChild(_container);
+        _appModel.currentPage = _appModel.currentRecipe;
     }
 
     private function completeHandler(event:starling.events.Event):void
