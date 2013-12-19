@@ -16,8 +16,10 @@ public class RecipesVOFactory
         var recipesVO:RecipesVO = new RecipesVO();
         recipesVO.name = recipe.name;
         recipesVO.ingredients = recipe.ingredients;
-        recipesVO.value = recipe.value;
-        recipesVO.unit = recipe.unit;
+        recipesVO.ingredientname = recipe.ingredients.ingredientname;
+        recipesVO.ingredientvalue = recipe.ingredients.ingredientvalue;
+        recipesVO.ingredientunit = recipe.ingredients.ingredientunit;
+        recipesVO.preparation = recipe.preparation;
         return recipesVO;
     }
 }
