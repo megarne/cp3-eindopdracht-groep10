@@ -28,7 +28,7 @@ public class Detail extends Sprite {
     public function Detail() {
 
         _scrollContainer = new ScrollContainer();
-        _scrollContainer.width = 360;
+        _scrollContainer.width = 460;
         // _scrollContainer.x = Math.round((_explicitWidth - _scrollContainer.width) * .5);
         _scrollContainer.height = 700;
         _scrollContainer.y = 100;
@@ -58,7 +58,7 @@ public class Detail extends Sprite {
         listvalue.itemRendererProperties.iconPosition = Button.ICON_POSITION_TOP;
         listvalue.itemRendererProperties.gap = 10;
 
-        listingredient.x = Math.round((_explicitWidth - listingredient.width) * .5);
+        listvalue.x = Math.round((_explicitWidth - listvalue.width) * .5);
         //listingredient.y = 100;
         _appModel = AppModel.getInstance();
 
@@ -74,17 +74,17 @@ public class Detail extends Sprite {
                     _listunit.push(ingredient.ingredientunit);
                     if (ingredient.ingredientvalue != null) {
                         _listvalue.push(ingredient.ingredientvalue);
-                        trace("[foreach] [detail]" + _listvalue);
+
                         //list moet de waarden hebben
                         var conversionFile:File = File.applicationStorageDirectory.resolvePath("conversions.json");
                         var readStr:String = readStream(conversionFile);
                         var parsedJSON:Array = JSON.parse(readStr) as Array;
-                        trace("[ADDINPUTFIELDS]" + parsedJSON);
+
 
                         var conversions:Array = [];
                         var lists:Array=[];
-
-                        for (var i:uint; i < parsedJSON.length; i++) {
+                        var yPos:uint = 0;
+                        for (var i:uint=0; i < parsedJSON.length; i++) {
 
 
                             var list:PickerList = new PickerList();
@@ -110,18 +110,22 @@ public class Detail extends Sprite {
                             list.listProperties.@itemRendererProperties.labelField = "text";
                             list.labelField = "text";
                             list.prompt = "Kies eenheid";
-                            list.y = 20;
 
-                            var yPos:uint = 0;
+                            lists.push(list);
+
+
+
                             for each(var list in lists)
                             {
-                                list.y = 20 + yPos;
+                                list.y = 100 +yPos;
 
-                                yPos += list.height + 20;
+                                trace("[Detail]" + list.y);
+                                yPos += list.height + 80;
+                                this.addChild(list);
                             }
 
 
-                            this.addChild(list);
+
                         }
 
 
@@ -132,16 +136,16 @@ public class Detail extends Sprite {
         listingredient.dataProvider = _listingredient;
         listingredient.itemRendererProperties.labelField = "text";
 
-        //trace correct
-        // trace("[detail]" +  listingredient.dataProvider.data);
         listvalue.dataProvider = _listvalue;
         listvalue.itemRendererProperties.labelField = "text";
 
         _scrollContainer.addChild(listingredient);
+        _scrollContainer.addChild(listvalue);
+
 
         //dataprovider mag geen duplicaat values hebben
         trace(listvalue);
-        _scrollContainer.addChild(listvalue);
+
 
     }
 
