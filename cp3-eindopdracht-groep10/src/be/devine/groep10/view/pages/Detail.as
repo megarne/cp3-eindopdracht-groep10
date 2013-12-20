@@ -11,6 +11,7 @@ import feathers.data.ListCollection;
 import feathers.layout.VerticalLayout;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import flash.filesystem.File;
 import flash.filesystem.FileMode;
 import flash.filesystem.FileStream;
@@ -28,6 +29,8 @@ import starling.display.Sprite;
 public class Detail extends Sprite {
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
+=======
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 
 import flash.filesystem.File;
 import flash.filesystem.FileMode;
@@ -36,6 +39,9 @@ import flash.filesystem.FileStream;
 import starling.display.Sprite;
 
 public class Detail extends Sprite {
+<<<<<<< HEAD
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+=======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
     private var _appModel:AppModel;
     private var container:Sprite;
@@ -45,6 +51,7 @@ public class Detail extends Sprite {
     private var _listunit:ListCollection;
     private var _scrollContainer:ScrollContainer;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     private var _arrLists:Array;
@@ -71,6 +78,17 @@ public class Detail extends Sprite {
         _scrollContainer.y = 100;
         addChild(_scrollContainer);
 
+=======
+    public function Detail() {
+
+        _scrollContainer = new ScrollContainer();
+        _scrollContainer.width = 460;
+        // _scrollContainer.x = Math.round((_explicitWidth - _scrollContainer.width) * .5);
+        _scrollContainer.height = 700;
+        _scrollContainer.y = 100;
+        addChild(_scrollContainer);
+
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
         var layout:VerticalLayout = new VerticalLayout();
         layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;
         layout.gap = 30;
@@ -85,8 +103,11 @@ public class Detail extends Sprite {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         listingredient.width = 200;
 
+=======
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
@@ -104,11 +125,17 @@ public class Detail extends Sprite {
         listvalue.itemRendererProperties.gap = 10;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         //listvalue.x = Math.round((_explicitWidth - listvalue.width) * .5);
         listvalue.x = listingredient.x + listingredient.width;
 
         listvalue.width = 150;
 
+=======
+
+        listvalue.x = Math.round((_explicitWidth - listvalue.width) * .5);
+        //listingredient.y = 100;
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 
         listvalue.x = Math.round((_explicitWidth - listvalue.width) * .5);
@@ -125,6 +152,7 @@ public class Detail extends Sprite {
         _listunit = new ListCollection();
         _listvalue = new ListCollection();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         for each(var recipe:Object in _appModel.recipes)
@@ -161,10 +189,22 @@ public class Detail extends Sprite {
                         _listvalue.push(ingredient.ingredientvalue);
 
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+=======
+        for each(var recipe:Object in _appModel.recipes) {
+            if (recipe.name == _appModel.currentRecipe) {
+                trace(recipe.ingredientname);
+                for each(var ingredient:Object in recipe.ingredients) {
+                    _listingredient.push(ingredient.ingredientname);
+                    _listunit.push(ingredient.ingredientunit);
+                    if (ingredient.ingredientvalue != null) {
+                        _listvalue.push(ingredient.ingredientvalue);
+
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
                         //list moet de waarden hebben
                         var conversionFile:File = File.applicationStorageDirectory.resolvePath("conversions.json");
                         var readStr:String = readStream(conversionFile);
                         var parsedJSON:Array = JSON.parse(readStr) as Array;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                         var conversions:Array = [];
@@ -173,6 +213,8 @@ public class Detail extends Sprite {
                         for (var i:uint=0; i < parsedJSON.length; i++)
                         {
 =======
+=======
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 
@@ -184,6 +226,9 @@ public class Detail extends Sprite {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+=======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
@@ -203,6 +248,7 @@ public class Detail extends Sprite {
                             ]);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                             for each(var conversion:Object in parsedJSON)
                             {
                                 listCol.push(conversion.conversie.deel1.eenheid1);
@@ -211,12 +257,17 @@ public class Detail extends Sprite {
 =======
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+=======
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
                             for each(var conversion:Object in parsedJSON) {
                                 listCol.push(conversion.conversie.deel1.eenheid1);
                                 listCol.push(conversion.conversie.deel2.eenheid2);
                             }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+=======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
@@ -224,6 +275,7 @@ public class Detail extends Sprite {
                             list.listProperties.@itemRendererProperties.labelField = "text";
                             list.labelField = "text";
                             list.prompt = "Kies eenheid";
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                             lists.push(list);
@@ -243,6 +295,8 @@ public class Detail extends Sprite {
                             }*/
                         }
 =======
+=======
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 
@@ -265,6 +319,9 @@ public class Detail extends Sprite {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+=======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
@@ -276,6 +333,10 @@ public class Detail extends Sprite {
         listingredient.itemRendererProperties.labelField = "text";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
@@ -289,12 +350,15 @@ public class Detail extends Sprite {
         _scrollContainer.addChild(listvalue);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         //dataprovider mag geen duplicaat values hebben
         trace(listvalue);
     }
     private function readStream(file:File):String
     {
 =======
+=======
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 
@@ -307,6 +371,9 @@ public class Detail extends Sprite {
 
     private function readStream(file:File):String {
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+=======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
 =======
 >>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
