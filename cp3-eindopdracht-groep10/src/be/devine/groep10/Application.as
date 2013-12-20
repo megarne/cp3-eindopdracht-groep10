@@ -99,8 +99,8 @@ public class Application extends Sprite
 
         _recipes = new Recipes();
         _ownRecipes = new Recipes();
-
         _add = new Add();
+        _conversion = new Conversion();
 
         _homeBtn = new Button();
         _homeBtn.nameList.add( "home-button" );
@@ -153,6 +153,9 @@ public class Application extends Sprite
 
         _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
+
+        _conversion.y = 100;
+        _conversion.setSize(stage.stageWidth, stage.stageHeight);
     }
 
     private function pageChangedHandler(event:flash.events.Event):void
@@ -188,17 +191,15 @@ public class Application extends Sprite
                 break;
 
             case "conversie toevoegen":
-                _conversion=new Conversion();
+                _conversion = new Conversion();
                 _container.addChild(_conversion);
-                    _conversion.addEventListener(starling.events.Event.COMPLETE, conversionCompleteHandler);
+                    _conversion.addEventListener(starling.events.Event.COMPLETE, GoBackHomeHandler);
                 break;
             default :
                 _detail = new Detail();
                 _container.addChild(_detail);
 
                 break;
-
-
         }
 
         layout();
@@ -232,11 +233,6 @@ public class Application extends Sprite
     {
         _container.removeChild(_add);
         _appModel.currentPage = "eigen recepten";
-    }
-    private function conversionCompleteHandler(event:starling.events.Event):void
-    {
-        _container.removeChild(_conversion);
-        _appModel.currentPage = "keuken konvertor";
     }
 }
 }

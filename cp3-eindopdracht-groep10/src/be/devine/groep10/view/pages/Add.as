@@ -8,6 +8,7 @@
 package be.devine.groep10.view.pages
 {
 import be.devine.groep10.factory.RecipesVOFactory;
+import be.devine.groep10.factory.TextFieldFactory;
 import be.devine.groep10.model.AppModel;
 import be.devine.groep10.view.ui.AddInputFields;
 
@@ -42,7 +43,7 @@ public class Add extends Sprite
     private var _inputName:TextInput;
     private var _inputIngredient:AddInputFields;
 
-    private var _helpText:TextField;
+    private var _helpText:TextFieldFactory;
 
     private var _arrIngredients:Array;
 
@@ -78,19 +79,14 @@ public class Add extends Sprite
 
         _inputName = new TextInput();
         _inputName.prompt = "naam recept";
-        _inputName.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild( _inputName );
 
-        _helpText = new TextField( 320, 120, "Vul de nodige ingredienten toe voor 1 persoon", "BebasNeue", 18, 0xffffff);
-        _helpText.hAlign = HAlign.LEFT;
-        _helpText.vAlign = VAlign.TOP;
-        _helpText.kerning = true;
+        _helpText = new TextFieldFactory( 320, 120, "Vul de nodige ingredienten toe voor 1 persoon", "BebasNeue", 18, 0xffffff);
         _helpText.y = 50;
         _inputName.addChild(_helpText);
 
         _inputIngredient = new AddInputFields();
         _inputIngredient.y = _inputName.y + _inputIngredient.height + 20;
-        _inputIngredient.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_inputIngredient);
         _arrIngredients.push(_inputIngredient);
 
@@ -112,11 +108,6 @@ public class Add extends Sprite
         _error2 = Image.fromBitmap(new ErrorClass());
         _error3 = Image.fromBitmap(new ErrorClass());
         _error4 = Image.fromBitmap(new ErrorClass());
-    }
-
-    private function inputChangeHandler(event:starling.events.Event):void
-    {
-
     }
 
     private function readyButtonTriggeredHandler(event:starling.events.Event):void
@@ -303,8 +294,6 @@ public class Add extends Sprite
     private function moreButtonTriggeredHandler(event:starling.events.Event):void
     {
         _inputIngredient = new AddInputFields();
-        _inputIngredient.inputIngredient.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
-        _inputIngredient.inputAmount.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_inputIngredient);
         _arrIngredients.push(_inputIngredient);
 
