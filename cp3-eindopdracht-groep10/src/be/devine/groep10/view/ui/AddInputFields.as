@@ -77,7 +77,7 @@ public class AddInputFields extends Sprite {
             _unit.selectedIndex = -1;
             _unit.y = _inputAmount.y;
 
-            //maak de file aan
+            //
 
 
 
@@ -87,20 +87,9 @@ public class AddInputFields extends Sprite {
             var parsedJSON:Array = JSON.parse(readStr) as Array;
             trace("[ADDINPUTFIELDS]" + parsedJSON);
             var conversions:Array = [];
-            for each(var conversion:Object in parsedJSON) {
-
-                trace("[ADDINPUTFIELDS] conversion array uitlezen voor de waardes " + conversion.conversie.deel1.eenheid1 + "  " + conversion.conversie.deel2.eenheid2 );
-                // conversions.push(ConversionVOFactory.createConversionVOFromObject(conversion));
 
 
-                //recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
-            }
-
-            var unitList:ListCollection = new ListCollection(
-                    [
-                        //eenheden uit json halen! want er komen eenheden bij
-                        { text: String(conversion.conversie.deel1.eenheid1)},
-                        { text: String(conversion.conversie.deel2.eenheid2)},
+                unitList = new ListCollection([
                         { text: "kg"},
                         { text: "g"},
                         { text: "el"},
@@ -112,7 +101,18 @@ public class AddInputFields extends Sprite {
                         { text: "°C"},
                         { text: "°F"},
                         { text: "°K"}
-                    ]);
+                ]);
+
+                for each(var conversion:Object in parsedJSON) {
+                {
+                    unitList.push(conversion.conversie.deel1.eenheid1);
+                    unitList.push(conversion.conversie.deel2.eenheid2);
+                }
+
+                //recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
+            }
+
+
             _unit.dataProvider = unitList;
             _unit.listProperties.@itemRendererProperties.labelField = "text";
             _unit.labelField = "text";
