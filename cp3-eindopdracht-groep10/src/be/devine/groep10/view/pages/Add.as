@@ -147,7 +147,7 @@ public class Add extends Sprite
             var length:int = _arrIngredients.length;
             for each( var input:AddInputFields in _arrIngredients)
             {
-                str = str + '"ingredient'+ ingNr +'": {"ingredientname":"' + input.inputIngredient.text + '", "ingredientvalue":"' + input.inputAmount.text + '", "ingredientunit":"' + input.unit.selectedItem.text + '"}';
+                str = str + '"ingredient'+ ingNr +'": {"ingredientname":"' + input.inputIngredient.text + '", "ingredientvalue":"' + input.inputAmount.text + '", "ingredientunit":"' + input.unit.selectedItem + '"}';
                 if(ingNr != length){
                     str = str + ',';
                 }
