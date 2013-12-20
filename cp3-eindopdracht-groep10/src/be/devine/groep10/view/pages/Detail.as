@@ -38,7 +38,6 @@ public class Detail extends Sprite{
         listingredient.width = 360;
         listingredient.height = 670;
 
-
         var layout:VerticalLayout = new VerticalLayout();
         layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;
         layout.gap = 30;
@@ -51,11 +50,7 @@ public class Detail extends Sprite{
         listingredient.x = Math.round((_explicitWidth - listingredient.width) * .5);
         listingredient.y = 100;
 
-
-
-
         container.addChild( listingredient );
-
 
         _listingredient = new ListCollection();
         _listunit = new ListCollection();
@@ -63,33 +58,20 @@ public class Detail extends Sprite{
 
         for each(var recipe:Object in _appModel.recipes)
         {
-
-
-            if(recipe.name == _appModel.currentRecipe){
+            if(recipe.name == _appModel.currentRecipe)
+            {
                 trace(recipe.ingredientname);
 
-                for each(var ingredient:Object in recipe.ingredients){
-
+                for each(var ingredient:Object in recipe.ingredients)
+                {
                     _listingredient.push(ingredient.ingredientname);
                     _listunit.push(ingredient.ingredientunit);
                     _listvalue.push(ingredient.ingredientvalue);
                 }
             }
-
-
-
         }
         listingredient.dataProvider = _listingredient;
-
-
-
         listingredient.itemRendererProperties.labelField = "text";
-
-
-
-
-
-
     }
 }
 }
