@@ -12,20 +12,11 @@
 
     <!-- A universally unique application identifier. Must be unique across all AIR applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <id>be.devine.groep10</id>
-=======
-=======
->>>>>>> eefe54040c58e8b6fd26f29a91d3290fbb3e8bd2
+
 
     <id>be.devine.groep10</id>
 
 
-<<<<<<< HEAD
->>>>>>> eefe54040c58e8b6fd26f29a91d3290fbb3e8bd2
-=======
->>>>>>> eefe54040c58e8b6fd26f29a91d3290fbb3e8bd2
 
     <!-- Used as the filename for the application. Required. -->
     <filename>Main</filename>
