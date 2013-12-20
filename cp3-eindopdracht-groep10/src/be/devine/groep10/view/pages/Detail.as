@@ -19,12 +19,25 @@ public class Detail extends Sprite{
     private var _listunit:ListCollection;
     private var _scrollContainer:ScrollContainer;
     public function Detail(){
+<<<<<<< HEAD
         _scrollContainer = new ScrollContainer();
         _scrollContainer.width = 360;
         // _scrollContainer.x = Math.round((_explicitWidth - _scrollContainer.width) * .5);
         _scrollContainer.height = 700;
         _scrollContainer.y = 100;
         addChild( _scrollContainer );
+=======
+
+        container =  new Sprite();
+        addChild(container);
+
+        _appModel = AppModel.getInstance();
+
+        var listingredient:List = new List();
+        listingredient.width = 360;
+        listingredient.height = 670;
+
+>>>>>>> 07cf26d7b2dcc1ba05157e327824196fc7876068
         var layout:VerticalLayout = new VerticalLayout();
         layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;
         layout.gap = 30;
@@ -46,12 +59,19 @@ public class Detail extends Sprite{
         listvalue.itemRendererProperties.iconPosition = Button.ICON_POSITION_TOP;
         listvalue.itemRendererProperties.gap = 10;
         listingredient.x = Math.round((_explicitWidth - listingredient.width) * .5);
+<<<<<<< HEAD
         //listingredient.y = 100;
         _appModel = AppModel.getInstance();
         _scrollContainer.addChild(listingredient);
         //als listvalue add dan crash
         //_scrollContainer.addChild(listvalue);
         trace("[DETAIL]" + listvalue.dataProvider);
+=======
+        listingredient.y = 100;
+
+        container.addChild( listingredient );
+
+>>>>>>> 07cf26d7b2dcc1ba05157e327824196fc7876068
         _listingredient = new ListCollection();
         _listunit = new ListCollection();
         _listvalue = new ListCollection();
@@ -93,9 +113,18 @@ public class Detail extends Sprite{
          container.addChild( listvalue );     */
         for each(var recipe:Object in _appModel.recipes)
         {
+<<<<<<< HEAD
             if(recipe.name == _appModel.currentRecipe){
                // trace(recipe.ingredientname);
                 for each(var ingredient:Object in recipe.ingredients){
+=======
+            if(recipe.name == _appModel.currentRecipe)
+            {
+                trace(recipe.ingredientname);
+
+                for each(var ingredient:Object in recipe.ingredients)
+                {
+>>>>>>> 07cf26d7b2dcc1ba05157e327824196fc7876068
                     _listingredient.push(ingredient.ingredientname);
                     _listunit.push(ingredient.ingredientunit);
                     if(ingredient.ingredientvalue != null){
@@ -107,6 +136,7 @@ public class Detail extends Sprite{
         }
         listingredient.dataProvider = _listingredient;
         listingredient.itemRendererProperties.labelField = "text";
+<<<<<<< HEAD
         listvalue.dataProvider = _listvalue;
         listvalue.itemRendererProperties.labelField = "text";
         /* listingredient.dataProvider = _listingredient;
@@ -115,6 +145,8 @@ public class Detail extends Sprite{
          listvalue.itemRendererProperties.labelField = "text";
          listingredient.itemRendererProperties.labelField = "text";
          listvalue.itemToLabel(_listvalue);         */
+=======
+>>>>>>> 07cf26d7b2dcc1ba05157e327824196fc7876068
     }
 }
 }
