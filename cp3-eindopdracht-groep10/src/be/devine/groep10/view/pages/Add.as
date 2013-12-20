@@ -147,7 +147,7 @@ public class Add extends Sprite
             var length:int = _arrIngredients.length;
             for each( var input:AddInputFields in _arrIngredients)
             {
-                str = str + '"ingredient'+ ingNr +'": {"ingredientname":"' + input.inputIngredient.text + '", "ingredientvalue":"' + input.inputAmount.text + '", "ingredientunit":"' + input.unit.selectedItem.text + '"}';
+                str = str + '"ingredient'+ ingNr +'": {"ingredientname":"' + input.inputIngredient.text + '", "ingredientvalue":"' + input.inputAmount.text + '", "ingredientunit":"' + input.unit.selectedItem + '"}';
                 if(ingNr != length){
                     str = str + ',';
                 }
@@ -264,62 +264,6 @@ public class Add extends Sprite
 
 
         return errors;
-
-        if(errors == false)
-        {
-            //value doorsturen naar json
-            var recipeName:String = _inputName.text;
-            var str:String = new String();
-            var ingredientFile:File = File.applicationStorageDirectory.resolvePath("ownRecipes.json");
-
-            if(!ingredientFile.exists)
-            {
-                str = '[{ "name":"'+recipeName+'","ingredients": { ';
-            }
-            else{
-                var readStream:FileStream = new FileStream();
-                readStream.open(ingredientFile, FileMode.READ);
-                var oldStr:String = readStream.readUTFBytes(readStream.bytesAvailable);
-                oldStr = oldStr.substring(1,oldStr.length-1);
-                oldStr = oldStr.replace(/\\/gi,'');
-                str = '[' + oldStr + ',{';
-                //str = '[{';
-                str = str + '"name":"'+recipeName+'","ingredients": {';
-            }
-
-            //String voor filestream.write aanmaken
-
-            var ingNr:int = 1;
-            var length:int = _arrIngredients.length;
-            for each( var input:AddInputFields in _arrIngredients)
-            {
-                str = str + '"ingredient'+ ingNr +'": {"ingredientname":"' + input.inputIngredient.text + '", "ingredientvalue":"' + input.inputAmount.text + '", "ingredientunit":"' + input.unit.selectedItem.text + '"}';
-                if(ingNr != length){
-                    str = str + ',';
-                }
-                ingNr++;
-            }
-            str = str + '} } ]';
-
-            var writeStream:FileStream = new FileStream();
-            writeStream.open(ingredientFile, FileMode.WRITE);
-            writeStream.writeUTFBytes(str);
-            writeStream.close();
-
-            var readStream:FileStream = new FileStream();
-            readStream.open(ingredientFile, FileMode.READ);
-            var readStr:String = readStream.readUTFBytes(readStream.bytesAvailable);
-            var parsedJSON:Array = JSON.parse(readStr) as Array;
-            readStream.close();
-            var recipes:Array = [];
-            for each(var recipe:Object in parsedJSON)
-            {
-                recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
-            }
-            _appModel.ownRecipes = recipes;
-            dispatchEvent(new Event(Event.COMPLETE));
-        }
-
     }
 
     private function addedToStageHandler(event:starling.events.Event):void

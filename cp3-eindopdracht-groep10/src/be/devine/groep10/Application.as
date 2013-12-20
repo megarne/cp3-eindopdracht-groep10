@@ -83,7 +83,7 @@ public class Application extends Sprite
         addChild(_bgImage);
 
         _header = new Header();
-        _header.title = "Keuken omvormer";
+        _header.title = "Keuken konvertor";
         addChild( _header );
 
         _line = Image.fromBitmap(new LineTexture());
@@ -187,15 +187,18 @@ public class Application extends Sprite
                     _add.addEventListener(starling.events.Event.COMPLETE, completeHandler);
                 break;
 
+            case "conversie toevoegen":
+                _conversion=new Conversion();
+                _container.addChild(_conversion);
+                    _conversion.addEventListener(starling.events.Event.COMPLETE, conversionCompleteHandler);
+                break;
             default :
                 _detail = new Detail();
                 _container.addChild(_detail);
 
                 break;
 
-            case "conversie toevoegen":
-                _conversion=new Conversion();
-                _container.addChild(_conversion);
+
         }
 
         layout();
@@ -209,7 +212,7 @@ public class Application extends Sprite
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
         removeChild(_container);
-        _header.title = "keuken omvormer";
+        _header.title = "keuken konvertor";
         _homeBtn.visible = false;
 
         _menu.deselectMenuItems();
@@ -229,6 +232,11 @@ public class Application extends Sprite
     {
         _container.removeChild(_add);
         _appModel.currentPage = "eigen recepten";
+    }
+    private function conversionCompleteHandler(event:starling.events.Event):void
+    {
+        _container.removeChild(_conversion);
+        _appModel.currentPage = "keuken konvertor";
     }
 }
 }
