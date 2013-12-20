@@ -63,33 +63,9 @@ public class Conversion extends Sprite
         _inputContainer.addChild( _inputConversieName );
 
         _waarde1 = new TextInput();
-
-<<<<<<< HEAD
         _waarde1.prompt = "waarde 1";
-<<<<<<< HEAD
         _waarde1.y = _inputConversieName.y + _waarde1.height + 100;
         _waarde1.prompt = "waarde 1"
-=======
-
-        _waarde1.prompt = "waarde 1";
-=======
->>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
-=======
-        _waarde1.prompt = "waarde 1";
->>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
-        _waarde1.y = _inputConversieName.y + _waarde1.height + 80;
-
-        _waarde1.prompt = "waarde 1"
-
-        _waarde1.y = _inputConversieName.height + 50;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
-=======
->>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
-=======
->>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
         _inputContainer.addChild(_waarde1);
         _arrConversies.push(_waarde1);
 

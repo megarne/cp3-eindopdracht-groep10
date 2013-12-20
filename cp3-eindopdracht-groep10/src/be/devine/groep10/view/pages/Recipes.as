@@ -74,6 +74,7 @@ public class Recipes extends Sprite
         {
             if(_ownRecipesList.selectedItem)
             {
+                _appModel.currentRecipe = _ownRecipesList.selectedItem as String;
             }
         }
     }

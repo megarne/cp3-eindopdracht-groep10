@@ -139,7 +139,7 @@ public class Application extends Sprite
         _header.setSize(stage.stageWidth, 50);
         _line.x = _header.width/2 - _line.width/2;
 
-        _menu.y = _recipes.y = _ownRecipes.y = _add.y = _conversion.y = 150;
+        _menu.y = _recipes.y = _ownRecipes.y = _add.y = _conversion.y = 140;
         _menu.setSize(stage.stageWidth - 80, stage.stageHeight - 200);
 
         _help.setSize(stage.stageWidth, stage.stageHeight - 60);
