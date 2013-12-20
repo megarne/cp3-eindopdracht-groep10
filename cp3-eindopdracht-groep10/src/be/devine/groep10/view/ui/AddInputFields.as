@@ -37,7 +37,6 @@ public class AddInputFields extends Sprite {
 
         _inputIngredient = new TextInput();
         _inputIngredient.prompt = "naam ingredient";
-        //_inputIngredient.width = 320;
         _inputContainer.addChild(_inputIngredient);
 
         _inputAmount = new TextInput();
