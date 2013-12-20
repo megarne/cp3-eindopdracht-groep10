@@ -15,6 +15,8 @@ import flash.filesystem.File;
 import flash.filesystem.FileMode;
 import flash.filesystem.FileStream;
 
+import starling.display.Image;
+
 import starling.display.Sprite;
 import starling.events.Event;
 
@@ -36,6 +38,16 @@ public class Conversion extends Sprite {
 
     private var _explicitWidth:Number = 0;
     private var _explicitHeight:Number = 0;
+
+    [Embed(source="/../assets/custom/error.png")]
+    private static const ErrorClass:Class;
+    private var _error1:Image;
+    private var _error2:Image;
+    private var _error3:Image;
+    private var _error4:Image;
+
+    private var _arrErrors:Array;
+    private var errors:Boolean;
 
     public function Conversion() {
         this.addEventListener(starling.events.Event.ADDED_TO_STAGE, addedToStageHandler);
@@ -66,7 +78,6 @@ public class Conversion extends Sprite {
         _waarde1.prompt = "waarde 1"
         _waarde1.y = _inputConversie.height + 50;
         _waarde1.x = 10;
-        //_waarde1.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_waarde1);
         //_arrConversies.push(_inputConversie);
 
@@ -75,7 +86,7 @@ public class Conversion extends Sprite {
         _waarde2.prompt = "waarde 2"
         _waarde2.y = _waarde1.y + _waarde2.height + 50;
         _waarde2.x = 10;
-        //_waarde1.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
+
         _inputContainer.addChild(_waarde2);
         //_arrConversies.push(_inputConversie);
 
@@ -83,7 +94,7 @@ public class Conversion extends Sprite {
         _eenheid1.prompt = "eenheid 1"
         _eenheid1.y = _inputConversie.height + 50;
         _eenheid1.x = 200;
-        //_waarde1.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
+
         _inputContainer.addChild(_eenheid1);
         //_arrConversies.push(_inputConversie);
 
@@ -93,7 +104,6 @@ public class Conversion extends Sprite {
         _eenheid2.y = _eenheid1.y + _eenheid2.height + 50;
         _eenheid2.x = 200;
 
-        //_waarde1.addEventListener( starling.events.Event.CHANGE, inputChangeHandler );
         _inputContainer.addChild(_eenheid2);
 
 
@@ -106,66 +116,92 @@ public class Conversion extends Sprite {
         _readyBtn.y = _eenheid2.y + 50;
         _inputContainer.addChild(_readyBtn);
         _readyBtn.addEventListener(starling.events.Event.TRIGGERED, readyButtonTriggeredHandler);
+
+        errors = false;
+        _error1 = Image.fromBitmap(new ErrorClass());
+        _error2 = Image.fromBitmap(new ErrorClass());
+        _error3 = Image.fromBitmap(new ErrorClass());
+        _error4 = Image.fromBitmap(new ErrorClass());
     }
 
     private function readyButtonTriggeredHandler(event:starling.events.Event):void {
+        if (!isError()) {
+            var naam:String = _inputConversie.text;
+            trace(naam);
 
-        var naam:String  = _inputConversie.text;
-        trace(naam);
+            var str:String = new String();
+            var conversionFile:File = File.applicationStorageDirectory.resolvePath("conversions.json");
 
-        var str:String = new String();
-        var conversionFile:File = File.applicationStorageDirectory.resolvePath("conversions.json");
+            if (!conversionFile.exists) {
+                //file bestaat niet
+                str = '[{ "name":"' + naam + '","conversie": { ';
+            }
+            else {
+                var conversieStr:String = readStream(conversionFile);
+                //toevoegen aan bestaande file
 
-        if(!conversionFile.exists)
+                conversieStr = conversieStr.substring(1, conversieStr.length - 1);
+                conversieStr = conversieStr.replace(/\\/gi, '');
+                str = '[' + conversieStr + ',{';
+                //str = '[{';
+                str = str + '"name":"' + naam + '","conversie": {';
+
+            }
+
+            var conversionNr:int = 1;
+            var length:int = _arrConversies.length;
+            for each(var conversie in _arrConversies) {
+
+                str = str + '"deel1": { "waarde1": "' + _waarde1.text + '", "eenheid1":"' + _eenheid1.text + '"},"deel2":{ "waarde2":"' + _waarde2.text + '", "eenheid2":"' + _eenheid2.text + '"}';
+                if (conversionNr != length) {
+                    str = str + ',';
+                }
+                conversionNr++;
+            }
+            str = str + '} } ]';
+            writeStream(conversionFile, str);
+
+            var readStr:String = readStream(conversionFile);
+            var parsedJSON:Array = JSON.parse(readStr) as Array;
+            var conversions:Array = [];
+            for each(var conversion:Object in parsedJSON) {
+                trace("[conversion] dingen")
+                // conversions.push(ConversionVOFactory.createConversionVOFromObject(conversion));
+
+                //recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
+            }
+            _appModel.conversies = conversions;
+            dispatchEvent(new Event(Event.COMPLETE));
+
+        }
+    }
+
+    private function isError():Boolean
+    {
+
+        _arrErrors = [];
+        errors = false;
+
+        if(_inputConversie.text != "")
         {
-            //file bestaat niet
-            str = '[{ "name":"'+naam+'","conversie": { ';
+            if(_error1 != null)
+            {
+                _inputConversie.removeChild(_error1);
+            }
         }
         else
         {
-            var conversieStr:String = readStream(conversionFile);
-            //toevoegen aan bestaande file
+            errors = true;
 
-            conversieStr = conversieStr.substring(1,conversieStr.length-1);
-            conversieStr = conversieStr.replace(/\\/gi,'');
-            str = '[' + conversieStr + ',{';
-            //str = '[{';
-            str = str + '"name":"'+naam+'","conversie": {';
+            _error1.y = _inputConversie.height/2 - _error1.height/2;
+            _inputConversie.addChild(_error1);
 
+            _arrErrors.push(_error1);
         }
-
-        var conversionNr:int = 1;
-        var length:int = _arrConversies.length;
-        for each( var conversie in _arrConversies)
-        {
-
-            str = str + '"deel1": { "waarde1": "' + _waarde1.text + '", "eenheid1":"' + _eenheid1.text + '"},"deel2":{ "waarde2":"' + _waarde2.text + '", "eenheid2":"' + _eenheid2.text +'"}';
-            if(conversionNr != length){
-                str = str + ',';
-            }
-            conversionNr++;
-        }
-        str = str + '} } ]';
-        writeStream(conversionFile,str);
-
-        var readStr:String = readStream(conversionFile);
-        var parsedJSON:Array = JSON.parse(readStr) as Array;
-        var conversions:Array = [];
-        for each(var conversion:Object in parsedJSON)
-        {
-            trace("[conversion] dingen")
-           // conversions.push(ConversionVOFactory.createConversionVOFromObject(conversion));
-
-            //recipes.push(RecipesVOFactory.createRecipesVOFromObject(recipe));
-        }
-        _appModel.conversies = conversions;
-        dispatchEvent(new Event(Event.COMPLETE));
-
-
+        return errors;
     }
 
-    private function readStream(file:File):String
-    {
+    private function readStream(file:File):String {
         var readStream:FileStream = new FileStream();
         readStream.open(file, FileMode.READ);
         var string:String = readStream.readUTFBytes(readStream.bytesAvailable);
@@ -173,8 +209,7 @@ public class Conversion extends Sprite {
         return string;
     }
 
-    private function writeStream(file:File,str:String)
-    {
+    private function writeStream(file:File, str:String) {
         var writeStream:FileStream = new FileStream();
         writeStream.open(file, FileMode.WRITE);
         writeStream.writeUTFBytes(str);

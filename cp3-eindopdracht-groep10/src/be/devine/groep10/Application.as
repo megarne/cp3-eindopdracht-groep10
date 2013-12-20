@@ -83,7 +83,7 @@ public class Application extends Sprite
         addChild(_bgImage);
 
         _header = new Header();
-        _header.title = "Keuken omvormer";
+        _header.title = "Keuken konvertor";
         addChild( _header );
 
         _line = Image.fromBitmap(new LineTexture());
@@ -209,7 +209,7 @@ public class Application extends Sprite
     private function GoBackHomeHandler( event:starling.events.Event ):void
     {
         removeChild(_container);
-        _header.title = "keuken omvormer";
+        _header.title = "keuken konvertor";
         _homeBtn.visible = false;
 
         _menu.deselectMenuItems();
