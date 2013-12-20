@@ -45,6 +45,7 @@ public class Conversion extends Sprite {
     private var _error2:Image;
     private var _error3:Image;
     private var _error4:Image;
+    private var _error5:Image;
 
     private var _arrErrors:Array;
     private var errors:Boolean;
@@ -122,6 +123,7 @@ public class Conversion extends Sprite {
         _error2 = Image.fromBitmap(new ErrorClass());
         _error3 = Image.fromBitmap(new ErrorClass());
         _error4 = Image.fromBitmap(new ErrorClass());
+        _error5 = Image.fromBitmap(new ErrorClass());
     }
 
     private function readyButtonTriggeredHandler(event:starling.events.Event):void {
@@ -197,6 +199,73 @@ public class Conversion extends Sprite {
             _inputConversie.addChild(_error1);
 
             _arrErrors.push(_error1);
+        }
+
+        if(_waarde1.text != "")
+        {
+            if(_error2 != null)
+            {
+                _waarde1.removeChild(_error2);
+            }
+        }
+        else
+        {
+            errors = true;
+
+            _error2.y =  _waarde1.height/2 - _error2.height/2;
+            _waarde1.addChild(_error2);
+
+            _arrErrors.push(_error2);
+        }
+
+        if(_waarde2.text != "")
+        {
+            if(_error3 != null)
+            {
+                _waarde2.removeChild(_error3);
+            }
+        }
+        else
+        {
+            errors = true;
+
+            _error3.y =  _waarde2.height/2 - _error3.height/2;
+            _waarde2.addChild(_error3);
+
+            _arrErrors.push(_error3);
+        }
+
+        if(_eenheid1.text != "")
+        {
+            if(_error4 != null)
+            {
+                _eenheid1.removeChild(_error4);
+            }
+        }
+        else
+        {
+            errors = true;
+
+            _error4.y =  _eenheid1.height/2 - _error4.height/2;
+            _eenheid1.addChild(_error4);
+
+            _arrErrors.push(_error4);
+        }
+        if(_eenheid2.text != "")
+        {
+            if(_error5 != null)
+            {
+                _eenheid2.removeChild(_error5);
+            }
+        }
+        else
+        {
+            errors = true;
+
+            _error5.y =  _eenheid2.height/2 - _error5.height/2;
+            _eenheid2.addChild(_error5);
+
+            _arrErrors.push(_error5);
         }
         return errors;
     }

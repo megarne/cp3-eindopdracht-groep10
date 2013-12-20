@@ -187,15 +187,18 @@ public class Application extends Sprite
                     _add.addEventListener(starling.events.Event.COMPLETE, completeHandler);
                 break;
 
+            case "conversie toevoegen":
+                _conversion=new Conversion();
+                _container.addChild(_conversion);
+                    _conversion.addEventListener(starling.events.Event.COMPLETE, conversionCompleteHandler);
+                break;
             default :
                 _detail = new Detail();
                 _container.addChild(_detail);
 
                 break;
 
-            case "conversie toevoegen":
-                _conversion=new Conversion();
-                _container.addChild(_conversion);
+
         }
 
         layout();
@@ -229,6 +232,11 @@ public class Application extends Sprite
     {
         _container.removeChild(_add);
         _appModel.currentPage = "eigen recepten";
+    }
+    private function conversionCompleteHandler(event:starling.events.Event):void
+    {
+        _container.removeChild(_conversion);
+        _appModel.currentPage = "keuken konvertor";
     }
 }
 }
