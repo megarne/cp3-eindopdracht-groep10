@@ -61,7 +61,7 @@ public class Conversion extends Sprite {
 
         if (_appModel.currentPage == "conversie toevoegen") {
             _conversionList.itemRendererProperties.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
-            _conversionList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
+           // _conversionList.addEventListener(starling.events.Event.CHANGE, listChangeHandler);
             _conversionList.itemRendererProperties.labelField = "title";
             addChild(_conversionList);
         }
@@ -70,7 +70,7 @@ public class Conversion extends Sprite {
 
         _inputConversie = new TextInput();
         _inputConversie.prompt = "naam conversie";
-        _inputConversie.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
+       // _inputConversie.addEventListener(starling.events.Event.CHANGE, inputChangeHandler);
         _inputContainer.addChild(_inputConversie);
 
         _arrConversies.push(_inputConversie);
@@ -78,7 +78,6 @@ public class Conversion extends Sprite {
         _waarde1 = new TextInput();
         _waarde1.prompt = "waarde 1"
         _waarde1.y = _inputConversie.height + 50;
-        _waarde1.x = 10;
         _inputContainer.addChild(_waarde1);
         //_arrConversies.push(_inputConversie);
 
@@ -86,7 +85,6 @@ public class Conversion extends Sprite {
         _waarde2 = new TextInput();
         _waarde2.prompt = "waarde 2"
         _waarde2.y = _waarde1.y + _waarde2.height + 50;
-        _waarde2.x = 10;
 
         _inputContainer.addChild(_waarde2);
         //_arrConversies.push(_inputConversie);
@@ -94,7 +92,8 @@ public class Conversion extends Sprite {
         _eenheid1 = new TextInput();
         _eenheid1.prompt = "eenheid 1"
         _eenheid1.y = _inputConversie.height + 50;
-        _eenheid1.x = 200;
+        _eenheid1.width = _waarde1.width;
+        _eenheid1.x = _waarde1.width * 2 +  _waarde1.x + 30;
 
         _inputContainer.addChild(_eenheid1);
         //_arrConversies.push(_inputConversie);
@@ -103,7 +102,7 @@ public class Conversion extends Sprite {
         _eenheid2 = new TextInput();
         _eenheid2.prompt = "eenheid 2"
         _eenheid2.y = _eenheid1.y + _eenheid2.height + 50;
-        _eenheid2.x = 200;
+        _eenheid2.x = _waarde2.x * 2 + _waarde2.width  + 30;
 
         _inputContainer.addChild(_eenheid2);
 
@@ -285,27 +284,27 @@ public class Conversion extends Sprite {
         writeStream.close();
     }
 
-    private function inputChangeHandler(event:starling.events.Event):void {
+   /* private function inputChangeHandler(event:starling.events.Event):void {
 
     }
-
+*/
     private function addedToStageHandler(event:starling.events.Event):void {
-        _conversionList.x = stage.stageWidth / 2 - _conversionList.width / 2;
+        //_conversionList.x = stage.stageWidth / 2 - _conversionList.width / 2;
 
-        _inputContainer.x = stage.stageWidth / 2 - _inputContainer.width / 2;
+        _inputContainer.x = 10;
 
     }
 
 
-    private function listChangeHandler(event:starling.events.Event):void {
+   /* private function listChangeHandler(event:starling.events.Event):void {
         if (_appModel.currentPage == "conversie toevoegen") {
 
 
         }
 
-    }
+    }*/
 
-    private function display():void {
+   /* private function display():void {
         var layout:VerticalLayout = new VerticalLayout();
         layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;
         layout.gap = 30;
@@ -324,16 +323,17 @@ public class Conversion extends Sprite {
         }
 
 
-    }
+    }*/
 
     public function setSize(w:Number, h:Number):void {
         _explicitWidth = w;
         _explicitHeight = h;
 
-
+        _inputContainer.width = _explicitWidth;
+        _inputContainer.height = _explicitHeight - 120;
         // _inputConversie.width = _explicitWidth - 140;
-        _waarde1.width = _explicitWidth / 2 - 80;
-        _waarde2.width = _waarde1.width;
+//        _waarde1.width = _explicitWidth / 2 - 80;
+//        _waarde2.width = _waarde1.width;
 
 
 //        _recipeList.setSize(_explicitWidth - 120, _explicitHeight - 120);
