@@ -8,13 +8,10 @@
 package be.devine.groep10.view
 {
 import be.devine.groep10.model.AppModel;
-import be.devine.groep10.view.ui.Help;
-
 import feathers.controls.Button;
 
 import feathers.controls.List;
 import feathers.data.ListCollection;
-import feathers.layout.HorizontalLayout;
 import feathers.layout.VerticalLayout;
 
 import starling.display.Sprite;

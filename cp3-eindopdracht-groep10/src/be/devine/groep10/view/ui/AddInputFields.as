@@ -42,7 +42,7 @@ public class AddInputFields extends Sprite {
         _inputAmount = new TextInput();
         _inputAmount.prompt = "hoeveelheid";
         _inputAmount.restrict = "0-9";
-        _inputAmount.y = _inputIngredient.y + (_inputAmount.prompt.length) + 50;
+        _inputAmount.y = _inputIngredient.y + (_inputAmount.prompt.length) + 60;
         _inputContainer.addChild(_inputAmount);
 
         _unit = new PickerList();

@@ -83,7 +83,7 @@ public class Application extends Sprite
         addChild(_bgImage);
 
         _header = new Header();
-        _header.title = "Keuken konvertor";
+        _header.title = "Keuken convertor";
         addChild( _header );
 
         _line = Image.fromBitmap(new LineTexture());
@@ -135,26 +135,23 @@ public class Application extends Sprite
         _bgImage.x = _bg.width/2 - _bgImage.width/2;
         _bgImage.y = _menu.y + _menu.height + _bgImage.height + 50;
 
-        _header.y = 20;
+        _header.y = 50;
         _header.setSize(stage.stageWidth, 50);
         _line.x = _header.width/2 - _line.width/2;
 
-        _menu.y = 100;
+        _menu.y = _recipes.y = _ownRecipes.y = _add.y = _conversion.y = 150;
         _menu.setSize(stage.stageWidth - 80, stage.stageHeight - 200);
 
-        _help.setSize(stage.stageWidth, stage.stageHeight - 50);
+        _help.setSize(stage.stageWidth, stage.stageHeight - 60);
 
         _homeBtn.x = 20;
         _homeBtn.y = _header.height/2 - _homeBtn.height/2 - 1;
 
-        _recipes.y = _ownRecipes.y =  100;
         _recipes.setSize(stage.stageWidth, stage.stageHeight);
         _ownRecipes.setSize(stage.stageWidth, stage.stageHeight);
 
-        _add.y = 100;
         _add.setSize(stage.stageWidth, stage.stageHeight);
 
-        _conversion.y = 100;
         _conversion.setSize(stage.stageWidth, stage.stageHeight);
     }
 

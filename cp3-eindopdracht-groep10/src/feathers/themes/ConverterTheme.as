@@ -335,7 +335,7 @@ package feathers.themes
 			const regularFontNames:String = "BebasNeue";
 			const headerFontNames:String = "HomeMade";
 
-			this.headerTextFormat = new TextFormat(headerFontNames, Math.round(36 * this.scale), WHITE_TEXT_COLOR, true);
+			this.headerTextFormat = new TextFormat(headerFontNames, Math.round(40 * this.scale), WHITE_TEXT_COLOR, true);
 
 			this.darkUITextFormat = new TextFormat(regularFontNames, 24 * this.scale, DARK_TEXT_COLOR, true);
             this.largeUIDarkTextFormat = new TextFormat(regularFontNames, 28 * this.scale, DARK_TEXT_COLOR, true);
@@ -524,7 +524,6 @@ package feathers.themes
 			this.setInitializerForClass(Callout, calloutInitializer);
 			this.setInitializerForClass(SimpleScrollBar, horizontalScrollBarInitializer, Scroller.DEFAULT_CHILD_NAME_HORIZONTAL_SCROLL_BAR);
 			this.setInitializerForClass(SimpleScrollBar, verticalScrollBarInitializer, Scroller.DEFAULT_CHILD_NAME_VERTICAL_SCROLL_BAR);
-			this.setInitializerForClass(List, listInitializer);
 			this.setInitializerForClass(GroupedList, groupedListInitializer);
 			this.setInitializerForClass(GroupedList, insetGroupedListInitializer, GroupedList.ALTERNATE_NAME_INSET_GROUPED_LIST);
 			this.setInitializerForClass(Panel, panelInitializer);
@@ -1316,16 +1315,13 @@ package feathers.themes
 
 		protected function headerInitializer(header:Header):void
 		{
-			header.minWidth = 88 * this.scale;
-			header.minHeight = 88 * this.scale;
+			header.minWidth = 100 * this.scale;
+			header.minHeight = 100 * this.scale;
 			header.paddingTop = header.paddingRight = header.paddingBottom =
 				header.paddingLeft = 14 * this.scale;
 			header.gap = 8 * this.scale;
 			header.titleGap = 12 * this.scale;
 
-			//const backgroundSkin:TiledImage = new TiledImage(this.headerBackgroundSkinTexture, this.scale);
-			//backgroundSkin.width = backgroundSkin.height = 88 * this.scale;
-			//header.backgroundSkin = backgroundSkin;
 			header.titleProperties.textFormat = this.headerTextFormat;
 			header.titleProperties.embedFonts = true;
 		}
@@ -1430,12 +1426,6 @@ package feathers.themes
 			alert.paddingLeft = 24 * this.scale;
 			alert.gap = 16 * this.scale;
 			alert.maxWidth = alert.maxHeight = 560 * this.scale;
-		}
-
-		protected function listInitializer(list:List):void
-		{
-			//const backgroundSkin:Quad = new Quad(88 * this.scale, 88 * this.scale, LIST_BACKGROUND_COLOR);
-			//list.backgroundSkin = backgroundSkin;
 		}
 
 		protected function groupedListInitializer(list:GroupedList):void

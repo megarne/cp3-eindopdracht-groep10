@@ -82,11 +82,11 @@ public class Add extends Sprite
         _inputContainer.addChild( _inputName );
 
         _helpText = new TextFieldFactory( 320, 120, "Vul de nodige ingredienten toe voor 1 persoon", "BebasNeue", 18, 0xffffff);
-        _helpText.y = 50;
+        _helpText.y = 60;
         _inputName.addChild(_helpText);
 
         _inputIngredient = new AddInputFields();
-        _inputIngredient.y = _inputName.y + _inputIngredient.height + 20;
+        _inputIngredient.y = _inputName.y + _inputIngredient.height + 40;
         _inputContainer.addChild(_inputIngredient);
         _arrIngredients.push(_inputIngredient);
 
@@ -259,9 +259,6 @@ public class Add extends Sprite
 
     private function addedToStageHandler(event:starling.events.Event):void
     {
-        _scrollContainer.width = stage.stageWidth
-        _scrollContainer.height = stage.stageHeight - 120;
-
         _inputContainer.x = stage.stageWidth/2 - _inputContainer.width/2;
     }
 
@@ -271,7 +268,7 @@ public class Add extends Sprite
         _explicitHeight = h;
 
         _scrollContainer.width = _explicitWidth;
-        _scrollContainer.height = _explicitHeight - 120;
+        _scrollContainer.height = _explicitHeight - 150;
 
         _inputName.width = _explicitWidth - 140;
 
@@ -305,7 +302,7 @@ public class Add extends Sprite
         var yPos:uint = 0;
         for each(var ingredients:AddInputFields in _arrIngredients)
         {
-            ingredients.y = (_inputName.y + _inputIngredient.height/2 + 27) + yPos;
+            ingredients.y = (_inputName.y + _inputIngredient.height/2 + 40) + yPos;
 
             yPos += ingredients.height + 20;
         }

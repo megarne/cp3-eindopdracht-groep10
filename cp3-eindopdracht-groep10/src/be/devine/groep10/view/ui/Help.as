@@ -64,7 +64,7 @@ public class Help extends Sprite
         _helpBtn = new Button();
         _helpBtn.addEventListener(Event.TRIGGERED, menuUp);
         _helpBtn.nameList.add( "help-button" );
-        _helpBtn.width = _helpBtn.height = 58;
+        _helpBtn.width = _helpBtn.height = 84;
         _helpBtn.x = _bgContainer.width/2 - _helpBtn.width/2;
         _helpBtn.y = _bg.y - _helpBtn.height/2;
         _bgContainer.addChild( _helpBtn );

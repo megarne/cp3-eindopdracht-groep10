@@ -63,14 +63,26 @@ public class Conversion extends Sprite
         _inputContainer.addChild( _inputConversieName );
 
         _waarde1 = new TextInput();
-<<<<<<< HEAD
+
         _waarde1.prompt = "waarde 1";
-        _waarde1.y = _inputConversieName.y + _waarde1.height + 80;
+<<<<<<< HEAD
+        _waarde1.y = _inputConversieName.y + _waarde1.height + 100;
+        _waarde1.prompt = "waarde 1"
 =======
+
+        _waarde1.prompt = "waarde 1";
+=======
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+        _waarde1.y = _inputConversieName.y + _waarde1.height + 80;
+
         _waarde1.prompt = "waarde 1"
 
-        _waarde1.y = _inputConversie.height + 50;
->>>>>>> b1f50b65deda8eeddd137a53489b04c9e0894632
+        _waarde1.y = _inputConversieName.height + 50;
+
+<<<<<<< HEAD
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
+=======
+>>>>>>> 2c487168b4257a11af337257ba58a873c72a1a94
         _inputContainer.addChild(_waarde1);
         _arrConversies.push(_waarde1);
 
@@ -285,6 +297,7 @@ public class Conversion extends Sprite
         _eenheid1.x = _eenheid2.x = _inputConversieName.x + _inputConversieName.width - _eenheid1.width;
 
         _readyBtn.width = _inputConversieName.width;
+
 
         _error1.x = _inputConversieName.x + _inputConversieName.width - _error1.width - 10;
         _error2.x = _error4.x = _waarde1.x + _waarde1.width - _error2.width - 10;
